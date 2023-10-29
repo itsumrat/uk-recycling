@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 enum UserType {
@@ -18,8 +19,11 @@ enum UserType {
 class SignInController extends GetxController {
   Rxn<UserType> userType = Rxn<UserType>();
 
+  TextEditingController emailController = TextEditingController();
 
-  void updateUserType(UserType userType){
+  TextEditingController passwordController = TextEditingController();
+
+  void updateUserType(UserType userType) {
     this.userType.value = userType;
   }
 }

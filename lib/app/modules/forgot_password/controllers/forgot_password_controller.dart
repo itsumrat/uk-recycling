@@ -1,23 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ForgotPasswordController extends GetxController {
-  //TODO: Implement ForgotPasswordController
+  final PageController pageController = PageController();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  final TextEditingController pincodeController = TextEditingController();
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  final TextEditingController passwordController = TextEditingController();
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 }

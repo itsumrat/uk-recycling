@@ -29,11 +29,13 @@ class SignIn extends GetView<SignInController> {
             AppTextFormField(
               controller: controller.emailController,
               label: "Email",
+              suffixIcon: Icons.email_outlined,
             ),
             const SizedBox(height: 20),
             AppTextFormField(
               controller: controller.passwordController,
               label: "Password",
+              suffixIcon: Icons.lock_outline,
               obscureText: true,
             ),
             const SizedBox(height: 10),

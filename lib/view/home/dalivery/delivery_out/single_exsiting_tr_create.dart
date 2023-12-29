@@ -1,0 +1,511 @@
+
+import 'dart:convert';
+import 'dart:core';
+
+import 'package:crm/controller/cage_controller/cage_controller.dart';
+import 'package:crm/controller/delivery_controller%20/in_controller/delivery_type_controller.dart';
+import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
+import 'package:crm/controller/delivery_controller%20/in_controller/product_category_controller.dart';
+import 'package:crm/controller/delivery_controller%20/out_controller/delivery_out_controller.dart';
+import 'package:crm/controller/user_controller/userController.dart';
+import 'package:crm/model/cage_model/cage_model.dart';
+import 'package:crm/model/delivery_model/in_model/delivery_model.dart';
+import 'package:crm/model/delivery_model/in_model/product_category_model.dart';
+import 'package:crm/model/delivery_model/out_model/existing_delivery_out_model.dart';
+import 'package:crm/model/user_model/allUserModel.dart';
+import 'package:crm/utility/app_const.dart';
+import 'package:crm/view/home/dalivery/deliveryIn/existingDeliveries/singleExistingDeliveries.dart';
+import 'package:crm/view_controller/appWidgets.dart';
+import 'package:crm/view_controller/commonWidget.dart';
+import 'package:crm/view_controller/loader.dart';
+import 'package:crm/view_controller/snackbar_controller.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import 'show_created_tr.dart';
+import 'show_single_trx_create.dart';
+import 'single_existing_delivery.dart';
+
+
+class CreateSingleTr extends StatefulWidget {
+  final ExistingDeliveryOutDatum?  existingDeliveryInDatum;
+  final String? existingDeliveryId;
+
+  const CreateSingleTr({Key? key, this.existingDeliveryInDatum, this.existingDeliveryId,}) : super(key: key);
+
+  @override
+  State<CreateSingleTr> createState() => _CreateSingleTrState();
+}
+
+class _CreateSingleTrState extends State<CreateSingleTr> {
+  //current data form app const
+  var currentDate;
+
+  final userIdTextController = TextEditingController();
+  final dateTextController = TextEditingController();
+
+  final List<String> items = [
+    'Item1',
+    'Item2',
+    'Item3',
+    'Item4',
+  ];
+  String? selectedDeliveryType;
+  String? selectedProductCategory;
+  String? selectedCageOn;
+  String? selectUserName;
+
+  Future<AllUserModel>? allUserFuture;
+  List<DeliveryDatum>? _allDeliveryTypeList = [];
+  List<ProductCategoryDatum>? _allProductCategoryList = [];
+  //get delivery type list
+  void _getDeliveryTypeList()async{
+    var res = await DeliveryTypeController.getDeliveryType();
+    for(var i in res.data!){
+      setState(() {
+        _allDeliveryTypeList?.add(i);
+      });
+    }
+  }
+
+  //get product category
+  List<CageDatum>? _allCageList = [];
+
+  void _getAllCageList()async{
+    var res = await CageController.getCageNo();
+    for(var i in res!.data!){
+      setState(() {
+        _allCageList?.add(i);
+      });
+    }
+  }
+
+  final weight = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    allUserFuture = UserController.getAllUser(); // get all user
+    dateTextController.text = AppConst.currentData(); //get current date
+    //_getDeliveryTypeList();
+    _getAllCageList();
+
+    print(" widget.existingDeliveryInDatum!.deliveryType.toString() == ${ widget.existingDeliveryInDatum!.deliveryType.toString()}");
+    print(" widget.existingDeliveryInDatum!.deliveryType.toString() == ${ widget.existingDeliveryInDatum!.measurement!.id.toString()}");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return AppWidget(
+      appBarTitle: "Deliveries Out ID: ${widget.existingDeliveryInDatum!.deliveryOutId}",
+      textSize: 20,
+      appBarOnBack: ()=>Get.back(),
+      body:  SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            SizedBox(height: 50,),
+            FutureBuilder<AllUserModel>(
+                future: allUserFuture,
+                builder: (context, snapshot) {
+                  if(snapshot.connectionState == ConnectionState.waiting){
+                    return Center(child: AppLoader(),);
+                  }else if(snapshot.hasData){
+                    return Column(
+                      children: [
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: Text("User Name",
+                        //         style: TextStyle(
+                        //             fontWeight: FontWeight.w400,
+                        //             color: Colors.black,
+                        //             fontSize: 15
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 20,),
+                        //     Expanded(
+                        //       flex: 2,
+                        //       child: DropdownButtonHideUnderline(
+                        //         child: DropdownButton2<String>(
+                        //           isExpanded: true,
+                        //           hint: Text(
+                        //             'Select One',
+                        //             style: TextStyle(
+                        //               fontSize: 16,
+                        //               color: Theme.of(context).hintColor,
+                        //             ),
+                        //           ),
+                        //           items: (snapshot.data!.data)?.map((item)  => DropdownMenuItem<String>(
+                        //             value: item.userId,
+                        //             child: Text(
+                        //               item.name!,
+                        //               style: const TextStyle(
+                        //                 fontSize: 14,
+                        //               ),
+                        //             ),
+                        //           ))
+                        //               .toList(),
+                        //           value: selectUserName,
+                        //           onChanged: (String? value) {
+                        //             setState(() {
+                        //               selectUserName = value; //selected the user name
+                        //               userIdTextController.text = value!;
+                        //             });
+                        //           },
+                        //           buttonStyleData:  ButtonStyleData(
+                        //             decoration: BoxDecoration(
+                        //                 color: Colors.grey.shade200,
+                        //                 borderRadius: BorderRadius.circular(5)
+                        //             ),
+                        //             padding: EdgeInsets.symmetric(horizontal: 16),
+                        //             height: 60,
+                        //             width: 140,
+                        //           ),
+                        //           menuItemStyleData: const MenuItemStyleData(
+                        //             height: 40,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //
+                        //   ],
+                        // ),
+                        // SizedBox(height: 20,),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: Text("User ID",
+                        //         style: TextStyle(
+                        //             fontWeight: FontWeight.w400,
+                        //             color: Colors.black,
+                        //             fontSize: 15
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 20,),
+                        //     Expanded(
+                        //         flex: 2,
+                        //         child: TextFormField(
+                        //           controller: userIdTextController,
+                        //           decoration: InputDecoration(
+                        //               fillColor: Colors.grey.shade200,
+                        //               filled: true,
+                        //               border: OutlineInputBorder(
+                        //                   borderSide: BorderSide.none
+                        //               ),
+                        //               hintText: "User ID 02"
+                        //           ),
+                        //         )
+                        //     )
+                        //   ],
+                        // ),
+                        // SizedBox(height: 20,),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: Text("Date",
+                        //         style: TextStyle(
+                        //             fontWeight: FontWeight.w400,
+                        //             color: Colors.black,
+                        //             fontSize: 15
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 20,),
+                        //     Expanded(
+                        //         flex: 2,
+                        //         child: TextFormField(
+                        //           controller: dateTextController,
+                        //           decoration: InputDecoration(
+                        //               fillColor: Colors.grey.shade200,
+                        //               filled: true,
+                        //               border: OutlineInputBorder(
+                        //                   borderSide: BorderSide.none
+                        //               ),
+                        //               hintText: "Auto Fill up"
+                        //           ),
+                        //         )
+                        //     )
+                        //   ],
+                        // ),
+                        // SizedBox(height: 20,),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: Text("Delivery Type",
+                        //         style: TextStyle(
+                        //             fontWeight: FontWeight.w400,
+                        //             color: Colors.black,
+                        //             fontSize: 15
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 20,),
+                        //     Expanded(
+                        //       flex: 2,
+                        //       child: DropdownButtonHideUnderline(
+                        //         child: DropdownButton2<String>(
+                        //           isExpanded: true,
+                        //           hint: Text(
+                        //             'Select One',
+                        //             style: TextStyle(
+                        //               fontSize: 16,
+                        //               color: Theme.of(context).hintColor,
+                        //             ),
+                        //           ),
+                        //           items: (_allDeliveryTypeList)?.map((item) => DropdownMenuItem<String>(
+                        //             value: item.id.toString(),
+                        //             child: Text(
+                        //               item.name!,
+                        //               style: const TextStyle(
+                        //                 fontSize: 14,
+                        //               ),
+                        //             ),
+                        //           ))
+                        //               .toList(),
+                        //           value: selectedDeliveryType,
+                        //           onChanged: (String? value) {
+                        //             setState(() {
+                        //               selectedDeliveryType = value;
+                        //             });
+                        //             print("value -==${value}");
+                        //           },
+                        //           buttonStyleData:  ButtonStyleData(
+                        //             decoration: BoxDecoration(
+                        //                 color: Colors.grey.shade200,
+                        //                 borderRadius: BorderRadius.circular(5)
+                        //             ),
+                        //             padding: EdgeInsets.symmetric(horizontal: 16),
+                        //             height: 60,
+                        //             width: 140,
+                        //           ),
+                        //           menuItemStyleData: const MenuItemStyleData(
+                        //             height: 40,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //
+                        //   ],
+                        // ),
+                        // SizedBox(height: 20,),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: Text("Product Category",
+                        //         style: TextStyle(
+                        //             fontWeight: FontWeight.w400,
+                        //             color: Colors.black,
+                        //             fontSize: 15
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 20,),
+                        //     Expanded(
+                        //       flex: 2,
+                        //       child: DropdownButtonHideUnderline(
+                        //         child: DropdownButton2<String>(
+                        //           isExpanded: true,
+                        //           hint: Text(
+                        //             'Select One',
+                        //             style: TextStyle(
+                        //               fontSize: 16,
+                        //               color: Theme.of(context).hintColor,
+                        //             ),
+                        //           ),
+                        //           items:(_allProductCategoryList)?.map((item) => DropdownMenuItem<String>(
+                        //             value: item.id.toString(),
+                        //             child: Text(
+                        //               item.name!,
+                        //               style: const TextStyle(
+                        //                 fontSize: 14,
+                        //               ),
+                        //             ),
+                        //           ))
+                        //               .toList(),
+                        //           value: selectedProductCategory,
+                        //           onChanged: (String? value) {
+                        //             setState(() {
+                        //               selectedProductCategory = value;
+                        //             });
+                        //           },
+                        //           buttonStyleData:  ButtonStyleData(
+                        //             decoration: BoxDecoration(
+                        //                 color: Colors.grey.shade200,
+                        //                 borderRadius: BorderRadius.circular(5)
+                        //             ),
+                        //             padding: EdgeInsets.symmetric(horizontal: 16),
+                        //             height: 60,
+                        //             width: 140,
+                        //           ),
+                        //           menuItemStyleData: const MenuItemStyleData(
+                        //             height: 40,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //
+                        //   ],
+                        // ),
+                       widget.existingDeliveryInDatum!.measurement!.name == "Cage" ? Row(
+                          children: [
+                            Expanded(
+                              child: Text("Cage No",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                    fontSize: 15
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Expanded(
+                              flex: 2,
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2<String>(
+                                  isExpanded: true,
+                                  hint: Text(
+                                    'Select One',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                                  ),
+                                  items:(_allCageList)?.map((item) => DropdownMenuItem<String>(
+                                    value: item!.id.toString(),
+                                    child: Text(
+                                      item!.caseName!,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ))
+                                      .toList(),
+                                  value: selectedCageOn,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      selectedCageOn = value;
+                                    });
+                                  },
+                                  buttonStyleData:  ButtonStyleData(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.shade200,
+                                        borderRadius: BorderRadius.circular(5)
+                                    ),
+                                    padding: EdgeInsets.symmetric(horizontal: 16),
+                                    height: 60,
+                                    width: 140,
+                                  ),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    height: 40,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ) : Center(),
+                        SizedBox(height: 20,),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text("${widget.existingDeliveryInDatum!.measurement!.name}",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                    fontSize: 15
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Expanded(
+                                flex: 2,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  controller: weight,
+                                  decoration: InputDecoration(
+                                      fillColor: Colors.grey.shade200,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none
+                                      ),
+                                      hintText: "40 ${widget.existingDeliveryInDatum!.measurement!.name}"
+                                  ),
+                                )
+                            )
+                          ],
+                        ),
+
+                        SizedBox(height: 70,),
+                        InkWell(
+                          onTap: ()=>_createDeliveryInTranscation(),
+                          child:  Container(
+                            width: 200,
+                            height: 60,
+                            decoration: BoxDecoration(
+                                gradient: AppWidgets.buildLinearGradient(),
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Center(
+                              child: isAdding? CircularProgressIndicator(color: Colors.white,) : Text("Input",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                    fontSize: 16
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 30,),
+
+                      ],
+                    );
+                  }else{
+                    return Center(child: Text("Check your internet connection."),);
+                  }
+                }
+            )
+          ],
+        ),
+      ),
+    );
+
+  }
+
+  bool isAdding = false;
+  void _createDeliveryInTranscation() async{
+    setState(() => isAdding = true);
+    if(weight.text.isEmpty){
+      AppSnackbar.appSnackbar("Input field must not be empty.", Colors.red, context);
+    }else{
+      if(widget.existingDeliveryInDatum!.measurement!.name == "Cage" && selectedCageOn == null ){
+        AppSnackbar.appSnackbar("Select Cage no.", Colors.red, context);
+      }else{
+        var res = await DeliveryOutController.addTranscations(
+            weight: weight.text,
+            deliveryTypeId: widget.existingDeliveryId.toString(),
+            measurementId: widget.existingDeliveryInDatum!.measurement!.id.toString(),
+            cageNo: selectedCageOn ?? "null"
+        );
+        if(res.statusCode == 200){
+          AppSnackbar.appSnackbar("Transaction created success.", Colors.green, context);
+
+          //Get.to(ShowNewlyCreateDeliveryOutSingleTrx(trxId: jsonDecode(res.body)["data"]["id"].toString(), existingDeliveryInDatum: widget.existingDeliveryInDatum, existingDeliveryId: widget.existingDeliveryId,));
+          Get.to(SingleExistingDeliveriesOuts(existingDeliveryOutDatum: widget.existingDeliveryInDatum, existingDeliveryId: widget.existingDeliveryId.toString(),));
+        }else{
+          AppSnackbar.appSnackbar("Something went wrong.", Colors.red, context);
+        }
+      }
+    }
+
+
+    setState(() => isAdding = false);
+  }
+}

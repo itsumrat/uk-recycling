@@ -335,7 +335,7 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                     ),
                     SizedBox(height: 20,),
                     InkWell(
-                      onTap: ()=>Get.to(ExistingDeliveriesOuts()),
+                      onTap: ()=>Get.to(DeliveryOut()),
                       child: Container(
                         width: 200,
                         height: 60,

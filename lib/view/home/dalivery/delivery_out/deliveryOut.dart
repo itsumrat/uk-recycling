@@ -21,7 +21,7 @@ class _DeliveryOutState extends State<DeliveryOut> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AppWidget(
-      appBarTitle: "Delivery Out input",
+      appBarTitle: "Delivery Out",
       appBarOnBack: ()=>Get.to(AppBottomNavigationBar()),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),

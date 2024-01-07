@@ -9,6 +9,7 @@ import 'package:crm/controller/user_controller/userController.dart';
 import 'package:crm/model/delivery_model/in_model/delivery_model.dart';
 import 'package:crm/model/delivery_model/in_model/product_category_model.dart';
 import 'package:crm/model/mesumarment_model/mesumarmentModel.dart';
+import 'package:crm/model/user_model/allUserModel.dart';
 import 'package:crm/model/user_model/all_coustomer.dart';
 import 'package:crm/utility/app_const.dart';
 import 'package:crm/view/home/dalivery/deliveryIn/deliveryIn.dart';
@@ -108,6 +109,20 @@ class _AddNewDeliveryState extends State<AddNewDelivery> {
     setState(() => isLoading = false);
   }
 
+  //all customers
+  List<UserDatum> _allUser = [];
+  void _getAllUser()async{
+    setState(() => isLoading = true);
+    var res = await UserController.getAllUser();
+    for(var i in res!.data!){
+      setState(() {
+        _allUser.add(i);
+      });
+    }
+    setState(() => isLoading = false);
+  }
+
+
   List<MeasurmentDatum> _allMeasurmentsList = [];
   void _getAllMeasurments()async{
     setState(() => isLoading = true);
@@ -141,6 +156,7 @@ class _AddNewDeliveryState extends State<AddNewDelivery> {
     _getAllSupplier();
     _getAllMeasurments();
     _getAllCustomer();
+    _getAllUser();
     getRole();
   }
 
@@ -314,7 +330,7 @@ class _AddNewDeliveryState extends State<AddNewDelivery> {
               ],
             ),
             SizedBox(height: 20,),
-           widget.isDeliveryOut
+           widget.isDeliveryOut != true
                ? Row(
              children: [
                const Expanded(
@@ -582,7 +598,7 @@ class _AddNewDeliveryState extends State<AddNewDelivery> {
             )
                 : Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Assign to",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -604,10 +620,10 @@ class _AddNewDeliveryState extends State<AddNewDelivery> {
                           color: Theme.of(context).hintColor,
                         ),
                       ),
-                      items: items!.map(( item) => DropdownMenuItem<String>(
-                        value: item.toString(),
+                      items:  _allUser!.map(( item) =>  DropdownMenuItem<String>(
+                        value: item!.id.toString(),
                         child: Text(
-                          item!,
+                          item!.name!,
                           style: const TextStyle(
                             fontSize: 14,
                           ),
@@ -675,7 +691,8 @@ class _AddNewDeliveryState extends State<AddNewDelivery> {
         deliveryTypeID: selectedDeliveryType!,
         productCategoryId: selectedProductCategory!,
         suplierId: selectedSupplierId!,
-        measurementTypeId: selectedMeasurementId!
+        measurementTypeId: selectedMeasurementId!,
+        assign_to: role == AppConst.staffRole ? userId.text : selectedAssignTo!
     );
     if(res.statusCode == 200){
       AppSnackbar.appSnackbar("New delivery in created success.", Colors.green, context);
@@ -693,7 +710,8 @@ class _AddNewDeliveryState extends State<AddNewDelivery> {
         category_id: selectedProductCategory!,
         measurement_type: selectedMeasurementId!,
         delivery_type: selectedDeliveryType!,
-      customer_id: selectedCustomerId!
+        customer_id: selectedCustomerId!,
+        assign_id: role == AppConst.staffRole ? userId.text : selectedAssignTo!
     );
     if(res.statusCode == 200){
       AppSnackbar.appSnackbar("New delivery Out created success.", Colors.green, context);

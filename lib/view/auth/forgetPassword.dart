@@ -1,6 +1,9 @@
+import 'package:crm/controller/auth_controller/auth_controller.dart';
 import 'package:crm/utility/utility.dart';
+import 'package:crm/view/auth/signin.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
+import 'package:crm/view_controller/snackbar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -65,7 +68,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           ),
         ),
       bottomNavigationBar: InkWell(
-        onTap: ()=>Get.to(VerifiyEmail()),
+        onTap: ()=>_forgetPassword(),
         child: Container(
           margin: EdgeInsets.only(left: 20, right: 20, bottom: 50),
           height: 50,
@@ -95,12 +98,53 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   borderRadius: BorderRadius.circular(100),
                   color: AppColor.secColor.withOpacity(0.4),
                 ),
-                child:  Icon(Icons.arrow_forward, color: AppColor.white,),
+                child: isLoading ? CircularProgressIndicator(color: Colors
+                    .white,) : Icon(Icons
+                .arrow_forward,
+                  color: AppColor.white,),
               )
             ],
           ),
         ),
       ),
+    );
+  }
+
+  bool isLoading = false;
+  void _forgetPassword()async{
+    setState(() => isLoading = true);
+    var res = await AuthController.forgetPasswordEmailSend(email: email.text);
+    if(res.statusCode == 200){
+      _showMyDialog();
+    }else{
+      AppSnackbar.appSnackbar("Something went wrong.", Colors.red, context);
+    }
+    setState(() => isLoading = false);
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Reset link send.'),
+          content: SingleChildScrollView(
+            child:Center(
+              child:   Text('Please check your email address and we will send you a '
+                  'link to your email to reset the password '),
+            )
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>SignIn()), (route) => false);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

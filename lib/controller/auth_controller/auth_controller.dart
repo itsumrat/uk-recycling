@@ -43,6 +43,56 @@ class AuthController{
   }
 
 
+  //foget password
+  static Future<http.Response> forgetPasswordEmailSend({required String email})
+  async{
+    var res = await http.post(Uri.parse(AppConfig.FORGET_PASSWORD),
+      body: {
+        "email": email
+      }
+    );
+    return res;
+  }
+  //change password
+  static Future<http.Response> changePassword({required String
+  current_password, required String new_password, })
+  async{
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    var user_id = _pref.getString("uid");
+    var res = await http.post(Uri.parse(AppConfig.CHANGE_PASSWORD),
+        body: {
+          "current_password" : current_password,
+          "new_password" : new_password,
+          "user_id" : user_id
+        }
+    );
+    return res;
+  }
+
+
+  //change password
+  static Future<http.Response> updateProfile({required String
+  name, required String email, required String
+  address, })
+  async{
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    var user_id = _pref.getString("uid");
+    var token = _pref.getString("token");
+    var res = await http.post(Uri.parse(AppConfig.UPDATE_PROFILE),
+        headers: {
+           "Authorization" : "Bearer $token"
+        },
+        body: {
+          "name" : name,
+          "email" : email,
+          "user_id" : user_id,
+          "address" : address
+        }
+    );
+    return res;
+  }
+
+
 
 
 }

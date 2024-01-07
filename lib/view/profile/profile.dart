@@ -1,8 +1,10 @@
 import 'package:crm/controller/auth_controller/profile_controller.dart';
 import 'package:crm/utility/utility.dart';
+import 'package:crm/view/profile/edit_profile.dart';
 import 'package:crm/view_controller/detailsTextSideBySide.dart';
 import 'package:crm/view_controller/loader.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/profile_model/profile_info_model.dart';
@@ -87,6 +89,25 @@ class _ProfileState extends State<Profile> {
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                             child: AppSideBySIdeText(leftText: "Address: ", rightText: "${snapshot.data?.data?.address}")),
+
+                        SizedBox(height: 20,),
+                        Center(
+                          child: InkWell(
+                            onTap: ()=>Get.to(EditProfile()),
+                            child: Container(
+                              width: 100, height: 40,
+                              decoration: BoxDecoration(
+                                color: AppColor.mainColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(child: Text("Edit", style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white
+                              ),
+                              ),),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   );

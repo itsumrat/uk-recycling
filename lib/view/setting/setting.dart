@@ -1,6 +1,7 @@
 import 'package:crm/controller/auth_controller/auth_controller.dart';
 import 'package:crm/view/appBottomNavigationBar.dart';
 import 'package:crm/view/profile/profile.dart';
+import 'package:crm/view/setting/change_password.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,7 +59,7 @@ class _SettingState extends State<Setting> {
                 ),
                 SizedBox(height: 20,),
                 InkWell(
-                  onTap: (){},
+                  onTap: ()=>Get.to(ChangePassword()),
                   child: Container(
                     height: 100,
                     decoration: BoxDecoration(

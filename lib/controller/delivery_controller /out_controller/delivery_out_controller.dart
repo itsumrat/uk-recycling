@@ -11,7 +11,7 @@ import '../../../model/delivery_model/out_model/single_delveryout_trx_momdel.dar
 
 class DeliveryOutController{
 
-  static Future<http.Response> addNewDeliveryOut({required String category_id, required String customer_id, required String measurement_type, required String delivery_type })async{
+  static Future<http.Response> addNewDeliveryOut({required String category_id, required String customer_id, required String assign_id, required String measurement_type, required String delivery_type })async{
     SharedPreferences _pref = await SharedPreferences.getInstance();
     var token = _pref.getString("token");
     var userId = _pref.getString("uid");
@@ -21,7 +21,8 @@ class DeliveryOutController{
           "category_id" : category_id,
           "customer_id" : customer_id,
           "measurement_type" : measurement_type,
-          "delivery_type" : delivery_type
+          "delivery_type" : delivery_type,
+          "assigned_to" : assign_id,
         },
       headers: {
         "Authorization" : "Bearer $token"

@@ -14,6 +14,11 @@ class AppConfig{
   static const String PROFILE_INFO = "$BASE_URL/profile/"; //get id in this eand point
   static const String ALL_USER = "$BASE_URL/users"; //get id in this eand point
   static const String ALL_CAGE = "$BASE_URL/cases"; //get id in this eand point
+  static const String FORGET_PASSWORD = "$BASE_URL/auth/reset-password";
+  static const String CHANGE_PASSWORD = "$BASE_URL/auth/change-password";
+  static const String UPDATE_PROFILE = "$BASE_URL/update-info";
+  //get id in
+  // this eand point
   static const String ALL_SUPPLIER = "$BASE_URL/supplier"; //get id in this eand point
   static const String ALL_MEASURMENTS = "$BASE_URL/measurements"; //get id in this eand point
   static const String ALL_COUSTOMER = "$BASE_URL/customer"; //get id in this eand point

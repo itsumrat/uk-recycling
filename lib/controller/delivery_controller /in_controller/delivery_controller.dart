@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DeliveryController {
 
   //add delivery controller
-  static Future<http.Response> addNeDelivery({ required String deliveryTypeID, required String productCategoryId, required String suplierId, required String measurementTypeId,     })async{
+  static Future<http.Response> addNeDelivery({ required String deliveryTypeID, required String assign_to, required String productCategoryId, required String suplierId, required String measurementTypeId,     })async{
     SharedPreferences _pref = await SharedPreferences.getInstance();
     var token = await _pref.getString("token");
     var res = await http.post(Uri.parse(AppConfig.DELIVERY_ID),
@@ -22,6 +22,7 @@ class DeliveryController {
         "supplier_id" :suplierId,
         "delivery_type" : deliveryTypeID,
         "measurement_type" : measurementTypeId,
+        "assigned_to" : assign_to
       }
     );
     print("res == body == ${res.statusCode}");

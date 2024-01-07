@@ -64,19 +64,23 @@ class _HomeState extends State<Home> {
               height: 20,
             ),
            role == AppConst.attendantRole
-               ?  AttendanceListHome() : Center(),
-           Column(
-              children: [
-                DeliveryInOutHomeScreen(),
-                SizedBox(
-                  height: 20,
-                ),
-                role == AppConst.supervisorRole ?  ProductionSetUpHomeScreen() : Center(),
-                ProductionHomeScreen(),
-              ],
-            ),
-            role == AppConst.supervisorRole
-               ? AttendanceListHome() : Center(),
+               ?  AttendanceForStaf()
+               : Column(
+             children: [
+               Column(
+                 children: [
+                   DeliveryInOutHomeScreen(),
+                   SizedBox(
+                     height: 20,
+                   ),
+                   role == AppConst.supervisorRole ?  ProductionSetUpHomeScreen() : Center(),
+                   ProductionHomeScreen(),
+                 ],
+               ),
+               role == AppConst.supervisorRole
+                   ? AttendanceListHome() : Center(),
+             ],
+           )
 
           ],
         ),
@@ -133,6 +137,44 @@ class AttendanceListHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Get.to(AttendanceList()),
+      child: Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(bottom: 10),
+          padding:
+          EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
+          decoration: BoxDecoration(
+              gradient: AppWidgets.buildLinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+              borderRadius: BorderRadius.circular(15)),
+          child: const ListTile(
+            leading: FaIcon(
+              FontAwesomeIcons.shirt,
+              size: 30,
+              color: Colors.white,
+            ),
+            title: Text(
+              "Attendance List",
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white),
+            ),
+          )),
+    );
+  }
+}
+
+class AttendanceForStaf extends StatelessWidget {
+  const AttendanceForStaf({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Get.to(Attendance()),
       child: Container(
           width: double.infinity,
           margin: EdgeInsets.only(bottom: 10),

@@ -18,7 +18,6 @@ class ClockOut extends StatefulWidget {
 }
 
 class _ClockOutState extends State<ClockOut> {
-
   final List<String> items = [
     'Name 2',
     'Name 2',
@@ -28,24 +27,22 @@ class _ClockOutState extends State<ClockOut> {
   final time = TextEditingController();
   final date = TextEditingController();
 
-
   final dateNow = DateTime.now();
   TimeOfDay timeNow = TimeOfDay.now();
   var selectedPassKey;
 
-
   bool isLoading = false;
   bool isClockInOut = false;
-  List<UserDatum> _allUserList = [];
-  getAllUser()async{
-    setState(() =>isLoading = true);
-    var res = await UserController.getAllUser();
-    for(var i in res.data!){
+  final List<UserDatum> _allUserList = [];
+  getAllUser() async {
+    setState(() => isLoading = true);
+    var res = await UserController.getAllUserList();
+    for (var i in res.data!) {
       setState(() {
         _allUserList.add(i);
       });
     }
-    setState(() =>isLoading = false);
+    setState(() => isLoading = false);
   }
 
   @override
@@ -55,229 +52,219 @@ class _ClockOutState extends State<ClockOut> {
     getAllUser();
     date.text = DateFormat('yyyy-MM-dd').format(dateNow);
 
-    time.text  = "${timeNow.hour}:${timeNow.minute}";
+    time.text = "${timeNow.hour}:${timeNow.minute}";
   }
 
   @override
   Widget build(BuildContext context) {
     return AppWidget(
       appBarTitle: "Check Out",
-      appBarOnBack: ()=>Get.back(),
-      body: isLoading ? Center(child: AppLoader(),) : SingleChildScrollView(
-        padding: EdgeInsets.all(30),
-        child: Column(
-          children: [
-            SizedBox(height: 20,),
-            Row(
-              children: [
-                const Expanded(
-                  child: Text("Date",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 15
-                    ),
+      appBarOnBack: () => Get.back(),
+      body: isLoading
+          ? const Center(
+              child: AppLoader(),
+            )
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(width: 20,),
-                Expanded(
-                    flex: 2,
-                    child: TextFormField(
-                      readOnly: true,
-                      controller: date,
-                      onTap: ()=>selectDate(context),
-                      decoration: InputDecoration(
-                          fillColor: Colors.grey.shade200,
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide.none
-                          ),
-                          hintText: "Auto Fill up"
-                      ),
-                    )
-                )
-              ],
-            ),
-            SizedBox(height: 20,),
-            Row(
-              children: [
-                Expanded(
-                  child: Text("Time",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 15
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20,),
-                Expanded(
-                    flex: 2,
-                    child: TextFormField(
-                      readOnly: true,
-                      onTap: ()=>selectTime(context: context),
-                      controller: time,
-                      decoration: InputDecoration(
-                          fillColor: Colors.grey.shade200,
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide.none
-                          ),
-                          hintText: "Input"
-                      ),
-                    )
-                )
-              ],
-            ),
-            SizedBox(height: 20,),
-            Row(
-              children: [
-                Expanded(
-                  child: Text("Name",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 15
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20,),
-                Expanded(
-                  flex: 2,
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      hint: Text(
-                        'Select One',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
-                      items: _allUserList.map((item) => DropdownMenuItem<String>(
-                        value: item!.id!.toString(),
+                  Row(
+                    children: [
+                      const Expanded(
                         child: Text(
-                          item.name!,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          "Date",
+                          style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                          flex: 2,
+                          child: TextFormField(
+                            readOnly: true,
+                            controller: date,
+                            onTap: () => selectDate(context),
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade200,
+                                filled: true,
+                                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                                hintText: "Auto Fill up"),
+                          ))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          "Time",
+                          style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                          flex: 2,
+                          child: TextFormField(
+                            readOnly: true,
+                            onTap: () => selectTime(context: context),
+                            controller: time,
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade200,
+                                filled: true,
+                                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                                hintText: "Input"),
+                          ))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          "Name",
+                          style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton2<String>(
+                            isExpanded: true,
+                            hint: Text(
+                              'Select One',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context).hintColor,
+                              ),
+                            ),
+                            items: _allUserList
+                                .map((item) => DropdownMenuItem<String>(
+                                      value: item.id!.toString(),
+                                      child: Text(
+                                        item.name!,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            value: selectedValue,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedValue = value;
+                                for (var i in _allUserList) {
+                                  if (i.id.toString().contains(selectedValue)) {
+                                    selectedPassKey = i.passkey.toString();
+                                  }
+                                }
+                              });
+                              print("selectedValue == $selectedValue");
+                            },
+                            buttonStyleData: ButtonStyleData(
+                              decoration:
+                                  BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(5)),
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              height: 60,
+                              width: 140,
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 40,
+                            ),
                           ),
                         ),
-                      ))
-                          .toList(),
-                      value: selectedValue,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedValue = value;
-                          for(var i in _allUserList!){
-                            if(i.id.toString().contains(selectedValue)){
-                              selectedPassKey = i.passkey.toString();
-                            }
-                          }
-                        });
-                        print("selectedValue == ${selectedValue}");
-                      },
-                      buttonStyleData:  ButtonStyleData(
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(5)
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          "Pass Key",
+                          style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        height: 60,
-                        width: 140,
                       ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                          flex: 2,
+                          child: TextFormField(
+                            controller: passKey,
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade200,
+                                filled: true,
+                                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                                hintText: "Input"),
+                          ))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      if (selectedPassKey == passKey.text) {
+                        setState(() => isClockInOut = true);
+                        var res = await AttendnaceController.clockOut(
+                            date: date.text,
+                            time: time.text,
+                            userId: selectedValue.toString(),
+                            passKey: passKey.text.toString());
+
+                        print("data == ${res.body}");
+                        if (res.statusCode == 200) {
+                          time.clear();
+                          date.clear();
+                          selectedValue = null;
+                          passKey.clear();
+                          AppSnackbar.appSnackbar("Clock Out success", Colors.green, context);
+                        } else {
+                          AppSnackbar.appSnackbar("Something went wrong.", Colors.red, context);
+                        }
+                        setState(() => isClockInOut = false);
+                      } else {
+                        AppSnackbar.appSnackbar("Pass key wrong.", Colors.red, context);
+                      }
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          gradient: AppWidgets.buildLinearGradient(), borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: isClockInOut
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text(
+                                "Input",
+                                style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 16),
+                              ),
                       ),
                     ),
                   ),
-                ),
-
-              ],
-            ),
-            SizedBox(height: 20,),
-            Row(
-              children: [
-                Expanded(
-                  child: Text("Pass Key",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 15
-                    ),
+                  const SizedBox(
+                    height: 30,
                   ),
-                ),
-                SizedBox(width: 20,),
-                Expanded(
-                    flex: 2,
-                    child: TextFormField(
-                      controller: passKey,
-                      decoration: InputDecoration(
-                          fillColor: Colors.grey.shade200,
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide.none
-                          ),
-                          hintText: "Input"
-                      ),
-                    )
-                )
-              ],
-            ),
-            SizedBox(height: 70,),
-            InkWell(
-              onTap: ()async{
-                if(selectedPassKey == passKey.text) {
-                  setState(() => isClockInOut = true);
-                  var res = await AttendnaceController.clockOut(
-                      date: date.text,
-                      time: time.text,
-                      userId: selectedValue.toString(),
-                      passKey: passKey.text.toString()
-                  );
-
-                  print("data == ${res.body}");
-                  if (res.statusCode == 200) {
-                    time.clear();
-                    date.clear();
-                    selectedValue = null;
-                    passKey.clear();
-                    AppSnackbar.appSnackbar(
-                        "Clock Out success", Colors.green, context);
-                  } else {
-                    AppSnackbar.appSnackbar(
-                        "Something went wrong.", Colors.red, context);
-                  }
-                  setState(() => isClockInOut = false);
-                }else{
-                  AppSnackbar.appSnackbar(
-                      "Pass key wrong.", Colors.red, context);
-                }
-
-              },
-              child: Container(
-                width: 200,
-                height: 60,
-                decoration: BoxDecoration(
-                    gradient: AppWidgets.buildLinearGradient(),
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: Center(
-                  child: isClockInOut ? CircularProgressIndicator(color: Colors.white,) : Text("Input",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontSize: 16
-                    ),
-                  ),
-                ),
+                ],
               ),
             ),
-            SizedBox(height: 30,),
-
-
-          ],
-        ),
-      ),
     );
   }
 
@@ -291,13 +278,11 @@ class _ClockOutState extends State<ClockOut> {
     if (picked != null && picked != selectedTime) {
       setState(() {
         //time.text  = formatTimeOfDay(picked);
-        time.text  = "${picked.hour}:${picked.minute}";
-
+        time.text = "${picked.hour}:${picked.minute}";
       });
     }
     return picked!.format(context);
   }
-
 
   //select date
   Future<void> selectDate(BuildContext context) async {
@@ -327,5 +312,4 @@ class _ClockOutState extends State<ClockOut> {
     final formattedTime = DateFormat.jm().format(dateTime); // 'jm' formats time as AM/PM
     return formattedTime;
   }
-
 }

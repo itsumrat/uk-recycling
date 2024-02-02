@@ -20,6 +20,17 @@ class UserController{
     );
     return AllUserModel.fromJson(jsonDecode(res.body));
   }
+  //get all user list
+  static Future<AllUserModel> getAllUserList()async{
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    var token = _pref.getString("token");
+    var res = await http.get(Uri.parse(AppConfig.ALL_USER_LIST),
+      headers: {
+        "Authorization" : "Bearer $token"
+      }
+    );
+    return AllUserModel.fromJson(jsonDecode(res.body));
+  }
 
   //get all supplier
   static Future<AllSupplierModel> getAllSupplier()async{

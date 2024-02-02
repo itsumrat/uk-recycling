@@ -1,18 +1,16 @@
-import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-class AppConfig{
+
+class AppConfig {
   // static const Gradient color = [Colors.red,Colors.white] as Gradient;
   static const String DOMAIN = "https://uktextileandrecycling.co.uk";
   static const String PUBLIC = "public";
   static const String BASE_URL = "$DOMAIN/$PUBLIC/api";
   static const String PUBLIC_BASE_URL = "$DOMAIN/$PUBLIC";
 
-
-
   static const String LOGIN = "$BASE_URL/auth/login";
   static const String PROFILE_INFO = "$BASE_URL/profile/"; //get id in this eand point
   static const String ALL_USER = "$BASE_URL/users"; //get id in this eand point
+  static const String ALL_USER_LIST = "$BASE_URL/user-list"; //get id in this eand point
   static const String ALL_CAGE = "$BASE_URL/cases"; //get id in this eand point
   static const String FORGET_PASSWORD = "$BASE_URL/auth/reset-password";
   static const String CHANGE_PASSWORD = "$BASE_URL/auth/change-password";
@@ -23,7 +21,6 @@ class AppConfig{
   static const String ALL_MEASURMENTS = "$BASE_URL/measurements"; //get id in this eand point
   static const String ALL_COUSTOMER = "$BASE_URL/customer"; //get id in this eand point
   static const String ALL_TABLE = "$BASE_URL/tables"; //get id in this eand point
-
 
   //===== delivery
   static const String DELIVERY_ID = "$BASE_URL/din";
@@ -38,28 +35,18 @@ class AppConfig{
   static const String TRANSCATION_BY_DELIVERYOUT = "$BASE_URL/transaction-by-deliveryout/"; //get api
   static const String SINGLE_TRANSCATION = "$BASE_URL/transaction/"; //get api
 
-
-
   static const String DELIVERY_OUT_CREATE = "$BASE_URL/dout"; //get api
   static const String DELIVERY_OUT_TR = "$BASE_URL/delivery-out-transaction"; //get api
-
 
   static const String CLOCK_IN = "$BASE_URL/checkin"; //POST api
   static const String CLOCK_OUT = "$BASE_URL/checkout"; //POST api
   static const String ATTENDANCE_LIST = "$BASE_URL/attendance"; //POST api
 
-
-
-
-
-
-
   ////data format
-  static String dateFormat(inputDate){
+  static String dateFormat(inputDate) {
     var inputFormat = DateFormat("dd-MM-yyyy");
     String date = inputFormat.format(inputDate).toString();
     print("data $date");
     return date;
   }
-
 }

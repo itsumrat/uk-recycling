@@ -1,6 +1,6 @@
 import 'package:crm/utility/utility.dart';
-import 'package:crm/view/appBottomNavigationBar.dart';
 import 'package:crm/view/flash_screen/sFalsh_screen.dart';
+import 'package:crm/view/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,18 +20,19 @@ class _FlashScreenState extends State<FlashScreen> {
     _checkToken();
   }
 
-  void _checkToken()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    if(_pref.getString("token") != null){
-      Get.offAll(AppBottomNavigationBar());
-    }else{
-      Future.delayed(Duration(milliseconds: 1500), () {
+  void _checkToken() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.getString("token") != null) {
+      Get.offAll(const Home());
+    } else {
+      Future.delayed(const Duration(milliseconds: 1500), () {
         // 5s over, navigate to a new page
-        Get.offAll(SFlashScreen());
+        Get.offAll(const SFlashScreen());
       });
     }
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,9 +41,13 @@ class _FlashScreenState extends State<FlashScreen> {
         child: Scaffold(
           backgroundColor: AppColor.white,
           body: Center(
-            child: Image.asset("assets/images/logo.png", height: 200, width: 200,),
+            child: Image.asset(
+              "assets/images/logo.png",
+              height: 200,
+              width: 200,
+            ),
           ),
-          
+
           // body: Column(
           //   mainAxisAlignment: MainAxisAlignment.center,
           //   crossAxisAlignment: CrossAxisAlignment.center,

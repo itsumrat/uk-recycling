@@ -1,5 +1,4 @@
 import 'package:crm/utility/app_const.dart';
-import 'package:crm/view/appBottomNavigationBar.dart';
 import 'package:crm/view/home/product_setup/add_grade/add_grade.dart';
 import 'package:crm/view/home/product_setup/new_input/new_inputs.dart';
 import 'package:crm/view_controller/appWidgets.dart';
@@ -19,12 +18,11 @@ class ProductSetup extends StatefulWidget {
 }
 
 class _ProductSetupState extends State<ProductSetup> {
-
   var role;
-  getRol()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+  getRol() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      role = _pref.getString("role");
+      role = pref.getString("role");
     });
   }
 
@@ -39,47 +37,46 @@ class _ProductSetupState extends State<ProductSetup> {
   Widget build(BuildContext context) {
     return AppWidget(
         appBarTitle: "Production setup",
-        appBarOnBack: () => Get.to(AppBottomNavigationBar()),
+        appBarOnBack: () => Get.to(const Home()),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 30,),
-           role == AppConst.staffRole ? Center() : Align(
-              alignment: Alignment.center,
-              child:  AppBox(
-                title: "New Input",
-                onClick: ()=>Get.to(NewInputs()),
-                width: 180
-              ),
-            ),
-            SizedBox(height: 30,),
+                const SizedBox(
+                  height: 30,
+                ),
+                role == AppConst.staffRole
+                    ? const Center()
+                    : Align(
+                        alignment: Alignment.center,
+                        child: AppBox(title: "New Input", onClick: () => Get.to(const NewInputs()), width: 180),
+                      ),
+                const SizedBox(
+                  height: 30,
+                ),
                 Align(
                   alignment: Alignment.center,
-              child: InkWell(
-                onTap: ()=>Get.to(AddGrade()),
-                child: Container(
-                  width: 180,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    gradient: AppWidgets.buildLinearGradient(),
-                  ),
-                  child: Center(
-                    child: Text("Add Grade",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        fontSize: 17
+                  child: InkWell(
+                    onTap: () => Get.to(const AddGrade()),
+                    child: Container(
+                      width: 180,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: AppWidgets.buildLinearGradient(),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Add Grade",
+                          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white, fontSize: 17),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            )
-          ]),
+                )
+              ]),
         ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:crm/utility/app_const.dart';
+import 'package:crm/view/appBottomNavigationBar.dart';
 import 'package:crm/view/home/product_setup/product_setup.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/widgets/app_boxes.dart';
@@ -21,68 +22,63 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getRole();//get role here..
+    getRole(); //get role here..
   }
 
   //=== get role method
-  getRole()async{
+  getRole() async {
     print("dafadsf");
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      role = _pref.getString("role").toString();
+      role = pref.getString("role").toString();
     });
   }
 
   //=== role store variable
-  var role ="";
-
-
+  var role = "";
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 50),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "$role Dashboard",
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-           role == AppConst.attendantRole
-               ?  AttendanceForStaf()
-               : Column(
-             children: [
-               Column(
-                 children: [
-                   DeliveryInOutHomeScreen(),
-                   SizedBox(
-                     height: 20,
-                   ),
-                   role == AppConst.supervisorRole ?  ProductionSetUpHomeScreen() : Center(),
-                   ProductionHomeScreen(),
-                 ],
-               ),
-               role == AppConst.supervisorRole
-                   ? AttendanceListHome() : Center(),
-             ],
-           )
-
-          ],
+    return Scaffold(
+      bottomNavigationBar: const AppBottomNavigation(pageIndex: 0),
+      body: Container(
+        color: Colors.white,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "$role Dashboard",
+                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w400, color: Colors.black),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              role == AppConst.attendantRole
+                  ? const AttendanceForStaf()
+                  : Column(
+                      children: [
+                        Column(
+                          children: [
+                            const DeliveryInOutHomeScreen(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            role == AppConst.supervisorRole ? const ProductionSetUpHomeScreen() : const Center(),
+                            const ProductionHomeScreen(),
+                          ],
+                        ),
+                        role == AppConst.supervisorRole ? const AttendanceListHome() : const Center(),
+                      ],
+                    )
+            ],
+          ),
         ),
       ),
     );
@@ -97,12 +93,11 @@ class AttendanceHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(Attendance()),
+      onTap: () => Get.to(const Attendance()),
       child: Container(
           width: double.infinity,
-          margin: EdgeInsets.only(bottom: 10),
-          padding:
-              EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
+          margin: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
           decoration: BoxDecoration(
               gradient: AppWidgets.buildLinearGradient(
                 begin: Alignment.centerLeft,
@@ -117,16 +112,12 @@ class AttendanceHomeScreen extends StatelessWidget {
             ),
             title: Text(
               "Attendance",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: Colors.white),
             ),
           )),
     );
   }
 }
-
 
 class AttendanceListHome extends StatelessWidget {
   const AttendanceListHome({
@@ -136,32 +127,29 @@ class AttendanceListHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(AttendanceList()),
+      onTap: () => Get.to(const AttendanceList()),
       child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(bottom: 10),
-          padding:
-          EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
-          decoration: BoxDecoration(
-              gradient: AppWidgets.buildLinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: BorderRadius.circular(15)),
-          child: const ListTile(
-            leading: FaIcon(
-              FontAwesomeIcons.shirt,
-              size: 30,
-              color: Colors.white,
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
+        decoration: BoxDecoration(
+            gradient: AppWidgets.buildLinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
-            title: Text(
-              "Attendance List",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-          )),
+            borderRadius: BorderRadius.circular(15)),
+        child: const ListTile(
+          leading: FaIcon(
+            FontAwesomeIcons.shirt,
+            size: 30,
+            color: Colors.white,
+          ),
+          title: Text(
+            "Attendance List",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: Colors.white),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -174,12 +162,11 @@ class AttendanceForStaf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(Attendance()),
+      onTap: () => Get.to(const Attendance()),
       child: Container(
           width: double.infinity,
-          margin: EdgeInsets.only(bottom: 10),
-          padding:
-          EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
+          margin: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
           decoration: BoxDecoration(
               gradient: AppWidgets.buildLinearGradient(
                 begin: Alignment.centerLeft,
@@ -194,17 +181,12 @@ class AttendanceForStaf extends StatelessWidget {
             ),
             title: Text(
               "Attendance List",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: Colors.white),
             ),
           )),
     );
   }
 }
-
-
 
 class ProductionHomeScreen extends StatelessWidget {
   const ProductionHomeScreen({
@@ -214,32 +196,29 @@ class ProductionHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>Get.to(Productoins()),
+      onTap: () => Get.to(const Productoins()),
       child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(bottom: 10),
-          padding:
-              EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
-          decoration: BoxDecoration(
-              gradient: AppWidgets.buildLinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: BorderRadius.circular(15)),
-          child: const ListTile(
-            leading: FaIcon(
-              FontAwesomeIcons.gear,
-              size: 30,
-              color: Colors.white,
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
+        decoration: BoxDecoration(
+            gradient: AppWidgets.buildLinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
-            title: Text(
-              "Production",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-          )),
+            borderRadius: BorderRadius.circular(15)),
+        child: const ListTile(
+          leading: FaIcon(
+            FontAwesomeIcons.gear,
+            size: 30,
+            color: Colors.white,
+          ),
+          title: Text(
+            "Production",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: Colors.white),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -252,12 +231,11 @@ class ProductionSetUpHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(ProductSetup()),
+      onTap: () => Get.to(const ProductSetup()),
       child: Container(
           width: double.infinity,
-          margin: EdgeInsets.only(bottom: 10),
-          padding:
-              EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
+          margin: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(left: 20, bottom: 20, top: 20, right: 20),
           decoration: BoxDecoration(
               gradient: AppWidgets.buildLinearGradient(
                 begin: Alignment.centerLeft,
@@ -272,10 +250,7 @@ class ProductionSetUpHomeScreen extends StatelessWidget {
             ),
             title: Text(
               "Production Setup",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: Colors.white),
             ),
           )),
     );
@@ -294,7 +269,7 @@ class DeliveryInOutHomeScreen extends StatelessWidget {
         /////Delivery in
         Expanded(
           child: InkWell(
-            onTap: () => Get.to(DeliveryIn()),
+            onTap: () => Get.to(const DeliveryIn()),
             child: Container(
               height: 220,
               decoration: BoxDecoration(
@@ -303,7 +278,7 @@ class DeliveryInOutHomeScreen extends StatelessWidget {
                     end: Alignment.bottomCenter,
                   ),
                   borderRadius: BorderRadius.circular(15)),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -317,23 +292,20 @@ class DeliveryInOutHomeScreen extends StatelessWidget {
                   ),
                   Text(
                     "Delivery In",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        fontSize: 18),
+                    style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18),
                   )
                 ],
               ),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         Expanded(
           child: AppBox(
             title: "Delivery Out",
-            onClick: ()=>Get.to(DeliveryOut()),
+            onClick: () => Get.to(const DeliveryOut()),
             height: 220,
             width: double.infinity,
           ),
@@ -342,4 +314,3 @@ class DeliveryInOutHomeScreen extends StatelessWidget {
     );
   }
 }
-

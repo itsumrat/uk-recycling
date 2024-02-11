@@ -24,7 +24,7 @@ class _AttendanceListState extends State<AttendanceList> {
 
   final date = TextEditingController();
 
-  var formetDate = DateFormat("yyyy-MM-dd");
+  var formetDate = DateFormat("yyyy-MM-dd hh:mm");
   bool isLoading = false;
   getAllAttendance() async {
     setState(() => isLoading = true);
@@ -58,7 +58,7 @@ class _AttendanceListState extends State<AttendanceList> {
   @override
   Widget build(BuildContext context) {
     return AppWidget(
-      appBarTitle: "User Attendance",
+      appBarTitle: "Today's Attendance",
       appBarOnBack: () => Get.back(),
       body: isLoading
           ? const Center(
@@ -68,6 +68,19 @@ class _AttendanceListState extends State<AttendanceList> {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
+                  const Text('Date:'),
+                  StreamBuilder<DateTime>(
+                    stream: Stream.periodic(const Duration(seconds: 1), (i) => DateTime.now()),
+                    builder: (context, snapshot) {
+                      return Text(
+                        formetDate.format(DateTime.now().toLocal()),
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   SizedBox(
                     height: 70,
                     child: Row(
@@ -84,7 +97,7 @@ class _AttendanceListState extends State<AttendanceList> {
                               fillColor: Colors.grey.shade200,
                               filled: true,
                               border: const OutlineInputBorder(borderSide: BorderSide.none),
-                              hintText: "Select"),
+                              hintText: "Search"),
                         )),
                         const SizedBox(
                           width: 15,

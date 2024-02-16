@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:crm/appConfig.dart';
+import 'package:crm/model/cage_model/cage_model.dart';
 import 'package:crm/model/delivery_model/in_model/single_deliveryin_model.dart';
 import 'package:crm/model/delivery_model/in_model/single_deliveryin_transaction_model.dart';
 import 'package:flutter/material.dart';
@@ -56,25 +57,26 @@ class DeliveryInController {
   //Single existing model
   static Future<http.Response> addTranscations(
       {required String deliveryTypeId,
-      required String cageNo,
+      required CageDatum? cageNo,
       required String measurementId,
       required String weight}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var token = pref.getString("token");
     print("delivery id == $deliveryTypeId");
-    var withoutCageNoData = {
+    var data = {
       "weight": weight,
       "delivery_id": deliveryTypeId,
       "measurement": measurementId,
+      if (cageNo != null) "case_id": cageNo.id.toString(),
     };
-    var withCageNoData = {
-      "weight": weight,
-      "delivery_id": deliveryTypeId,
-      "measurement": measurementId,
-      "cage_no": cageNo
-    };
+    // var withCageNoData = {
+    //   "weight": weight,
+    //   "delivery_id": deliveryTypeId,
+    //   "measurement": measurementId,
+    //   "case_id": cageNo?.id,
+    // };
     var res = await http.post(Uri.parse(AppConfig.DELIVERY_IN_TRANSCATION),
-        headers: {"Authorization": "Bearer $token"}, body: cageNo != "null" ? withCageNoData : withoutCageNoData);
+        headers: {"Authorization": "Bearer $token"}, body: data);
     print(res.statusCode);
     print(res.body);
     return res;

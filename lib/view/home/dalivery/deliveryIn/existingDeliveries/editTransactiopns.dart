@@ -1,8 +1,8 @@
 import 'package:crm/controller/cage_controller/cage_controller.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/delivery_type_controller.dart';
+import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/product_category_controller.dart';
 import 'package:crm/model/cage_model/cage_model.dart';
-import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
 import 'package:crm/model/delivery_model/in_model/delivery_model.dart';
 import 'package:crm/model/delivery_model/in_model/deliveryin_model.dart';
 import 'package:crm/model/delivery_model/in_model/product_category_model.dart';
@@ -18,20 +18,20 @@ import 'package:get/get.dart';
 
 import '../../../../../model/delivery_model/in_model/single_deliveryin_model.dart';
 
-
 class EditTranscation extends StatefulWidget {
   final Transaction singleTransaction;
   final SingleDeliveryInModel singleDelivery;
-  final ExistingDeliveryInDatum?  existingDeliveryInDatum;
+  final ExistingDeliveryInDatum? existingDeliveryInDatum;
 
-  const EditTranscation({Key? key, required this.singleTransaction, required this.singleDelivery, this.existingDeliveryInDatum}) : super(key: key);
+  const EditTranscation(
+      {Key? key, required this.singleTransaction, required this.singleDelivery, this.existingDeliveryInDatum})
+      : super(key: key);
 
   @override
   State<EditTranscation> createState() => _EditTranscationState();
 }
 
 class _EditTranscationState extends State<EditTranscation> {
-
   final List<String> items = [
     'Item1',
     'Item2',
@@ -52,37 +52,35 @@ class _EditTranscationState extends State<EditTranscation> {
   final weight = TextEditingController();
 
   final List<DeliveryDatum> _deliveryTypeList = [];
-  void _getDeliveryTypeFuture()async{
-    var res = await  DeliveryTypeController.getDeliveryType();
-    for(var i in res.data!){
-     setState(() {
-       _deliveryTypeList.add(i);
-     });
+  void _getDeliveryTypeFuture() async {
+    var res = await DeliveryTypeController.getDeliveryType();
+    for (var i in res.data!) {
+      setState(() {
+        _deliveryTypeList.add(i);
+      });
     }
   }
 
   final List<ProductCategoryDatum> _productCategoryList = [];
-  void _getProductCategoryFuture()async{
-    var res = await  DeliveryInProductCategoryController.getProductCategory();
-    for(var i in res!.data!){
+  void _getProductCategoryFuture() async {
+    var res = await DeliveryInProductCategoryController.getProductCategory();
+    for (var i in res!.data!) {
       setState(() {
         _productCategoryList.add(i);
       });
     }
   }
 
-
   final List<CageDatum> _allCageList = [];
   //get product category
-  void _getAllCageList()async{
+  void _getAllCageList() async {
     var res = await CageController.getCageNo();
-    for(var i in res.data!){
+    for (var i in res.data!) {
       setState(() {
         _allCageList.add(i);
       });
     }
   }
-
 
   @override
   void initState() {
@@ -92,23 +90,22 @@ class _EditTranscationState extends State<EditTranscation> {
     // _getProductCategoryFuture();
     _getAllCageList();
     userName.text = widget.singleTransaction.user!.name!;
-    userId.text = widget.singleTransaction.user!.userId!;
-    date.text =AppConst.formetData(widget.singleTransaction.date);
-    weight.text = widget.singleTransaction.weight.toString();
+    userId.text = widget.singleTransaction.user!.uid!;
+    date.text = AppConst.formetData(widget.singleTransaction.date);
+    weight.text = widget.singleTransaction.weight?.toStringAsFixed(2) ?? '';
 
     print("existingDeliveryInDatum == ${widget.existingDeliveryInDatum}");
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AppWidget(
-      appBarTitle: "Transaction ID: ${widget.singleDelivery.data!.delivery!.deliveryInId}/${widget.singleTransaction.id}",
+      appBarTitle:
+          "Transaction ID: ${widget.singleDelivery.data!.delivery!.deliveryInId}/${widget.singleTransaction.id}",
       textSize: 20,
-      appBarOnBack: ()=>Get.back(),
-      body:  SingleChildScrollView(
+      appBarOnBack: () => Get.back(),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
@@ -390,77 +387,77 @@ class _EditTranscationState extends State<EditTranscation> {
             //
             //   ],
             // ),
-            widget.singleDelivery.data!.delivery!.measurement!.name == "Cage" ? Row(
-              children: [
-                const Expanded(
-                  child: Text("Cage No",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 15
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 20,),
-                Expanded(
-                  flex: 2,
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      hint: Text(
-                        'Select One',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).hintColor,
+            widget.singleDelivery.data!.delivery!.measurement!.name == "Cage"
+                ? Row(
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          "Cage No",
+                          style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
                         ),
                       ),
-                      items:(_allCageList).map((item) => DropdownMenuItem<String>(
-                        value: item.id.toString(),
-                        child: Text(
-                          item.caseName!,
-                          style: const TextStyle(
-                            fontSize: 14,
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton2<String>(
+                            isExpanded: true,
+                            hint: Text(
+                              'Select One',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context).hintColor,
+                              ),
+                            ),
+                            items: (_allCageList)
+                                .map((item) => DropdownMenuItem<String>(
+                                      value: item.id.toString(),
+                                      child: Text(
+                                        item.caseName!,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            value: selectedCageOn,
+                            onChanged: (String? value) {
+                              setState(() {
+                                selectedCageOn = value;
+                              });
+                            },
+                            buttonStyleData: ButtonStyleData(
+                              decoration:
+                                  BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(5)),
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              height: 60,
+                              width: 140,
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 40,
+                            ),
                           ),
                         ),
-                      ))
-                          .toList(),
-                      value: selectedCageOn,
-                      onChanged: (String? value) {
-                        setState(() {
-                          selectedCageOn = value;
-                        });
-                      },
-                      buttonStyleData:  ButtonStyleData(
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(5)
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        height: 60,
-                        width: 140,
                       ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
-                      ),
-                    ),
-                  ),
-                ),
-
-              ],
-            ) : const Center(),
-            const SizedBox(height: 20,),
+                    ],
+                  )
+                : const Center(),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
                 Expanded(
-                  child: Text("${widget.singleDelivery.data!.delivery!.measurement!.name == "Cage" && widget.singleDelivery.data!.delivery!.measurement!.name == "KG" ? "Weight" : widget.singleDelivery.data!.delivery!.measurement!.name}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 15
-                    ),
+                  child: Text(
+                    "${widget.singleDelivery.data!.delivery!.measurement!.name == "Cage" && widget.singleDelivery.data!.delivery!.measurement!.name == "KG" ? "Weight" : widget.singleDelivery.data!.delivery!.measurement!.name}",
+                    style: const TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
                   ),
                 ),
-                const SizedBox(width: 20,),
+                const SizedBox(
+                  width: 20,
+                ),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
@@ -469,34 +466,31 @@ class _EditTranscationState extends State<EditTranscation> {
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide.none
-                          ),
-                          hintText: "00 "
-                      ),
-                    )
-                )
+                          border: const OutlineInputBorder(borderSide: BorderSide.none),
+                          hintText: "00 "),
+                    ))
               ],
             ),
 
-            const SizedBox(height: 70,),
+            const SizedBox(
+              height: 70,
+            ),
             InkWell(
-              onTap: ()=>editTransition(),
+              onTap: () => editTransition(),
               child: Container(
                 width: 200,
                 height: 60,
-                decoration: BoxDecoration(
-                    gradient: AppWidgets.buildLinearGradient(),
-                    borderRadius: BorderRadius.circular(10)
-                ),
+                decoration:
+                    BoxDecoration(gradient: AppWidgets.buildLinearGradient(), borderRadius: BorderRadius.circular(10)),
                 child: Center(
-                  child: isEditingLoading ? const CircularProgressIndicator(color: Colors.white,) : const Text("Save",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontSize: 16
-                    ),
-                  ),
+                  child: isEditingLoading
+                      ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : const Text(
+                          "Save",
+                          style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 16),
+                        ),
                 ),
               ),
             )
@@ -504,20 +498,22 @@ class _EditTranscationState extends State<EditTranscation> {
         ),
       ),
     );
-
   }
 
   bool isEditingLoading = false;
-  editTransition() async{
-    setState(() =>isEditingLoading = true);
-    var res = await DeliveryInController.editTranscations(case_no: selectedCageOn ?? "null", weight: weight.text, id: widget.singleTransaction.id.toString());
-    if(res.statusCode == 200){
-      Get.to(Transactions(existingDeliveryInDatum: widget.existingDeliveryInDatum, singleDeliveryInModel: widget.singleDelivery,  ));
+  editTransition() async {
+    setState(() => isEditingLoading = true);
+    var res = await DeliveryInController.editTranscations(
+        case_no: selectedCageOn ?? "null", weight: weight.text, id: widget.singleTransaction.id.toString());
+    if (res.statusCode == 200) {
+      Get.to(Transactions(
+        existingDeliveryInDatum: widget.existingDeliveryInDatum,
+        singleDeliveryInModel: widget.singleDelivery,
+      ));
       AppSnackbar.appSnackbar("Edit success.", Colors.green, context);
-    }else{
+    } else {
       AppSnackbar.appSnackbar("Something went wrong.", Colors.red, context);
     }
-    setState(() =>isEditingLoading = false);
-
+    setState(() => isEditingLoading = false);
   }
 }

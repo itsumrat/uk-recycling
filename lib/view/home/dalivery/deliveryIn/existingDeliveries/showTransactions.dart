@@ -2,7 +2,6 @@
 import 'package:crm/view/home/dalivery/deliveryIn/existingDeliveries/transactions.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,11 +30,11 @@ class _ShowTranscationsState extends State<ShowTranscations> {
       appBarTitle: "NEW Deliveries",
       appBarOnBack: ()=>Get.back(),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.only(left: 30, right: 30, bottom: 50, top: 20),
+        padding: const EdgeInsets.only(left: 30, right: 30, bottom: 50, top: 20),
         child: Column(
           children: [
             SizedBox(height: size.height*.05,),
-            Center(
+            const Center(
               child: Text("New Cage/Box ID Create DI0000213/01",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -45,8 +44,8 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
-            Row(
+            const SizedBox(height: 30,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("User ID: ",
@@ -71,8 +70,8 @@ class _ShowTranscationsState extends State<ShowTranscations> {
               ],
             ),
 
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("User Name: ",
@@ -96,8 +95,8 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("TRX ID",
@@ -121,8 +120,8 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Date: ",
@@ -146,9 +145,9 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
 
-            Row(
+            const Row(
               children: [
                 Expanded(
                   child: Text("Suppliers Name: ",
@@ -172,8 +171,8 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Delivery Type: ",
@@ -197,8 +196,8 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Product Type: ",
@@ -222,8 +221,8 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Cage No: ",
@@ -247,8 +246,8 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Weight: ",
@@ -273,9 +272,9 @@ class _ShowTranscationsState extends State<ShowTranscations> {
               ],
             ),
 
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
             InkWell(
-              onTap: ()=>Get.to(Transactions()),
+              onTap: ()=>Get.to(const Transactions()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -283,7 +282,7 @@ class _ShowTranscationsState extends State<ShowTranscations> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Back",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,

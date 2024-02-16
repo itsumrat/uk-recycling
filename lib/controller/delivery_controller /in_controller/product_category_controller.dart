@@ -1,15 +1,14 @@
 import 'dart:convert';
 
 import 'package:crm/appConfig.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../model/delivery_model/in_model/product_category_model.dart';
 
 class DeliveryInProductCategoryController{
   static Future<ProductCategoryMdel>? getProductCategory()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.GET_PRODUCT_CATEGORY),
       headers: {
         "Authorization" : "Bearer $token"
@@ -19,8 +18,8 @@ class DeliveryInProductCategoryController{
   }
 
   static Future<http.Response> addProductCategory({required String name})async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.post(Uri.parse(AppConfig.GET_PRODUCT_CATEGORY),
         headers: {
           "Authorization" : "Bearer $token"

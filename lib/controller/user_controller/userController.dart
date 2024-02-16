@@ -11,8 +11,8 @@ import '../../model/user_model/allUserModel.dart';
 class UserController{
   //get all user
   static Future<AllUserModel> getAllUser()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.ALL_USER),
       headers: {
         "Authorization" : "Bearer $token"
@@ -22,8 +22,8 @@ class UserController{
   }
   //get all user list
   static Future<AllUserModel> getAllUserList()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.ALL_USER_LIST),
       headers: {
         "Authorization" : "Bearer $token"
@@ -34,8 +34,8 @@ class UserController{
 
   //get all supplier
   static Future<AllSupplierModel> getAllSupplier()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.ALL_SUPPLIER),
         headers: {
           "Authorization" : "Bearer $token"
@@ -46,8 +46,8 @@ class UserController{
 
   //get all supplier
   static Future<AllCoustomerListModel> getAllCustomer()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.ALL_COUSTOMER),
         headers: {
           "Authorization" : "Bearer $token"

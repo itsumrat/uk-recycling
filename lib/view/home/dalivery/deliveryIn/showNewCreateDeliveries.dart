@@ -1,7 +1,6 @@
 
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,11 +32,11 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
       appBarTitle: "NEW Deliveries",
       appBarOnBack: ()=>Get.back(),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.only(left: 30, right: 30, top: 20),
+        padding: const EdgeInsets.only(left: 30, right: 30, top: 20),
         child: Column(
           children: [
             SizedBox(height: size.height*.05,),
-            Center(
+            const Center(
               child: Text("New Deliveries in ID Created ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -47,8 +46,8 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
-            Row(
+            const SizedBox(height: 30,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("User ID: ",
@@ -73,8 +72,8 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
               ],
             ),
 
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("User Name: ",
@@ -98,8 +97,8 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("TRX ID",
@@ -123,8 +122,8 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Date: ",
@@ -148,9 +147,9 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
 
-            Row(
+            const Row(
               children: [
                 Expanded(
                   child: Text("Suppliers Name: ",
@@ -174,8 +173,8 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Delivery Type: ",
@@ -199,8 +198,8 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Product Type: ",
@@ -225,9 +224,9 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
               ],
             ),
 
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
             InkWell(
-              onTap: ()=>Get.to(AddNewDelivery()),
+              onTap: ()=>Get.to(const AddNewDelivery()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -235,7 +234,7 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Create Another",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -246,9 +245,9 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             InkWell(
-              onTap: ()=>Get.to(DeliveryIn()),
+              onTap: ()=>Get.to(const DeliveryIn()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -256,7 +255,7 @@ class _ShowCreateNewDeliveriesState extends State<ShowCreateNewDeliveries> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Back",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,

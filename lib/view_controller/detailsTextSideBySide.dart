@@ -16,17 +16,17 @@ class AppSideBySIdeText extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text("$leftText ",
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
                 fontSize: 15
             ),
           ),
-          SizedBox(width: 20,),
+          const SizedBox(width: 20,),
           Flexible(
-            child: Text("$rightText",
+            child: Text(rightText,
               textAlign: TextAlign.right,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.w400,
                   fontSize: 18

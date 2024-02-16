@@ -1,11 +1,8 @@
-import 'package:crm/appConfig.dart';
 import 'package:crm/controller/cage_controller/cage_controller.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/delivery_type_controller.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/product_category_controller.dart';
 import 'package:crm/model/cage_model/cage_model.dart';
-import 'package:crm/model/delivery_model/in_model/deliveryInTransactionsModel.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
-import 'package:crm/model/delivery_model/in_model/deliveryInTransactionsModel.dart';
 import 'package:crm/model/delivery_model/in_model/delivery_model.dart';
 import 'package:crm/model/delivery_model/in_model/deliveryin_model.dart';
 import 'package:crm/model/delivery_model/in_model/product_category_model.dart';
@@ -20,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../model/delivery_model/in_model/single_deliveryin_model.dart';
-import 'showTransactions.dart';
 
 
 class EditTranscation extends StatefulWidget {
@@ -55,34 +51,34 @@ class _EditTranscationState extends State<EditTranscation> {
   final cageNo = TextEditingController();
   final weight = TextEditingController();
 
-  List<DeliveryDatum>? _deliveryTypeList = [];
+  final List<DeliveryDatum> _deliveryTypeList = [];
   void _getDeliveryTypeFuture()async{
     var res = await  DeliveryTypeController.getDeliveryType();
     for(var i in res.data!){
      setState(() {
-       _deliveryTypeList!.add(i);
+       _deliveryTypeList.add(i);
      });
     }
   }
 
-  List<ProductCategoryDatum>? _productCategoryList = [];
+  final List<ProductCategoryDatum> _productCategoryList = [];
   void _getProductCategoryFuture()async{
     var res = await  DeliveryInProductCategoryController.getProductCategory();
     for(var i in res!.data!){
       setState(() {
-        _productCategoryList!.add(i);
+        _productCategoryList.add(i);
       });
     }
   }
 
 
-  List<CageDatum>? _allCageList = [];
+  final List<CageDatum> _allCageList = [];
   //get product category
   void _getAllCageList()async{
     var res = await CageController.getCageNo();
-    for(var i in res!.data!){
+    for(var i in res.data!){
       setState(() {
-        _allCageList?.add(i);
+        _allCageList.add(i);
       });
     }
   }
@@ -95,10 +91,10 @@ class _EditTranscationState extends State<EditTranscation> {
     // _getDeliveryTypeFuture();
     // _getProductCategoryFuture();
     _getAllCageList();
-    userName.text = widget!.singleTransaction!.user!.name!;
-    userId.text = widget!.singleTransaction!.user!.userId!;
-    date.text =AppConst.formetData(widget!.singleTransaction!.date);
-    weight.text = "${widget!.singleTransaction!.weight.toString()!}";
+    userName.text = widget.singleTransaction.user!.name!;
+    userId.text = widget.singleTransaction.user!.userId!;
+    date.text =AppConst.formetData(widget.singleTransaction.date);
+    weight.text = widget.singleTransaction.weight.toString();
 
     print("existingDeliveryInDatum == ${widget.existingDeliveryInDatum}");
   }
@@ -109,11 +105,11 @@ class _EditTranscationState extends State<EditTranscation> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AppWidget(
-      appBarTitle: "Transaction ID: ${widget.singleDelivery!.data!.delivery!.deliveryInId}/${widget.singleTransaction.id}",
+      appBarTitle: "Transaction ID: ${widget.singleDelivery.data!.delivery!.deliveryInId}/${widget.singleTransaction.id}",
       textSize: 20,
       appBarOnBack: ()=>Get.back(),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             // SizedBox(height: 50,),
@@ -394,9 +390,9 @@ class _EditTranscationState extends State<EditTranscation> {
             //
             //   ],
             // ),
-            widget.singleDelivery!.data!.delivery!.measurement!.name == "Cage" ? Row(
+            widget.singleDelivery.data!.delivery!.measurement!.name == "Cage" ? Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Cage No",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -405,7 +401,7 @@ class _EditTranscationState extends State<EditTranscation> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                   flex: 2,
                   child: DropdownButtonHideUnderline(
@@ -418,10 +414,10 @@ class _EditTranscationState extends State<EditTranscation> {
                           color: Theme.of(context).hintColor,
                         ),
                       ),
-                      items:(_allCageList)?.map((item) => DropdownMenuItem<String>(
-                        value: item!.id.toString(),
+                      items:(_allCageList).map((item) => DropdownMenuItem<String>(
+                        value: item.id.toString(),
                         child: Text(
-                          item!.caseName!,
+                          item.caseName!,
                           style: const TextStyle(
                             fontSize: 14,
                           ),
@@ -439,7 +435,7 @@ class _EditTranscationState extends State<EditTranscation> {
                             color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(5)
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         height: 60,
                         width: 140,
                       ),
@@ -451,20 +447,20 @@ class _EditTranscationState extends State<EditTranscation> {
                 ),
 
               ],
-            ) : Center(),
-            SizedBox(height: 20,),
+            ) : const Center(),
+            const SizedBox(height: 20,),
             Row(
               children: [
                 Expanded(
-                  child: Text("${widget.singleDelivery!.data!.delivery!.measurement!.name == "Cage" && widget.singleDelivery!.data!.delivery!.measurement!.name == "KG" ? "Weight" : widget.singleDelivery!.data!.delivery!.measurement!.name}",
-                    style: TextStyle(
+                  child: Text("${widget.singleDelivery.data!.delivery!.measurement!.name == "Cage" && widget.singleDelivery.data!.delivery!.measurement!.name == "KG" ? "Weight" : widget.singleDelivery.data!.delivery!.measurement!.name}",
+                    style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
                         fontSize: 15
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
@@ -473,7 +469,7 @@ class _EditTranscationState extends State<EditTranscation> {
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "00 "
@@ -483,7 +479,7 @@ class _EditTranscationState extends State<EditTranscation> {
               ],
             ),
 
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
             InkWell(
               onTap: ()=>editTransition(),
               child: Container(
@@ -494,7 +490,7 @@ class _EditTranscationState extends State<EditTranscation> {
                     borderRadius: BorderRadius.circular(10)
                 ),
                 child: Center(
-                  child: isEditingLoading ? CircularProgressIndicator(color: Colors.white,) : Text("Save",
+                  child: isEditingLoading ? const CircularProgressIndicator(color: Colors.white,) : const Text("Save",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
@@ -514,7 +510,7 @@ class _EditTranscationState extends State<EditTranscation> {
   bool isEditingLoading = false;
   editTransition() async{
     setState(() =>isEditingLoading = true);
-    var res = await DeliveryInController.editTranscations(case_no: selectedCageOn ?? "null", weight: weight.text, id: widget.singleTransaction!.id.toString());
+    var res = await DeliveryInController.editTranscations(case_no: selectedCageOn ?? "null", weight: weight.text, id: widget.singleTransaction.id.toString());
     if(res.statusCode == 200){
       Get.to(Transactions(existingDeliveryInDatum: widget.existingDeliveryInDatum, singleDeliveryInModel: widget.singleDelivery,  ));
       AppSnackbar.appSnackbar("Edit success.", Colors.green, context);

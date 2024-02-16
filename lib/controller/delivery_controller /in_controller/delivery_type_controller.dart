@@ -9,8 +9,8 @@ import '../../../model/delivery_model/in_model/delivery_model.dart';
 class DeliveryTypeController{
 
   static Future<DeliveryTypeModel> getDeliveryType()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.GET_DELIVERY_TYPE),
       headers: {
         "Authorization" : "Bearer $token"
@@ -21,8 +21,8 @@ class DeliveryTypeController{
 
 
   static Future<http.Response> addDeliveryType({required String name})async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.post(Uri.parse(AppConfig.GET_DELIVERY_TYPE),
         headers: {
           "Authorization" : "Bearer $token"

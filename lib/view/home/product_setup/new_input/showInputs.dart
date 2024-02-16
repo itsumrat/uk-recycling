@@ -8,7 +8,6 @@ import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/view_controller/detailsTextSideBySide.dart';
 import 'package:crm/view_controller/loader.dart';
 import 'package:crm/widgets/app_title_text.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,10 +27,10 @@ class _ShowNewlyCretaeProductionState extends State<ShowNewlyCretaeProduction> {
   var userId, userName, date;
 
   getLogInfo()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      userId = _pref.getString("user_id")!;
-      userName = _pref.getString("user_name")!;
+      userId = pref.getString("user_id")!;
+      userName = pref.getString("user_name")!;
       date = AppConst.currentData();
     });
   }
@@ -54,36 +53,36 @@ class _ShowNewlyCretaeProductionState extends State<ShowNewlyCretaeProduction> {
           future: _getSingleProduction,
           builder: (context, snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child: AppLoader(),);
+              return const Center(child: AppLoader(),);
             }else if(snapshot.hasData){
               var data = snapshot.data!.data!;
               return SingleChildScrollView(
-                padding: EdgeInsets.all(30),
+                padding: const EdgeInsets.all(30),
                 child: Column(
                   children: [
                     Center(
                       child: AppTitleText(text: "Production Created ${data.production!.productionId}"),
                     ),
-                    SizedBox(height: 40,),
-                    Padding(padding: EdgeInsets.only(left: 40, right: 40),
+                    const SizedBox(height: 40,),
+                    Padding(padding: const EdgeInsets.only(left: 40, right: 40),
                       child: Column(
                         children: [
 
                           AppSideBySIdeText(leftText: "Assign to:  ", rightText: "${data.production!.assignedTo!.name}"),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           AppSideBySIdeText(leftText: "Production ID:  ", rightText: "${data.production!.productionId}"),
-                          SizedBox(height: 20,),
-                          AppSideBySIdeText(leftText: "Date: ", rightText: "${AppConst.formetData(data.production!.createdAt)}"),
-                          SizedBox(height: 20,),
-                          AppSideBySIdeText(leftText: "User: ", rightText: "${userName}"),
-                          SizedBox(height: 20,),
-                          AppSideBySIdeText(leftText: "user Id: ", rightText: "${userId}"),
+                          const SizedBox(height: 20,),
+                          AppSideBySIdeText(leftText: "Date: ", rightText: AppConst.formetData(data.production!.createdAt)),
+                          const SizedBox(height: 20,),
+                          AppSideBySIdeText(leftText: "User: ", rightText: "$userName"),
+                          const SizedBox(height: 20,),
+                          AppSideBySIdeText(leftText: "user Id: ", rightText: "$userId"),
 
-                          SizedBox(height: 50,),
+                          const SizedBox(height: 50,),
                           Align(
                             alignment: Alignment.center,
                             child: InkWell(
-                              onTap: ()=>Get.to(NewInputs()),
+                              onTap: ()=>Get.to(const NewInputs()),
                               child: Container(
                                 width: 180,
                                 height: 70,
@@ -91,7 +90,7 @@ class _ShowNewlyCretaeProductionState extends State<ShowNewlyCretaeProduction> {
                                   borderRadius: BorderRadius.circular(15),
                                   gradient: AppWidgets.buildLinearGradient(),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text("New Input",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
@@ -103,11 +102,11 @@ class _ShowNewlyCretaeProductionState extends State<ShowNewlyCretaeProduction> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          const SizedBox(height: 20,),
                           Align(
                             alignment: Alignment.center,
                             child: InkWell(
-                              onTap: ()=>Get.to(ProductSetup()),
+                              onTap: ()=>Get.to(const ProductSetup()),
                               child: Container(
                                 width: 180,
                                 height: 70,
@@ -115,7 +114,7 @@ class _ShowNewlyCretaeProductionState extends State<ShowNewlyCretaeProduction> {
                                   borderRadius: BorderRadius.circular(15),
                                   gradient: AppWidgets.buildLinearGradient(),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text("Back",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
@@ -134,7 +133,7 @@ class _ShowNewlyCretaeProductionState extends State<ShowNewlyCretaeProduction> {
                 ),
               );
             }else{
-              return Center(child: Text("Something went wrong."),);
+              return const Center(child: Text("Something went wrong."),);
             }
           }
         )

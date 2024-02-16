@@ -2,7 +2,6 @@ import 'package:crm/appConfig.dart';
 import 'package:crm/controller/production_controller/production_controller.dart';
 import 'package:crm/model/production_model/single_production_list.dart';
 import 'package:crm/utility/app_const.dart';
-import 'package:crm/view/appBottomNavigationBar.dart';
 import 'package:crm/view/home/productions/edit_translations.dart';
 import 'package:crm/view/home/productions/productions.dart';
 import 'package:crm/view/home/productions/singleProductionInput.dart';
@@ -36,16 +35,16 @@ class _SingleProductionsState extends State<SingleProductions> {
     // TODO: implement initState
     super.initState();
     _getUserInfo();
-    getSingleProductionFuture = ProductionController.getSingleProduction(id: widget.id!.toString());
+    getSingleProductionFuture = ProductionController.getSingleProduction(id: widget.id.toString());
   }
 
   var user_name, user_id, role;
   void _getUserInfo()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      user_id = _pref.getString("user_id");
-      user_name = _pref.getString("user_name");
-      role = _pref.getString("role");
+      user_id = pref.getString("user_id");
+      user_name = pref.getString("user_name");
+      role = pref.getString("role");
     });
   }
 
@@ -53,52 +52,52 @@ class _SingleProductionsState extends State<SingleProductions> {
   Widget build(BuildContext context) {
     return AppWidget(
       appBarTitle: "Production ID: ${widget. productionModel!.productionId}",
-      appBarOnBack: ()=>Get.to(Productoins()),
+      appBarOnBack: ()=>Get.to(const Productoins()),
       body: FutureBuilder<SingleProductionModel>(
         future: getSingleProductionFuture,
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: AppLoader(),);
+            return const Center(child: AppLoader(),);
           }else if(snapshot.hasData){
             return SingleChildScrollView(
-              padding: EdgeInsets.only(left: 50, right: 50, top: 30, bottom: 30),
+              padding: const EdgeInsets.only(left: 50, right: 50, top: 30, bottom: 30),
               child: Column(
                 children: [
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   Center(child: AppTitleText(text: "Production: ${snapshot.data!.data!.production!.productionId}")),
-                  SizedBox(height: 30,),
-                  AppSideBySIdeText(leftText: "Date: ", rightText: "${AppConfig.dateFormat(snapshot.data!.data!.production!.productionDate!)}"),
-                  SizedBox(height: 20,),
-                  AppSideBySIdeText(leftText: "User ID: ", rightText: "${user_id}"),
-                  SizedBox(height: 20,),
-                  AppSideBySIdeText(leftText: "User Name: ", rightText: "${user_name}"),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 30,),
+                  AppSideBySIdeText(leftText: "Date: ", rightText: AppConfig.dateFormat(snapshot.data!.data!.production!.productionDate!)),
+                  const SizedBox(height: 20,),
+                  AppSideBySIdeText(leftText: "User ID: ", rightText: "$user_id"),
+                  const SizedBox(height: 20,),
+                  AppSideBySIdeText(leftText: "User Name: ", rightText: "$user_name"),
+                  const SizedBox(height: 20,),
                   AppSideBySIdeText(leftText: "Table No: ", rightText: "${widget.productionModel!.tables!.tableId}"),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   AppSideBySIdeText(leftText: "Assigned to: ", rightText: "${widget.productionModel!.assignedTo!.name}"),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
 
-                  Center(child: Text("Total Weight",
+                  const Center(child: Text("Total Weight",
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600
                     ),
                   ),),
-                  SizedBox(height: 15,),
-                  Center(child: Text("${snapshot.data!.data!.weight.toString()}",
-                    style: TextStyle(
+                  const SizedBox(height: 15,),
+                  Center(child: Text(snapshot.data!.data!.weight.toString(),
+                    style: const TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.w600
                     ),
                   ),),
-                  SizedBox(height: 15,),
-                  Center(child: Text("KG",
+                  const SizedBox(height: 15,),
+                  const Center(child: Text("KG",
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600
                     ),
                   ),),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   Align(
                     alignment: Alignment.center,
                     child: AppBox(
@@ -107,7 +106,7 @@ class _SingleProductionsState extends State<SingleProductions> {
                       width: 180,
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   role == AppConst.supervisorRole ?  Align(
                     alignment: Alignment.center,
                     child: InkWell(
@@ -130,13 +129,13 @@ class _SingleProductionsState extends State<SingleProductions> {
                         ),
                       ),
                     ),
-                  ) : Center()
+                  ) : const Center()
 
                 ],
               ),
             );
           }else{
-            return Center(child: Text("No data found."),);
+            return const Center(child: Text("No data found."),);
           }
         }
       ),

@@ -74,7 +74,7 @@ class _SingleExistingDeliveriesState extends State<SingleExistingDeliveries> {
                     ),
                     Center(
                       child: Text(
-                        "${snapshot.data!.data!.weight ?? "0"} ",
+                        "${snapshot.data!.data!.weight?.toStringAsFixed(2) ?? "0.00"} ",
                         style: const TextStyle(fontSize: 30, color: AppColor.black, fontWeight: FontWeight.w500),
                       ),
                     ),

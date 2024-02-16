@@ -33,21 +33,21 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
       textSize: 20,
       appBarOnBack: ()=>Get.back(),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            SizedBox(height: 50,),
-            Text("Weight/Pallet",
+            const SizedBox(height: 50,),
+            const Text("Weight/Pallet",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
                   fontSize: 30
               ),
             ),
-            SizedBox(height: 50,),
+            const SizedBox(height: 50,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("User Name",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -56,7 +56,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                   flex: 2,
                   child: DropdownButtonHideUnderline(
@@ -91,7 +91,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                             color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(5)
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         height: 60,
                         width: 140,
                       ),
@@ -104,10 +104,10 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
 
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("User ID",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -116,14 +116,14 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "User ID 02"
@@ -134,10 +134,10 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
             ),
 
 
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Date",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -146,14 +146,14 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "Auto Fill up"
@@ -162,10 +162,10 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Delivery Type",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -174,7 +174,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                   flex: 2,
                   child: DropdownButtonHideUnderline(
@@ -209,7 +209,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                             color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(5)
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         height: 60,
                         width: 140,
                       ),
@@ -222,10 +222,10 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
 
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Product Category",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -234,7 +234,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                   flex: 2,
                   child: DropdownButtonHideUnderline(
@@ -269,7 +269,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                             color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(5)
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         height: 60,
                         width: 140,
                       ),
@@ -282,10 +282,10 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
 
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Pieces",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -294,7 +294,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
@@ -302,7 +302,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "12 "
@@ -314,9 +314,9 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
             ),
 
 
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
             InkWell(
-              onTap: ()=>Get.to(ShowPiecesPallet()),
+              onTap: ()=>Get.to(const ShowPiecesPallet()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -324,7 +324,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Input",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -335,7 +335,7 @@ class _CreateNewPiecesPalletState extends State<CreateNewPiecesPallet> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
 
           ],
         ),

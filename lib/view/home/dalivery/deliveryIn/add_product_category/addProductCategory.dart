@@ -47,7 +47,7 @@ class _AddProductCategoryState extends State<AddProductCategory> {
       appBarTitle: "Add product category",
       appBarOnBack: ()=>Get.back(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             SizedBox(
@@ -67,7 +67,7 @@ class _AddProductCategoryState extends State<AddProductCategory> {
                         ),
                       )
                   ),
-                  SizedBox(width: 15,),
+                  const SizedBox(width: 15,),
                   InkWell(
                     onTap: ()=> _createProductCategory(),
                     child: Container(
@@ -78,7 +78,7 @@ class _AddProductCategoryState extends State<AddProductCategory> {
                           gradient: AppWidgets.buildLinearGradient()
                       ),
                       child: Center(
-                        child: isAdding ? CircularProgressIndicator(color: Colors.white,) : Text("Add",
+                        child: isAdding ? const CircularProgressIndicator(color: Colors.white,) : const Text("Add",
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
@@ -92,12 +92,12 @@ class _AddProductCategoryState extends State<AddProductCategory> {
                 ],
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             FutureBuilder<ProductCategoryMdel>(
               future: getProductCategoryModel,
               builder: (context,snapshot) {
                 if(snapshot.connectionState == ConnectionState.waiting){
-                  return Padding( 
+                  return const Padding( 
                     padding: EdgeInsets.only(top: 100),
                     child: Center(child: AppLoader()),);
                 }else if(snapshot.hasData){
@@ -107,9 +107,9 @@ class _AddProductCategoryState extends State<AddProductCategory> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.data!.length,
                       itemBuilder: (_, index){
-                        var data = snapshot.data!.data![index]!;
+                        var data = snapshot.data!.data![index];
                         return Container(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           width: double.infinity,
                           decoration: BoxDecoration(
                             //borderRadius: BorderRadius.circular(5),
@@ -126,7 +126,7 @@ class _AddProductCategoryState extends State<AddProductCategory> {
                     ),
                   );
                 }else{
-                  return Center(child: Text("No category found"),);
+                  return const Center(child: Text("No category found"),);
                 }
               }
             ),

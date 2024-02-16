@@ -1,11 +1,8 @@
 
-import 'dart:convert';
 import 'dart:core';
 
 import 'package:crm/controller/cage_controller/cage_controller.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/delivery_type_controller.dart';
-import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
-import 'package:crm/controller/delivery_controller%20/in_controller/product_category_controller.dart';
 import 'package:crm/controller/delivery_controller%20/out_controller/delivery_out_controller.dart';
 import 'package:crm/controller/user_controller/userController.dart';
 import 'package:crm/model/cage_model/cage_model.dart';
@@ -14,7 +11,6 @@ import 'package:crm/model/delivery_model/in_model/product_category_model.dart';
 import 'package:crm/model/delivery_model/out_model/existing_delivery_out_model.dart';
 import 'package:crm/model/user_model/allUserModel.dart';
 import 'package:crm/utility/app_const.dart';
-import 'package:crm/view/home/dalivery/deliveryIn/existingDeliveries/singleExistingDeliveries.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/view_controller/loader.dart';
@@ -22,10 +18,7 @@ import 'package:crm/view_controller/snackbar_controller.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
-import 'show_created_tr.dart';
-import 'show_single_trx_create.dart';
 import 'single_existing_delivery.dart';
 
 
@@ -58,26 +51,26 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
   String? selectUserName;
 
   Future<AllUserModel>? allUserFuture;
-  List<DeliveryDatum>? _allDeliveryTypeList = [];
-  List<ProductCategoryDatum>? _allProductCategoryList = [];
+  final List<DeliveryDatum> _allDeliveryTypeList = [];
+  final List<ProductCategoryDatum> _allProductCategoryList = [];
   //get delivery type list
   void _getDeliveryTypeList()async{
     var res = await DeliveryTypeController.getDeliveryType();
     for(var i in res.data!){
       setState(() {
-        _allDeliveryTypeList?.add(i);
+        _allDeliveryTypeList.add(i);
       });
     }
   }
 
   //get product category
-  List<CageDatum>? _allCageList = [];
+  final List<CageDatum> _allCageList = [];
 
   void _getAllCageList()async{
     var res = await CageController.getCageNo();
-    for(var i in res!.data!){
+    for(var i in res.data!){
       setState(() {
-        _allCageList?.add(i);
+        _allCageList.add(i);
       });
     }
   }
@@ -105,15 +98,15 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
       textSize: 20,
       appBarOnBack: ()=>Get.back(),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            SizedBox(height: 50,),
+            const SizedBox(height: 50,),
             FutureBuilder<AllUserModel>(
                 future: allUserFuture,
                 builder: (context, snapshot) {
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return Center(child: AppLoader(),);
+                    return const Center(child: AppLoader(),);
                   }else if(snapshot.hasData){
                     return Column(
                       children: [
@@ -355,7 +348,7 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                         // ),
                        widget.existingDeliveryInDatum!.measurement!.name == "Cage" ? Row(
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: Text("Cage No",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
@@ -364,7 +357,7 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 20,),
+                            const SizedBox(width: 20,),
                             Expanded(
                               flex: 2,
                               child: DropdownButtonHideUnderline(
@@ -377,10 +370,10 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                                       color: Theme.of(context).hintColor,
                                     ),
                                   ),
-                                  items:(_allCageList)?.map((item) => DropdownMenuItem<String>(
-                                    value: item!.id.toString(),
+                                  items:(_allCageList).map((item) => DropdownMenuItem<String>(
+                                    value: item.id.toString(),
                                     child: Text(
-                                      item!.caseName!,
+                                      item.caseName!,
                                       style: const TextStyle(
                                         fontSize: 14,
                                       ),
@@ -398,7 +391,7 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                                         color: Colors.grey.shade200,
                                         borderRadius: BorderRadius.circular(5)
                                     ),
-                                    padding: EdgeInsets.symmetric(horizontal: 16),
+                                    padding: const EdgeInsets.symmetric(horizontal: 16),
                                     height: 60,
                                     width: 140,
                                   ),
@@ -410,20 +403,20 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                             ),
 
                           ],
-                        ) : Center(),
-                        SizedBox(height: 20,),
+                        ) : const Center(),
+                        const SizedBox(height: 20,),
                         Row(
                           children: [
                             Expanded(
                               child: Text("${widget.existingDeliveryInDatum!.measurement!.name}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w400,
                                     color: Colors.black,
                                     fontSize: 15
                                 ),
                               ),
                             ),
-                            SizedBox(width: 20,),
+                            const SizedBox(width: 20,),
                             Expanded(
                                 flex: 2,
                                 child: TextFormField(
@@ -432,7 +425,7 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                                   decoration: InputDecoration(
                                       fillColor: Colors.grey.shade200,
                                       filled: true,
-                                      border: OutlineInputBorder(
+                                      border: const OutlineInputBorder(
                                           borderSide: BorderSide.none
                                       ),
                                       hintText: "40 ${widget.existingDeliveryInDatum!.measurement!.name}"
@@ -442,7 +435,7 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                           ],
                         ),
 
-                        SizedBox(height: 70,),
+                        const SizedBox(height: 70,),
                         InkWell(
                           onTap: ()=>_createDeliveryInTranscation(),
                           child:  Container(
@@ -453,7 +446,7 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             child: Center(
-                              child: isAdding? CircularProgressIndicator(color: Colors.white,) : Text("Input",
+                              child: isAdding? const CircularProgressIndicator(color: Colors.white,) : const Text("Input",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     color: Colors.white,
@@ -463,12 +456,12 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 30,),
+                        const SizedBox(height: 30,),
 
                       ],
                     );
                   }else{
-                    return Center(child: Text("Check your internet connection."),);
+                    return const Center(child: Text("Check your internet connection."),);
                   }
                 }
             )

@@ -28,17 +28,17 @@ class AppBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            FaIcon(
+            const FaIcon(
               FontAwesomeIcons.shirt,
               size: 45,
               color: Colors.white,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                   fontSize: 18),

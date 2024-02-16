@@ -9,8 +9,8 @@ class TableController{
 
   //get table list
   static Future<TableListModel> getTableList()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.ALL_TABLE),
       headers: {
         "Authorization" : "Bearer $token"

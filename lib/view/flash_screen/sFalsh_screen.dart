@@ -30,9 +30,9 @@ class _SFlashScreenState extends State<SFlashScreen> {
     return InkWell(
       borderRadius: defaultSkipButtonBorderRadius,
       onTap: () {
-       Get.offAll(SignIn());
+       Get.offAll(const SignIn());
       },
-      child:  Text(
+      child:  const Text(
         'Skip',
         style: TextStyle(
           fontSize: 20,
@@ -105,16 +105,16 @@ class _SFlashScreenState extends State<SFlashScreen> {
                 padding: const EdgeInsets.all(45.0),
                 child:  index == pagesLength - 1
                     ?  InkWell(
-                  onTap: ()=>Get.offAll(SignIn()),
+                  onTap: ()=>Get.offAll(const SignIn()),
                       child: Container(
                   width: double.infinity,
                   height: 50,
-                  margin: EdgeInsets.only(left: 50, right: 50),
+                  margin: const EdgeInsets.only(left: 50, right: 50),
                   decoration: BoxDecoration(
                       color: AppColor.mainColor,
                       borderRadius: BorderRadius.circular(10)
                   ),
-                  child: Center(
+                  child: const Center(
                       child: Text("Sign In",
                         style: TextStyle(
                           fontSize: 17,
@@ -129,12 +129,12 @@ class _SFlashScreenState extends State<SFlashScreen> {
                   children: [
                     index != pagesLength - 1
                         ? _skipButton(setIndex: setIndex)
-                        : Center(),
+                        : const Center(),
                     CustomIndicator(
                       netDragPercent: dragDistance,
                       pagesLength: pagesLength,
                       indicator: Indicator(
-                        activeIndicator: ActiveIndicator(
+                        activeIndicator: const ActiveIndicator(
                           color: AppColor.mainColor,
                         ),
                         indicatorDesign: IndicatorDesign.polygon(
@@ -144,7 +144,7 @@ class _SFlashScreenState extends State<SFlashScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 50,)
+                    const SizedBox(width: 50,)
 
                   ],
                 ),
@@ -187,13 +187,13 @@ class _SFlashScreenState extends State<SFlashScreen> {
                   child: Container(
                     width: double.infinity,
                     height: 300,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
 
                     ),
                     child: Container(
                       height: 200,
-                      padding: EdgeInsets.all(30),
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.all(30),
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
@@ -203,12 +203,12 @@ class _SFlashScreenState extends State<SFlashScreen> {
                       child: Column(
                         children: [
                            Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 45.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 45.0),
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
                                 title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                   fontSize: 30
@@ -218,13 +218,13 @@ class _SFlashScreenState extends State<SFlashScreen> {
                             ),
                           ),
                            Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 20.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 20.0),
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 subTitile,
                                 //"Don't miss out our flash sale and daily spclais with great discounts.",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w300,
                                     color: Colors.black,
                                     fontSize: 18

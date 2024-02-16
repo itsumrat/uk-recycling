@@ -1,13 +1,7 @@
-import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
 import 'package:crm/controller/delivery_controller%20/out_controller/delivery_out_controller.dart';
-import 'package:crm/model/delivery_model/in_model/single_deliveryin_model.dart';
 import 'package:crm/model/delivery_model/out_model/SingleExistingDeliveryOutModel.dart';
 import 'package:crm/model/delivery_model/out_model/existing_delivery_out_model.dart';
 import 'package:crm/utility/utility.dart';
-import 'package:crm/view/home/dalivery/deliveryIn/existingDeliveries/add_new/cageBox/create_cage_box.dart';
-import 'package:crm/view/home/dalivery/deliveryIn/existingDeliveries/existingDeliveries.dart';
-import 'package:crm/view/home/dalivery/deliveryIn/existingDeliveries/transactions.dart';
-import 'package:crm/view/home/dalivery/delivery_out/deliveryOut.dart';
 import 'package:crm/view/home/dalivery/delivery_out/existing_delivery_out_list.dart';
 import 'package:crm/view/home/dalivery/delivery_out/single_delivery_outs_tr_list.dart';
 import 'package:crm/view/home/dalivery/delivery_out/single_exsiting_tr_create.dart';
@@ -44,19 +38,19 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
   void initState() {
     // TODO: implement initState
     super.initState();
-    _singleDelivery = DeliveryOutController.getSingleDeliveryOut(id: widget!.existingDeliveryId.toString());
+    _singleDelivery = DeliveryOutController.getSingleDeliveryOut(id: widget.existingDeliveryId.toString());
 
-    print("widget!.existingDeliveryId.toString()  ${widget!.existingDeliveryId.toString()}");
+    print("widget!.existingDeliveryId.toString()  ${widget.existingDeliveryId.toString()}");
   }
 
   Future<void> _refresh() async {
-     _singleDelivery = DeliveryOutController.getSingleDeliveryOut(id: widget!.existingDeliveryId.toString());
+     _singleDelivery = DeliveryOutController.getSingleDeliveryOut(id: widget.existingDeliveryId.toString());
     await _singleDelivery;
   }
   @override
   Widget build(BuildContext context) {
     return AppWidget(
-      appBarOnBack: ()=>Get.to(ExistingDeliveriesOuts() ),
+      appBarOnBack: ()=>Get.to(const ExistingDeliveriesOuts() ),
       appBarTitle: "${widget.existingDeliveryOutDatum?.deliveryOutId}/${inputFormat.format(widget.existingDeliveryOutDatum?.date ?? DateTime.now())}/${widget.existingDeliveryOutDatum?.measurement?.name}",
       textSize: 15,
       body: RefreshIndicator(
@@ -66,16 +60,16 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
             future: _singleDelivery,
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting){
-                return Center(child: AppLoader(),);
+                return const Center(child: AppLoader(),);
               }else if(snapshot.hasData){
                 return SingleChildScrollView(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 30,),
-                      Center(
+                      const SizedBox(height: 30,),
+                      const Center(
                         child: Text("Total Weight",
                           style: TextStyle(
                               fontSize: 15,
@@ -84,27 +78,27 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       Center(
                         child: Text("${snapshot.data!.data!.weight??"0"} ",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 30,
                               color: AppColor.black,
                               fontWeight: FontWeight.w500
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       Center(
                         child: Text("${snapshot.data!.data!.delivery!.measurement!.name}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 15,
                               color: AppColor.textColor,
                               fontWeight: FontWeight.w300
                           ),
                         ),
                       ),
-                      SizedBox(height: 30,),
+                      const SizedBox(height: 30,),
 
                       //// transactions
                       InkWell(
@@ -116,7 +110,7 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
                               gradient: AppWidgets.buildLinearGradient(),
                               borderRadius: BorderRadius.circular(10)
                           ),
-                          child: Column(
+                          child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -133,7 +127,7 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
                           ),
                         ),
                       ),
-                      SizedBox(height: 30,),
+                      const SizedBox(height: 30,),
                       InkWell(
                         onTap: ()=>Get.to(CreateSingleTr(existingDeliveryInDatum: widget.existingDeliveryOutDatum, existingDeliveryId: snapshot.data!.data!.delivery!.id.toString(),)),
                         child: Container(
@@ -143,7 +137,7 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
                               gradient: AppWidgets.buildLinearGradient(),
                               borderRadius: BorderRadius.circular(10)
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text("Add New",
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -154,8 +148,8 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       // SizedBox(height: 20,),
                       // InkWell(
                       //   onTap: ()=>Get.to(EditTransactions()),
@@ -177,7 +171,7 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
                       //     ),
                       //   ),
                       // ),
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
                       InkWell(
                         onTap: ()=> _deleteDeliveryIn(),
                         child: Container(
@@ -188,7 +182,7 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
                               borderRadius: BorderRadius.circular(10)
                           ),
                           child: Center(
-                            child: isLoading? CircularProgressIndicator(color: Colors.white,) : Text("Delete",
+                            child: isLoading? const CircularProgressIndicator(color: Colors.white,) : const Text("Delete",
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.white,
@@ -202,7 +196,7 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
                   ),
                 );
               }else{
-                return Center(child: Text("Something went wrong."),);
+                return const Center(child: Text("Something went wrong."),);
               }
             }
         ),
@@ -215,7 +209,7 @@ class _SingleExistingDeliveriesOutsState extends State<SingleExistingDeliveriesO
     setState(() =>isLoading = true);
     var res = await DeliveryOutController.deleteDeliveryOut(id: widget.existingDeliveryInDatum!.id!.toString());
     if(res.statusCode == 200){
-      Get.to(ExistingDeliveriesOuts());
+      Get.to(const ExistingDeliveriesOuts());
       AppSnackbar.appSnackbar("Delivery Out deleted success.", Colors.green, context);
     }else{
       AppSnackbar.appSnackbar("Something went wrong.", Colors.red, context);

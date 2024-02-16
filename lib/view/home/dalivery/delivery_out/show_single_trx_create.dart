@@ -1,23 +1,14 @@
 
-import 'dart:ui';
 
-import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
 import 'package:crm/controller/delivery_controller%20/out_controller/delivery_out_controller.dart';
-import 'package:crm/model/delivery_model/in_model/deliveryin_model.dart';
-import 'package:crm/model/delivery_model/in_model/single_deliveryin_model.dart';
-import 'package:crm/model/delivery_model/out_model/SingleExistingDeliveryOutModel.dart';
 import 'package:crm/model/delivery_model/out_model/existing_delivery_out_model.dart';
 import 'package:crm/model/delivery_model/out_model/single_delveryout_trx_momdel.dart';
 import 'package:crm/utility/app_const.dart';
-import 'package:crm/view/home/dalivery/deliveryIn/createNewDelivery.dart';
-import 'package:crm/view/home/dalivery/deliveryIn/deliveryIn.dart';
-import 'package:crm/view/home/dalivery/delivery_out/deliveryOut.dart';
 import 'package:crm/view/home/dalivery/delivery_out/single_existing_delivery.dart';
 import 'package:crm/view/home/dalivery/delivery_out/single_exsiting_tr_create.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/view_controller/loader.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -61,26 +52,26 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
           future: _getSingleDeliveryOut,
           builder: (context, snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child:  AppLoader(),);
+              return const Center(child:  AppLoader(),);
             }else if(snapshot.hasData){
               return SingleChildScrollView(
-                padding: EdgeInsets.only(left: 30, right: 30, bottom: 50, top: 20),
+                padding: const EdgeInsets.only(left: 30, right: 30, bottom: 50, top: 20),
                 child: Column(
                   children: [
                     Center(
                       child: Text("New UD Create ${widget.existingDeliveryInDatum!.deliveryOutId}/${widget.trxId}",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w500,
                             color: Colors.black87
                         ),
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    const SizedBox(height: 30,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("User ID: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -89,11 +80,11 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("${snapshot.data!.data!.user!.id}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -103,10 +94,10 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                       ],
                     ),
 
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("User Name: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -115,11 +106,11 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("${snapshot.data!.data!.user!.name}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -128,10 +119,10 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                         )
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("TRX ID",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -140,11 +131,11 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("${widget.trxId}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -153,10 +144,10 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                         )
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("Date: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -165,11 +156,11 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
-                            child: Text("${AppConst.formetData("${snapshot.data!.data!.date}")}",
-                              style: TextStyle(
+                            child: Text(AppConst.formetData("${snapshot.data!.data!.date}"),
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -178,7 +169,7 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                         )
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
 
                     // Row(
                     //   children: [
@@ -287,7 +278,7 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                     // SizedBox(height: 40,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("Weight: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -296,11 +287,11 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("${snapshot.data!.data!.weight} ${snapshot.data!.data!.measurements!.name}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -310,7 +301,7 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                       ],
                     ),
 
-                    SizedBox(height: 70,),
+                    const SizedBox(height: 70,),
                     InkWell(
                       onTap: ()=>Get.to(CreateSingleTr(existingDeliveryInDatum: widget.existingDeliveryInDatum, existingDeliveryId:widget.existingDeliveryId)),
                       child: Container(
@@ -320,7 +311,7 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                             gradient: AppWidgets.buildLinearGradient(),
                             borderRadius: BorderRadius.circular(10)
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text("Add More",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -331,7 +322,7 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                     InkWell(
                       onTap: ()=>Get.to(SingleExistingDeliveriesOuts(existingDeliveryOutDatum: widget.existingDeliveryInDatum, existingDeliveryId: widget.existingDeliveryId,)),
                       child: Container(
@@ -341,7 +332,7 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                             gradient: AppWidgets.buildLinearGradient(),
                             borderRadius: BorderRadius.circular(10)
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text("Back",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -352,12 +343,12 @@ class _ShowNewlyCreateDeliveryOutSingleTrxState extends State<ShowNewlyCreateDel
                         ),
                       ),
                     ),
-                    SizedBox(height: 70,),
+                    const SizedBox(height: 70,),
                   ],
                 ),
               );
             }else{
-              return Center(child: Text("No data found."),);
+              return const Center(child: Text("No data found."),);
             }
 
           }

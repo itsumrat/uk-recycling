@@ -10,8 +10,8 @@ class GradeController{
 
   //show grade list
   static Future<GradeModel> getGradeList()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.GRADE),
       headers: {
         "Authorization" : "Bearer $token",
@@ -23,8 +23,8 @@ class GradeController{
 
   //create grade
   static Future<http.Response> createNewGrade({required String name})async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.post(Uri.parse(AppConfig.GRADE),
       body: {
         "name" : name

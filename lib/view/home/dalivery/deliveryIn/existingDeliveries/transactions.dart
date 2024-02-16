@@ -1,5 +1,4 @@
 import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
-import 'package:crm/model/delivery_model/in_model/deliveryInTransactionsModel.dart';
 import 'package:crm/model/delivery_model/in_model/deliveryin_model.dart';
 import 'package:crm/model/delivery_model/in_model/single_deliveryin_model.dart';
 import 'package:crm/model/delivery_model/in_model/single_deliveryin_transaction_model.dart';
@@ -28,20 +27,20 @@ class Transactions extends StatefulWidget {
 
 class _TransactionsState extends State<Transactions> {
 
-  List<Transaction> _transcationList = [];
-  List<Transaction> _searchTranscationList = [];
+  final List<Transaction> _transcationList = [];
+  final List<Transaction> _searchTranscationList = [];
   bool isLoading = false;
   var role;
   getTranscationList()async{
     setState(() =>isLoading = true);
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      role = _pref.getString("role");
+      role = pref.getString("role");
     });
     var res = await DeliveryInController.getSingleExistingDeliveryInTransactions(id: widget.singleDeliveryInModel!.data!.delivery!.id.toString());
     for(var i in res.data!.transaction!){
       setState(() {
-        _transcationList?.add(i);
+        _transcationList.add(i);
       });
     }
     setState(() =>isLoading = false);
@@ -62,8 +61,8 @@ class _TransactionsState extends State<Transactions> {
       //appBarOnBack: ()=>Get.back(),
       appBarOnBack: ()=>Get.to(SingleExistingDeliveries(existingDeliveryInDatum: widget.existingDeliveryInDatum, existingDeliveryId: widget.singleDeliveryInModel!.data!.delivery!.id.toString(),)),
       appBarTitle: "Transaction",
-      body: isLoading? Center(child: AppLoader(),) :  Padding(
-        padding: EdgeInsets.all(20),
+      body: isLoading? const Center(child: AppLoader(),) :  Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             Row(
@@ -76,14 +75,14 @@ class _TransactionsState extends State<Transactions> {
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "Search"
                       ),
                     )
                 ),
-                SizedBox(width: 15,),
+                const SizedBox(width: 15,),
                 Container(
                   width: 100,
                   height: 60,
@@ -91,7 +90,7 @@ class _TransactionsState extends State<Transactions> {
                       borderRadius: BorderRadius.circular(5),
                       gradient: AppWidgets.buildLinearGradient()
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text("Search",
                       style: TextStyle(
                           fontSize: 18,
@@ -104,7 +103,7 @@ class _TransactionsState extends State<Transactions> {
 
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Expanded(
                 child: _searchTranscationList.isNotEmpty
                     ? ListView.builder(
@@ -114,14 +113,14 @@ class _TransactionsState extends State<Transactions> {
                         //onTap: ()=>Get.to(SingleExistingDeliveries()),
                         child: Container(
                           //height: 50,
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
                                 width: size.width*.30,
-                                child: Text("${widget.singleDeliveryInModel!.data!.delivery!.deliveryInId}/${_searchTranscationList[index]!.id}",
-                                  style: TextStyle(
+                                child: Text("${widget.singleDeliveryInModel!.data!.delivery!.deliveryInId}/${_searchTranscationList[index].id}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black,
                                       fontSize: 16
@@ -131,13 +130,13 @@ class _TransactionsState extends State<Transactions> {
 
                               SizedBox(
                                 child: Container(
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                       color: Colors.grey.shade200,
                                       borderRadius: BorderRadius.circular(5)
                                   ),
                                   child: Text("${widget.singleDeliveryInModel!.data!.delivery!.categories!.name}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w400,
                                         color: AppColor.textColor,
                                         fontSize: 16
@@ -145,16 +144,16 @@ class _TransactionsState extends State<Transactions> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10,),
+                              const SizedBox(width: 10,),
                               SizedBox(
                                 child: Container(
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                       color: Colors.grey.shade300,
                                       borderRadius: BorderRadius.circular(5)
                                   ),
-                                  child: Text("${_searchTranscationList[index]!.weight} ${widget.singleDeliveryInModel!.data!.delivery!.measurement!.name}",
-                                    style: TextStyle(
+                                  child: Text("${_searchTranscationList[index].weight} ${widget.singleDeliveryInModel!.data!.delivery!.measurement!.name}",
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w400,
                                         color: Colors.black,
                                         fontSize: 16
@@ -162,17 +161,17 @@ class _TransactionsState extends State<Transactions> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10,),
+                              const SizedBox(width: 10,),
                               SizedBox(
                                 child: InkWell(
                                   onTap: ()=>Get.to(EditTranscation(existingDeliveryInDatum: widget.existingDeliveryInDatum, singleDelivery: widget.singleDeliveryInModel!, singleTransaction: _searchTranscationList[index],)),
                                   child: Container(
-                                    padding: EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+                                    padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
                                     decoration: BoxDecoration(
                                         color: AppColor.mainColor,
                                         borderRadius: BorderRadius.circular(5)
                                     ),
-                                    child: Text("Edit",
+                                    child: const Text("Edit",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           color: Colors.white,
@@ -189,7 +188,7 @@ class _TransactionsState extends State<Transactions> {
                     }
                 )
                     : _transcationList.isEmpty
-                    ? Center(child:Text("No data found."))
+                    ? const Center(child:Text("No data found."))
                     : ListView.builder(
                     itemCount: _transcationList.length,
                     itemBuilder: (_, index){
@@ -197,14 +196,14 @@ class _TransactionsState extends State<Transactions> {
                         //onTap: ()=>Get.to(SingleExistingDeliveries()),
                         child: Container(
                           //height: 50,
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
                                 width: size.width*.28,
-                                child: Text("${widget.singleDeliveryInModel!.data!.delivery!.deliveryInId}/${_transcationList[index]!.id}",
-                                  style: TextStyle(
+                                child: Text("${widget.singleDeliveryInModel!.data!.delivery!.deliveryInId}/${_transcationList[index].id}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black,
                                       fontSize: 16
@@ -214,13 +213,13 @@ class _TransactionsState extends State<Transactions> {
 
                               SizedBox(
                                 child: Container(
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade200,
                                     borderRadius: BorderRadius.circular(5)
                                   ),
                                   child: Text("${widget.singleDeliveryInModel!.data!.delivery!.categories!.name}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w400,
                                         color: AppColor.textColor,
                                         fontSize: 16
@@ -228,16 +227,16 @@ class _TransactionsState extends State<Transactions> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10,),
+                              const SizedBox(width: 10,),
                               SizedBox(
                                 child: Container(
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                       color: Colors.grey.shade300,
                                       borderRadius: BorderRadius.circular(5)
                                   ),
-                                  child: Text("${_transcationList[index]!.weight} ${widget.singleDeliveryInModel!.data!.delivery!.measurement!.name}",
-                                    style: TextStyle(
+                                  child: Text("${_transcationList[index].weight} ${widget.singleDeliveryInModel!.data!.delivery!.measurement!.name}",
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w400,
                                         color: Colors.black,
                                         fontSize: 16
@@ -245,17 +244,17 @@ class _TransactionsState extends State<Transactions> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10,),
+                              const SizedBox(width: 10,),
                               role == AppConst.supervisorRole ?  SizedBox(
                                 child: InkWell(
                                   onTap: ()=>Get.to(EditTranscation( existingDeliveryInDatum: widget.existingDeliveryInDatum, singleDelivery: widget.singleDeliveryInModel!, singleTransaction: _transcationList[index],)),
                                   child: Container(
-                                    padding: EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+                                    padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
                                     decoration: BoxDecoration(
                                         color: AppColor.mainColor,
                                         borderRadius: BorderRadius.circular(5)
                                     ),
-                                    child: Text("Edit",
+                                    child: const Text("Edit",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           color: Colors.white,
@@ -264,7 +263,7 @@ class _TransactionsState extends State<Transactions> {
                                     ),
                                   ),
                                 ),
-                              ) : Center(),
+                              ) : const Center(),
                             ],
                           ),
                         ),
@@ -285,7 +284,7 @@ class _TransactionsState extends State<Transactions> {
       _searchTranscationList.clear();
     });
     if(query.isNotEmpty){
-      for(var i in _transcationList!){
+      for(var i in _transcationList){
         if(i.id!.toString().contains(query)){
           print("i === ${i.id}");
           setState(() {
@@ -300,7 +299,7 @@ class _TransactionsState extends State<Transactions> {
       });
     }
 
-    print("_searchTranscationList   == ${_searchTranscationList[0]!.id}");
+    print("_searchTranscationList   == ${_searchTranscationList[0].id}");
 
 
     print("_searchTranscationList ${_searchTranscationList.length}");

@@ -1,23 +1,18 @@
 import 'dart:convert';
 import 'package:crm/controller/production_controller/production_controller.dart';
 import 'package:crm/model/delivery_model/grade_model/grade_model.dart';
-import 'package:crm/appConfig.dart';
 import 'package:crm/controller/production_setup/gradeController.dart';
 import 'package:crm/model/production_model/single_production_list.dart';
-import 'package:crm/model/production_model/transaction_by_production_id_model.dart';
 import 'package:crm/view_controller/snackbar_controller.dart';
-import 'package:http/http.dart' as http;
 import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/widgets/app_title_text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../model/production_model/all_production_model.dart';
 import '../../../view_controller/appWidgets.dart';
 import 'showProductionInput.dart';
-import 'singleProductions.dart';
 
 class SingleProductionInput extends StatefulWidget {
   final List<Grade>? grades;
@@ -35,12 +30,12 @@ class SingleProductionInput extends StatefulWidget {
 class _SingleProductionInputState extends State<SingleProductionInput> {
   var selectedValue;
   final _weight = TextEditingController();
-  List<GradeDatum>? _gradeList = [];
+  final List<GradeDatum> _gradeList = [];
   Future<GradeModel> getGrade()async{
      var getGradeFuture = await GradeController.getGradeList();
      for(var i in getGradeFuture.data!){
        setState(() {
-         _gradeList?.add(i);
+         _gradeList.add(i);
        });
      }
      return getGradeFuture;
@@ -62,15 +57,15 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
       appBarTitle: "Production ID: ${widget.production?.productionId}",
       appBarOnBack: ()=>Get.back(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         child: Column(
           children: [
-            SizedBox(height: 20,),
-            Center(child: AppTitleText(text: "Transaction",),),
-            SizedBox(height: 40,),
+            const SizedBox(height: 20,),
+            const Center(child: AppTitleText(text: "Transaction",),),
+            const SizedBox(height: 40,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Weight",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -79,14 +74,14 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     child:  TextFormField(
                       controller: _weight,
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "KG"
@@ -96,10 +91,10 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
 
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Grade",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -108,7 +103,7 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2<String>(
@@ -120,7 +115,7 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
                           color: Theme.of(context).hintColor,
                         ),
                       ),
-                      items:_gradeList?.map((item)  => DropdownMenuItem<String>(
+                      items:_gradeList.map((item)  => DropdownMenuItem<String>(
                         value: item.id.toString(),
                         child: Text(
                           item.name!,
@@ -141,7 +136,7 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
                             color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(5)
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         height: 60,
                         width: 140,
                       ),
@@ -154,7 +149,7 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
 
               ],
             ),
-            SizedBox(height: 50,),
+            const SizedBox(height: 50,),
             Align(
               alignment: Alignment.center,
               child: InkWell(
@@ -168,9 +163,9 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
                     gradient: AppWidgets.buildLinearGradient(),
                   ),
                   child: Center(
-                    child: isLoading ? CircularProgressIndicator(color: Colors.white,) : Text(
-                      "${widget.existingWeight != null ? "Edit":"Input"}",
-                      style: TextStyle(
+                    child: isLoading ? const CircularProgressIndicator(color: Colors.white,) : Text(
+                      widget.existingWeight != null ? "Edit":"Input",
+                      style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                           fontSize: 17

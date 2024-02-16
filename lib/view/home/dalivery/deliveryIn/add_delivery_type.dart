@@ -1,6 +1,4 @@
 import 'package:crm/controller/delivery_controller%20/in_controller/delivery_type_controller.dart';
-import 'package:crm/controller/delivery_controller%20/in_controller/product_category_controller.dart';
-import 'package:crm/model/delivery_model/in_model/product_category_model.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/view_controller/loader.dart';
@@ -40,7 +38,7 @@ class _AddDeliveryTypeState extends State<AddDeliveryType> {
       appBarTitle: "Add Delivery Type",
       appBarOnBack: ()=>Get.back(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             SizedBox(
@@ -53,14 +51,14 @@ class _AddDeliveryTypeState extends State<AddDeliveryType> {
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade200,
                             filled: true,
-                            border: OutlineInputBorder(
+                            border: const OutlineInputBorder(
                                 borderSide: BorderSide.none
                             ),
                             hintText: "Add Delivery Type"
                         ),
                       )
                   ),
-                  SizedBox(width: 15,),
+                  const SizedBox(width: 15,),
                   InkWell(
                     onTap: ()=> _createDeliveryType(),
                     child: Container(
@@ -71,7 +69,7 @@ class _AddDeliveryTypeState extends State<AddDeliveryType> {
                           gradient: AppWidgets.buildLinearGradient()
                       ),
                       child: Center(
-                        child: isAdding ? CircularProgressIndicator(color: Colors.white,) : Text("Add",
+                        child: isAdding ? const CircularProgressIndicator(color: Colors.white,) : const Text("Add",
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
@@ -85,12 +83,12 @@ class _AddDeliveryTypeState extends State<AddDeliveryType> {
                 ],
               )
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             FutureBuilder<DeliveryTypeModel>(
               future: getDeliveryTypeFuture,
               builder: (context, snapshot) {
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return Padding(padding: EdgeInsets.only(top: 100) , child: Center(child: AppLoader(),),);
+                    return const Padding(padding: EdgeInsets.only(top: 100) , child: Center(child: AppLoader(),),);
                   }else if(snapshot.hasData){
                     return  SizedBox(
                       //height: 500,
@@ -99,9 +97,9 @@ class _AddDeliveryTypeState extends State<AddDeliveryType> {
                         //physics: NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.data!.length,
                         itemBuilder: (_, index){
-                          var data = snapshot.data!.data![index]!;
+                          var data = snapshot.data!.data![index];
                           return Container(
-                            padding: EdgeInsets.all(20),
+                            padding: const EdgeInsets.all(20),
                             width: double.infinity,
                             decoration: BoxDecoration(
                               //borderRadius: BorderRadius.circular(5),

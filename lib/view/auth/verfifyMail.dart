@@ -1,6 +1,4 @@
 import 'package:crm/utility/utility.dart';
-import 'package:crm/view/appBottomNavigationBar.dart';
-import 'package:crm/view/home/home.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
 import 'package:flutter/material.dart';
@@ -24,13 +22,13 @@ class _VerifiyEmailState extends State<VerifiyEmail> {
       appBarOnBack: ()=>Get.back(),
       appBarTitle: "Forget password",
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children:  [
             SizedBox(height: MediaQuery.of(context).size.height*.07,),
             SizedBox(
                 width: MediaQuery.of(context).size.width*.70,
-                child: Center(
+                child: const Center(
                   child: Text("Please enter your email address and we will send you a code to your phoen to rest the password.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -41,7 +39,7 @@ class _VerifiyEmailState extends State<VerifiyEmail> {
                   ),
                 )),
 
-            SizedBox(height: 50,),
+            const SizedBox(height: 50,),
             PinCodeTextField(
               length: 4,
               obscureText: false,
@@ -54,14 +52,14 @@ class _VerifiyEmailState extends State<VerifiyEmail> {
                 fieldHeight: 66,
                 fieldWidth: 58,
                 activeFillColor: Colors.white,
-                inactiveFillColor: Color(0xffEDEDED).withOpacity(0.61),
-                inactiveColor:Color(0xffEDEDED).withOpacity(0.61),
+                inactiveFillColor: const Color(0xffEDEDED).withOpacity(0.61),
+                inactiveColor:const Color(0xffEDEDED).withOpacity(0.61),
                 activeColor: Colors.white,
                 selectedFillColor: Colors.white,
                 selectedBorderWidth: 1,
                 selectedColor: AppColor.mainColor,
               ),
-              animationDuration: Duration(milliseconds: 300),
+              animationDuration: const Duration(milliseconds: 300),
               backgroundColor: Colors.white,
               enableActiveFill: true,
               cursorColor: Colors.black,
@@ -69,6 +67,7 @@ class _VerifiyEmailState extends State<VerifiyEmail> {
                 if (value?.isEmpty ?? true) {
                   return 'Enter OTP here';
                 }
+                return null;
               },
               onCompleted: (v) {
                 print("Completed $v");
@@ -90,9 +89,9 @@ class _VerifiyEmailState extends State<VerifiyEmail> {
         ),
       ),
       bottomNavigationBar: InkWell(
-        onTap: ()=>Get.to(AddNewPassword()),
+        onTap: ()=>Get.to(const AddNewPassword()),
         child: Container(
-          margin: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          margin: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
           height: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
@@ -101,10 +100,10 @@ class _VerifiyEmailState extends State<VerifiyEmail> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 43,),
+              const SizedBox(width: 43,),
               SizedBox(
                 width: MediaQuery.of(context).size.width*.60,
-                child: Center(
+                child: const Center(
                   child: Text("Continue",
                     style: TextStyle(
                       fontSize: 16, color: AppColor.white,
@@ -115,12 +114,12 @@ class _VerifiyEmailState extends State<VerifiyEmail> {
               Container(
                 width: 43,
                 height: 43,
-                margin: EdgeInsets.only(right: 8),
+                margin: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   color: AppColor.secColor.withOpacity(0.4),
                 ),
-                child:  Icon(Icons.arrow_forward, color: AppColor.white,),
+                child:  const Icon(Icons.arrow_forward, color: AppColor.white,),
               )
             ],
           ),

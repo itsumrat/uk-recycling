@@ -1,7 +1,6 @@
 
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,11 +31,11 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
       appBarTitle: "Delivery In ID: D1000034",
       appBarOnBack: ()=>Get.back(),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         child: Column(
           children: [
             SizedBox(height: size.height*.02,),
-            Center(child: Text("Cage/Box",
+            const Center(child: Text("Cage/Box",
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w600
@@ -45,7 +44,7 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
             SizedBox(height: size.height*.08,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("User ID",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -54,14 +53,14 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "Auto Fill up"
@@ -71,10 +70,10 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
               ],
             ),
 
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("User Name",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -83,14 +82,14 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "Auto Fill up"
@@ -99,10 +98,10 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Date",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -111,14 +110,14 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "Auto Fill up"
@@ -127,10 +126,10 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Pieces",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -139,14 +138,14 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "12"
@@ -157,9 +156,9 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
               ],
             ),
 
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
             InkWell(
-              onTap: ()=>Get.to(ShowPiecesPallet()),
+              onTap: ()=>Get.to(const ShowPiecesPallet()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -167,7 +166,7 @@ class _AddMorePiecesPalletState extends State<AddMorePiecesPallet> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Input",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,

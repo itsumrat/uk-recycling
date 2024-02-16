@@ -1,10 +1,7 @@
-import 'package:crm/view/home/product_setup/new_input/new_inputs.dart';
-import 'package:crm/view/home/product_setup/product_setup.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/view_controller/detailsTextSideBySide.dart';
 import 'package:crm/widgets/app_title_text.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,27 +21,27 @@ class _AddNewGradeState extends State<AddNewGrade> {
         appBarOnBack: ()=>Get.back(),
         appBarTitle: "Production setup",
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(30),
+          padding: const EdgeInsets.all(30),
           child: Column(
             children: [
-              Center(
+              const Center(
                 child: AppTitleText(text: "New Production"),
               ),
-              SizedBox(height: 40,),
-              Padding(padding: EdgeInsets.only(left: 40, right: 40),
+              const SizedBox(height: 40,),
+              Padding(padding: const EdgeInsets.only(left: 40, right: 40),
                 child: Column(
                   children: [
-                    AppSideBySIdeText(leftText: "Super Id: ", rightText: "Supper 01"),
-                    SizedBox(height: 20,),
-                    AppSideBySIdeText(leftText: "Assign by:  ", rightText: "Mr Nayon"),
-                    SizedBox(height: 20,),
-                    AppSideBySIdeText(leftText: "Date: ", rightText: "28/06/2022"),
-                    SizedBox(height: 20,),
-                    AppSideBySIdeText(leftText: "Time: ", rightText: "10:30 AM"),
-                    SizedBox(height: 20,),
+                    const AppSideBySIdeText(leftText: "Super Id: ", rightText: "Supper 01"),
+                    const SizedBox(height: 20,),
+                    const AppSideBySIdeText(leftText: "Assign by:  ", rightText: "Mr Nayon"),
+                    const SizedBox(height: 20,),
+                    const AppSideBySIdeText(leftText: "Date: ", rightText: "28/06/2022"),
+                    const SizedBox(height: 20,),
+                    const AppSideBySIdeText(leftText: "Time: ", rightText: "10:30 AM"),
+                    const SizedBox(height: 20,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("Grade",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -53,13 +50,13 @@ class _AddNewGradeState extends State<AddNewGrade> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             child:  TextFormField(
                               decoration: InputDecoration(
                                   fillColor: Colors.grey.shade200,
                                   filled: true,
-                                  border: OutlineInputBorder(
+                                  border: const OutlineInputBorder(
                                       borderSide: BorderSide.none
                                   ),
                                   hintText: "Input"
@@ -69,7 +66,7 @@ class _AddNewGradeState extends State<AddNewGrade> {
 
                       ],
                     ),
-                    SizedBox(height: 50,),
+                    const SizedBox(height: 50,),
                     Align(
                       alignment: Alignment.center,
                       child: InkWell(
@@ -81,7 +78,7 @@ class _AddNewGradeState extends State<AddNewGrade> {
                             borderRadius: BorderRadius.circular(15),
                             gradient: AppWidgets.buildLinearGradient(),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text("Add",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,

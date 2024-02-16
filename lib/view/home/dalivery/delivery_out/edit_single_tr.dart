@@ -1,11 +1,9 @@
-import 'package:crm/appConfig.dart';
 import 'package:crm/controller/cage_controller/cage_controller.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/delivery_type_controller.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/product_category_controller.dart';
 import 'package:crm/controller/delivery_controller%20/out_controller/delivery_out_controller.dart';
 import 'package:crm/model/cage_model/cage_model.dart';
 import 'package:crm/model/delivery_model/in_model/delivery_model.dart';
-import 'package:crm/model/delivery_model/in_model/deliveryin_model.dart';
 import 'package:crm/model/delivery_model/in_model/product_category_model.dart';
 import 'package:crm/model/delivery_model/out_model/SingleExistingDeliveryOutModel.dart';
 import 'package:crm/model/delivery_model/out_model/deliveryOutTsListModel.dart';
@@ -53,33 +51,33 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
   final cageNo = TextEditingController();
   final weight = TextEditingController();
 
-  List<DeliveryDatum>? _deliveryTypeList = [];
+  final List<DeliveryDatum> _deliveryTypeList = [];
   void _getDeliveryTypeFuture()async{
     var res = await  DeliveryTypeController.getDeliveryType();
     for(var i in res.data!){
       setState(() {
-        _deliveryTypeList!.add(i);
+        _deliveryTypeList.add(i);
       });
     }
   }
 
-  List<ProductCategoryDatum>? _productCategoryList = [];
+  final List<ProductCategoryDatum> _productCategoryList = [];
   void _getProductCategoryFuture()async{
     var res = await  DeliveryInProductCategoryController.getProductCategory();
     for(var i in res!.data!){
       setState(() {
-        _productCategoryList!.add(i);
+        _productCategoryList.add(i);
       });
     }
   }
 
-  List<CageDatum>? _allCageList = [];
+  final List<CageDatum> _allCageList = [];
   //get product category
   void _getAllCageList()async{
     var res = await CageController.getCageNo();
-    for(var i in res!.data!){
+    for(var i in res.data!){
       setState(() {
-        _allCageList?.add(i);
+        _allCageList.add(i);
       });
     }
   }
@@ -92,10 +90,10 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
     super.initState();
     //_getDeliveryTypeFuture();
     _getAllCageList();
-    userName.text = widget!.singleTransaction!.user!.name!.toString();
-    userId.text = widget!.singleTransaction!.user!.userId!.toString();
-    date.text =AppConst.formetData(widget!.singleTransaction!.date);
-    weight.text = "${widget!.singleTransaction!.weight.toString()!}";
+    userName.text = widget.singleTransaction!.user!.name!.toString();
+    userId.text = widget.singleTransaction!.user!.userId!.toString();
+    date.text =AppConst.formetData(widget.singleTransaction!.date);
+    weight.text = widget.singleTransaction!.weight.toString();
 
     print("existingDeliveryOutDatum === ${widget.existingDeliveryOutDatum}");
   }
@@ -110,7 +108,7 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
       textSize: 20,
       appBarOnBack: ()=>Get.back(),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             // SizedBox(height: 50,),
@@ -393,7 +391,7 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
             // ),
             widget.singleDelivery!.data!.delivery!.measurement!.name == "Cage" ? Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text("Cage No",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -402,7 +400,7 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                   flex: 2,
                   child: DropdownButtonHideUnderline(
@@ -415,10 +413,10 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
                           color: Theme.of(context).hintColor,
                         ),
                       ),
-                      items:(_allCageList)?.map((item) => DropdownMenuItem<String>(
-                        value: item!.id.toString(),
+                      items:(_allCageList).map((item) => DropdownMenuItem<String>(
+                        value: item.id.toString(),
                         child: Text(
-                          item!.caseName!,
+                          item.caseName!,
                           style: const TextStyle(
                             fontSize: 14,
                           ),
@@ -436,7 +434,7 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
                             color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(5)
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         height: 60,
                         width: 140,
                       ),
@@ -448,20 +446,20 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
                 ),
 
               ],
-            ) : Center(),
-            SizedBox(height: 20,),
+            ) : const Center(),
+            const SizedBox(height: 20,),
             Row(
               children: [
                 Expanded(
                   child: Text("${widget.singleDelivery!.data!.delivery!.measurement!.name}",
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
                         fontSize: 15
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
@@ -470,7 +468,7 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "00 ${widget.singleDelivery!.data!.delivery!.measurement!.name}"
@@ -480,7 +478,7 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
               ],
             ),
 
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
             InkWell(
               onTap: ()=>editTransition(),
               child: Container(
@@ -491,7 +489,7 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
                     borderRadius: BorderRadius.circular(10)
                 ),
                 child: Center(
-                  child: isEditingLoading ? CircularProgressIndicator(color: Colors.white,) : Text("Save",
+                  child: isEditingLoading ? const CircularProgressIndicator(color: Colors.white,) : const Text("Save",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Colors.white,

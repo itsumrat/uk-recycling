@@ -1,18 +1,12 @@
 
-import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
 import 'package:crm/controller/delivery_controller%20/out_controller/delivery_out_controller.dart';
-import 'package:crm/model/delivery_model/in_model/deliveryin_model.dart';
-import 'package:crm/model/delivery_model/in_model/single_deliveryin_model.dart';
 import 'package:crm/model/delivery_model/out_model/SingleExistingDeliveryOutModel.dart';
 import 'package:crm/utility/app_const.dart';
 import 'package:crm/view/home/dalivery/deliveryIn/createNewDelivery.dart';
-import 'package:crm/view/home/dalivery/deliveryIn/deliveryIn.dart';
 import 'package:crm/view/home/dalivery/delivery_out/deliveryOut.dart';
-import 'package:crm/view/home/dalivery/delivery_out/existing_delivery_out_list.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/view_controller/loader.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,10 +32,10 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
   Future<SingleExistingDeliveryOutModel>? _getSingleDeliveryOut;
   var user_name, user_id;
   getUserInfo()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
    setState(() {
-     user_name =  _pref.getString("user_name");
-     user_id =  _pref.getString("user_id");
+     user_name =  pref.getString("user_name");
+     user_id =  pref.getString("user_id");
    });
   }
   @override
@@ -63,26 +57,26 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
           future: _getSingleDeliveryOut,
           builder: (context, snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child:  AppLoader(),);
+              return const Center(child:  AppLoader(),);
             }else if(snapshot.hasData){
               return SingleChildScrollView(
-                padding: EdgeInsets.only(left: 30, right: 30, bottom: 50, top: 20),
+                padding: const EdgeInsets.only(left: 30, right: 30, bottom: 50, top: 20),
                 child: Column(
                   children: [
                     Center(
                       child: Text("New UD Create ${snapshot.data!.data!.delivery!.deliveryOutId}/${snapshot.data!.data!.delivery!.id}",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w500,
                             color: Colors.black87
                         ),
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    const SizedBox(height: 30,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("User ID: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -91,11 +85,11 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("$user_id}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -105,10 +99,10 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                       ],
                     ),
 
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("User Name: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -117,11 +111,11 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
-                            child: Text("${user_name}",
-                              style: TextStyle(
+                            child: Text("$user_name",
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -130,10 +124,10 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                         )
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("TRX ID",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -142,11 +136,11 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("${snapshot.data!.data!.delivery!.deliveryOutId}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -155,10 +149,10 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                         )
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("Date: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -167,11 +161,11 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
-                            child: Text("${AppConst.formetData("${snapshot.data!.data!.delivery!.date}")}",
-                              style: TextStyle(
+                            child: Text(AppConst.formetData("${snapshot.data!.data!.delivery!.date}"),
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -180,11 +174,11 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                         )
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
 
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("Suppliers Name: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -193,11 +187,11 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("${snapshot.data!.data!.delivery!.customer!.name}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -206,7 +200,7 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                         )
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
                         const Expanded(
@@ -218,11 +212,11 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("${snapshot.data!.data!.delivery!.measurement!.name}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -231,10 +225,10 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                         )
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("Product Type: ",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -243,11 +237,11 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Expanded(
                             flex: 2,
                             child: Text("${snapshot.data!.data!.delivery!.categories!.name}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18
@@ -312,9 +306,9 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                     //   ],
                     // ),
 
-                    SizedBox(height: 70,),
+                    const SizedBox(height: 70,),
                     InkWell(
-                      onTap: ()=>Get.to(AddNewDelivery(isDeliveryOut: true,)),
+                      onTap: ()=>Get.to(const AddNewDelivery(isDeliveryOut: true,)),
                       child: Container(
                         width: 200,
                         height: 60,
@@ -322,7 +316,7 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             gradient: AppWidgets.buildLinearGradient(),
                             borderRadius: BorderRadius.circular(10)
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text("Add More",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -333,9 +327,9 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                     InkWell(
-                      onTap: ()=>Get.to(DeliveryOut()),
+                      onTap: ()=>Get.to(const DeliveryOut()),
                       child: Container(
                         width: 200,
                         height: 60,
@@ -343,7 +337,7 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                             gradient: AppWidgets.buildLinearGradient(),
                             borderRadius: BorderRadius.circular(10)
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text("Back",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -354,12 +348,12 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                         ),
                       ),
                     ),
-                    SizedBox(height: 70,),
+                    const SizedBox(height: 70,),
                   ],
                 ),
               );
             }else{
-              return Center(child: Text("No data found."),);
+              return const Center(child: Text("No data found."),);
             }
 
           }

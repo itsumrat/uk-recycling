@@ -8,7 +8,7 @@ class AppWidgets{
     AlignmentGeometry end = Alignment.centerRight
   }) {
     return  LinearGradient(
-      colors: [
+      colors: const [
         Color(0xFF41C5D8),
         Color(0xFF3366FF),
       ],
@@ -16,7 +16,7 @@ class AppWidgets{
       // end: const FractionalOffset(1.0, 0.0),
       begin: begin,
       end: end,
-      stops: [0.0, 1.0],
+      stops: const [0.0, 1.0],
       tileMode: TileMode.clamp,
     );
   }
@@ -27,7 +27,7 @@ class AppWidgets{
     AlignmentGeometry end = Alignment.centerRight
   }) {
     return  LinearGradient(
-      colors: [
+      colors: const [
         Color(0xFFFF776B),
         Color(0xFF790B00),
       ],
@@ -35,7 +35,7 @@ class AppWidgets{
       // end: const FractionalOffset(1.0, 0.0),
       begin: begin,
       end: end,
-      stops: [0.0, 1.0],
+      stops: const [0.0, 1.0],
       tileMode: TileMode.clamp,
     );
   }

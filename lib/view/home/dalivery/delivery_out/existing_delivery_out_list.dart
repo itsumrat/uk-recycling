@@ -1,8 +1,6 @@
-import 'package:crm/appConfig.dart';
 import 'package:crm/controller/delivery_controller%20/out_controller/delivery_out_controller.dart';
 import 'package:crm/model/delivery_model/out_model/existing_delivery_out_model.dart';
 import 'package:crm/utility/utility.dart';
-import 'package:crm/view/home/dalivery/deliveryIn/existingDeliveries/singleExistingDeliveries.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/view_controller/loader.dart';
@@ -35,10 +33,10 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
   @override
   Widget build(BuildContext context) {
     return AppWidget(
-      appBarOnBack: ()=>Get.to(DeliveryOut()),
+      appBarOnBack: ()=>Get.to(const DeliveryOut()),
       appBarTitle: "Delivery Out ",
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             Row(
@@ -51,14 +49,14 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide.none
                           ),
                           hintText: "Search by ID"
                       ),
                     )
                 ),
-                SizedBox(width: 15,),
+                const SizedBox(width: 15,),
                 Container(
                   width: 100,
                   height: 60,
@@ -79,31 +77,31 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
 
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Expanded(
                 child: isLoading
-                    ? AppLoader()
-                    : _searchExistingDeliveryInList!.isNotEmpty
+                    ? const AppLoader()
+                    : _searchExistingDeliveryInList.isNotEmpty
                     ? ListView.builder(
-                    itemCount: _searchExistingDeliveryInList?.length,
+                    itemCount: _searchExistingDeliveryInList.length,
                     itemBuilder: (_, index){
-                      var data = _searchExistingDeliveryInList![index];
+                      var data = _searchExistingDeliveryInList[index];
                       return InkWell(
-                        onTap: ()=>Get.to(SingleExistingDeliveriesOuts(existingDeliveryOutDatum: data, existingDeliveryId: data!.id.toString(),)),
+                        onTap: ()=>Get.to(SingleExistingDeliveriesOuts(existingDeliveryOutDatum: data, existingDeliveryId: data.id.toString(),)),
                         child: Container(
                           //height: 50,
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             //borderRadius: BorderRadius.circular(5),
                               border: Border(
-                                top: BorderSide(width: 1, color: AppColor.borderColor),
-                                left: BorderSide(width: 1, color: AppColor.borderColor),
-                                right: BorderSide(width: 1, color: AppColor.borderColor),
-                                bottom: _searchExistingDeliveryInList?.length ==1 ? BorderSide(width: 1, color: AppColor.borderColor) : BorderSide(width: 0, color: AppColor.white) ,
+                                top: const BorderSide(width: 1, color: AppColor.borderColor),
+                                left: const BorderSide(width: 1, color: AppColor.borderColor),
+                                right: const BorderSide(width: 1, color: AppColor.borderColor),
+                                bottom: _searchExistingDeliveryInList.length ==1 ? const BorderSide(width: 1, color: AppColor.borderColor) : const BorderSide(width: 0, color: AppColor.white) ,
                               )
                           ),
-                          child: Text("${data!.deliveryOutId}/${inputFormat.format(data!.date!)}-${data!.measurement!.name}",
-                            style: TextStyle(
+                          child: Text("${data.deliveryOutId}/${inputFormat.format(data.date!)}-${data.measurement!.name}",
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54,
                                 fontSize: 16
@@ -114,25 +112,25 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
                     }
                 )
                     : ListView.builder(
-                    itemCount: _existingDeliveryInList?.length,
+                    itemCount: _existingDeliveryInList.length,
                     itemBuilder: (_, index){
-                      var data = _existingDeliveryInList![index];
+                      var data = _existingDeliveryInList[index];
                       return InkWell(
-                        onTap: ()=>Get.to(SingleExistingDeliveriesOuts(existingDeliveryOutDatum: data, existingDeliveryId: data!.id.toString(),)),
+                        onTap: ()=>Get.to(SingleExistingDeliveriesOuts(existingDeliveryOutDatum: data, existingDeliveryId: data.id.toString(),)),
                         child: Container(
                           //height: 50,
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             //borderRadius: BorderRadius.circular(5),
                               border: Border(
-                                top: BorderSide(width: 1, color: AppColor.borderColor),
-                                left: BorderSide(width: 1, color: AppColor.borderColor),
-                                right: BorderSide(width: 1, color: AppColor.borderColor),
-                                bottom: _existingDeliveryInList?.length !=1 ? BorderSide(width: 1, color: AppColor.borderColor) : BorderSide(width: 0, color: AppColor.white) ,
+                                top: const BorderSide(width: 1, color: AppColor.borderColor),
+                                left: const BorderSide(width: 1, color: AppColor.borderColor),
+                                right: const BorderSide(width: 1, color: AppColor.borderColor),
+                                bottom: _existingDeliveryInList.length !=1 ? const BorderSide(width: 1, color: AppColor.borderColor) : const BorderSide(width: 0, color: AppColor.white) ,
                               )
                           ),
-                          child: Text("${data!.deliveryOutId}/${inputFormat.format(data!.date ?? DateTime.now())}/${data.measurement?.name ?? "N/A"}/${data.customer?.name??"N/A"}",
-                            style: TextStyle(
+                          child: Text("${data.deliveryOutId}/${inputFormat.format(data.date ?? DateTime.now())}/${data.measurement?.name ?? "N/A"}/${data.customer?.name??"N/A"}",
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54,
                                 fontSize: 16
@@ -151,15 +149,15 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
 
   //===== existing data
   bool isLoading = true;
-  List<ExistingDeliveryOutDatum>? _existingDeliveryInList = [];
-  List<ExistingDeliveryOutDatum>? _searchExistingDeliveryInList = [];
+  final List<ExistingDeliveryOutDatum> _existingDeliveryInList = [];
+  final List<ExistingDeliveryOutDatum> _searchExistingDeliveryInList = [];
   void _getExstingData() async{
     setState(() =>isLoading = true);
-    if(widget!.isIn! == false){ //check if its from Delivery in screen, then run this block of code.
+    if(widget.isIn! == false){ //check if its from Delivery in screen, then run this block of code.
       try{
         var res = await DeliveryOutController.getExistingDelidyOutList();
         for(var i in res.data!){
-          _existingDeliveryInList?.add(i);
+          _existingDeliveryInList.add(i);
         }
         setState(() =>isLoading = false);
       }catch(e){
@@ -175,17 +173,17 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
   //search list
   void _search(String query) {
     print("query == $query");
-    _searchExistingDeliveryInList!.clear();
+    _searchExistingDeliveryInList.clear();
     if(query.isNotEmpty){
-      for(var i in _existingDeliveryInList!){
+      for(var i in _existingDeliveryInList){
         if(i.deliveryOutId!.toLowerCase().contains(query)){
           setState(() {
-            _searchExistingDeliveryInList?.add(i);
+            _searchExistingDeliveryInList.add(i);
           });
         }
       }
     }else{
-      _searchExistingDeliveryInList!.clear();
+      _searchExistingDeliveryInList.clear();
     }
     setState(() {
 

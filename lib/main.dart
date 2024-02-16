@@ -1,10 +1,8 @@
 import 'package:crm/view/flash_screen/flash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'view/auth/signin.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

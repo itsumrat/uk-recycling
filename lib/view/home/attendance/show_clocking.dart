@@ -21,19 +21,19 @@ class _ShowClockInState extends State<ShowClockIn> {
       appBarTitle: "Check In",
       appBarOnBack: ()=>Get.back(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(60),
+        padding: const EdgeInsets.all(60),
         child: Column(
           children: [
-            AppSideBySIdeText(leftText: "User Type : ", rightText: "Super User"),
-            SizedBox(height: 30,),
-            AppSideBySIdeText(leftText: "User Name: ", rightText: "User Name"),
-            SizedBox(height: 30,),
-            AppSideBySIdeText(leftText: "Date: ", rightText: "28/10/2023"),
-            SizedBox(height: 30,),
-            AppSideBySIdeText(leftText: "Time: ", rightText: "09:45PM"),
-            SizedBox(height: 70,),
+            const AppSideBySIdeText(leftText: "User Type : ", rightText: "Super User"),
+            const SizedBox(height: 30,),
+            const AppSideBySIdeText(leftText: "User Name: ", rightText: "User Name"),
+            const SizedBox(height: 30,),
+            const AppSideBySIdeText(leftText: "Date: ", rightText: "28/10/2023"),
+            const SizedBox(height: 30,),
+            const AppSideBySIdeText(leftText: "Time: ", rightText: "09:45PM"),
+            const SizedBox(height: 70,),
             InkWell(
-              onTap: ()=>Get.to(Attendance()),
+              onTap: ()=>Get.to(const Attendance()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -41,7 +41,7 @@ class _ShowClockInState extends State<ShowClockIn> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Back",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -52,9 +52,9 @@ class _ShowClockInState extends State<ShowClockIn> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
             InkWell(
-              onTap: ()=>Get.to(Clicking()),
+              onTap: ()=>Get.to(const Clicking()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -62,7 +62,7 @@ class _ShowClockInState extends State<ShowClockIn> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("New",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,

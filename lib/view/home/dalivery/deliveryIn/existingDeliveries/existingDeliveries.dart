@@ -1,4 +1,3 @@
-import 'package:crm/appConfig.dart';
 import 'package:crm/controller/delivery_controller%20/in_controller/exstingDeliveryController.dart';
 import 'package:crm/utility/utility.dart';
 import 'package:crm/view/home/dalivery/deliveryIn/deliveryIn.dart';
@@ -12,10 +11,9 @@ import 'package:intl/intl.dart';
 
 import '../../../../../model/delivery_model/in_model/deliveryin_model.dart';
 
-
 class ExistingDeliveries extends StatefulWidget {
   final bool? isIn;
-  const ExistingDeliveries({Key? key,  this.isIn = true}) : super(key: key);
+  const ExistingDeliveries({Key? key, this.isIn = true}) : super(key: key);
 
   @override
   State<ExistingDeliveries> createState() => _ExistingDeliveriesState();
@@ -28,166 +26,159 @@ class _ExistingDeliveriesState extends State<ExistingDeliveries> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getExstingData(); 
+    _getExstingData();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return AppWidget(
-      appBarOnBack: ()=>Get.to(DeliveryIn()),
-      appBarTitle: "Delivery ${widget!.isIn! ? "In" : "Out"}",
+      appBarOnBack: () => Get.to(const DeliveryIn()),
+      appBarTitle: "Delivery ${widget.isIn! ? "In" : "Out"}",
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             Row(
               children: [
                 Expanded(
-                    child:  TextFormField(
-                      onChanged: (v){
-                        _search(v.toLowerCase());
-                      },
-                      decoration: InputDecoration(
-                          fillColor: Colors.grey.shade200,
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide.none
-                          ),
-                          hintText: "Search by ID"
-                      ),
-                    )
+                    child: TextFormField(
+                  onChanged: (v) {
+                    _search(v.toLowerCase());
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Colors.grey.shade200,
+                      filled: true,
+                      border: const OutlineInputBorder(borderSide: BorderSide.none),
+                      hintText: "Search by ID"),
+                )),
+                const SizedBox(
+                  width: 15,
                 ),
-                SizedBox(width: 15,),
                 Container(
                   width: 100,
                   height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    gradient: AppWidgets.buildLinearGradient()
-                  ),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(5), gradient: AppWidgets.buildLinearGradient()),
                   child: const Center(
-                    child: Text("Search",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500
-                      ),
+                    child: Text(
+                      "Search",
+                      style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
-
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Expanded(
                 child: isLoading
-                    ? AppLoader()
-                    : _searchExistingDeliveryInList!.isNotEmpty
-                    ? ListView.builder(
-                    itemCount: _searchExistingDeliveryInList?.length,
-                    itemBuilder: (_, index){
-                      var data = _searchExistingDeliveryInList![index];
-                      return InkWell(
-                        onTap: ()=>Get.to(SingleExistingDeliveries(existingDeliveryInDatum: data, existingDeliveryId: data!.id.toString(),)),
-                        child: Container(
-                          //height: 50,
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            //borderRadius: BorderRadius.circular(5),
-                              border: Border(
-                                top: BorderSide(width: 1, color: AppColor.borderColor),
-                                left: BorderSide(width: 1, color: AppColor.borderColor),
-                                right: BorderSide(width: 1, color: AppColor.borderColor),
-                                bottom: _searchExistingDeliveryInList?.length ==1 ? BorderSide(width: 1, color: AppColor.borderColor) : BorderSide(width: 0, color: AppColor.white) ,
-                              )
-                          ),
-                          child: Text("${data!.deliveryInId}/${inputFormat.format(data!.date!)}/${data!.supplier!.name}-${data!.measurement!.name}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black54,
-                                fontSize: 16
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                )
-                    : ListView.builder(
-                     itemCount: _existingDeliveryInList?.length,
-                    itemBuilder: (_, index){
-                    var data = _existingDeliveryInList![index];
-                      return InkWell(
-                        onTap: ()=>Get.to(SingleExistingDeliveries(existingDeliveryInDatum: data, existingDeliveryId: data!.id.toString(),)),
-                        child: Container(
-                          //height: 50,
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            //borderRadius: BorderRadius.circular(5),
-                            border: Border(
-                              top: BorderSide(width: 1, color: AppColor.borderColor),
-                              left: BorderSide(width: 1, color: AppColor.borderColor),
-                              right: BorderSide(width: 1, color: AppColor.borderColor),
-                              bottom: _existingDeliveryInList?.length !=1 ? BorderSide(width: 1, color: AppColor.borderColor) : BorderSide(width: 0, color: AppColor.white) ,
-                            )
-                          ),
-                          child: Text("${data!.deliveryInId}/${inputFormat.format(data!.date!)}/${data!.supplier!.name}/${data.measurement!.name}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black54,
-                              fontSize: 16
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                )
-            ),
+                    ? const AppLoader()
+                    : _searchExistingDeliveryInList.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: _searchExistingDeliveryInList.length,
+                            itemBuilder: (_, index) {
+                              var data = _searchExistingDeliveryInList[index];
+                              return InkWell(
+                                onTap: () => Get.to(SingleExistingDeliveries(
+                                  existingDeliveryInDatum: data,
+                                  existingDeliveryId: data.id.toString(),
+                                )),
+                                child: Container(
+                                  //height: 50,
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                      //borderRadius: BorderRadius.circular(5),
+                                      border: Border(
+                                    top: const BorderSide(width: 1, color: AppColor.borderColor),
+                                    left: const BorderSide(width: 1, color: AppColor.borderColor),
+                                    right: const BorderSide(width: 1, color: AppColor.borderColor),
+                                    bottom: _searchExistingDeliveryInList.length == 1
+                                        ? const BorderSide(width: 1, color: AppColor.borderColor)
+                                        : const BorderSide(width: 0, color: AppColor.white),
+                                  )),
+                                  child: Text(
+                                    "${data.deliveryInId}/${inputFormat.format(data.date!)}/${data.supplier!.name}-${data.measurement!.name}",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500, color: Colors.black54, fontSize: 16),
+                                  ),
+                                ),
+                              );
+                            })
+                        : ListView.builder(
+                            itemCount: _existingDeliveryInList.length,
+                            itemBuilder: (_, index) {
+                              var data = _existingDeliveryInList[index];
+                              return InkWell(
+                                onTap: () => Get.to(SingleExistingDeliveries(
+                                  existingDeliveryInDatum: data,
+                                  existingDeliveryId: data.id.toString(),
+                                )),
+                                child: Container(
+                                  //height: 50,
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                      //borderRadius: BorderRadius.circular(5),
+                                      border: Border(
+                                    top: const BorderSide(width: 1, color: AppColor.borderColor),
+                                    left: const BorderSide(width: 1, color: AppColor.borderColor),
+                                    right: const BorderSide(width: 1, color: AppColor.borderColor),
+                                    bottom: _existingDeliveryInList.length != 1
+                                        ? const BorderSide(width: 1, color: AppColor.borderColor)
+                                        : const BorderSide(width: 0, color: AppColor.white),
+                                  )),
+                                  child: Text(
+                                    "${data.deliveryInId}/${inputFormat.format(data.date!)}/${data.supplier?.name}/${data.measurement!.name}",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500, color: Colors.black54, fontSize: 16),
+                                  ),
+                                ),
+                              );
+                            })),
           ],
         ),
       ),
     );
   }
 
-  //===== existing data 
+  //===== existing data
   bool isLoading = true;
-  List<ExistingDeliveryInDatum>? _existingDeliveryInList = [];
-  List<ExistingDeliveryInDatum>? _searchExistingDeliveryInList = [];
-  void _getExstingData() async{
-    setState(() =>isLoading = true);
-    if(widget!.isIn!){ //check if its from Delivery in screen, then run this block of code. 
-      try{
+  final List<ExistingDeliveryInDatum> _existingDeliveryInList = [];
+  final List<ExistingDeliveryInDatum> _searchExistingDeliveryInList = [];
+  void _getExstingData() async {
+    setState(() => isLoading = true);
+    if (widget.isIn!) {
+      //check if its from Delivery in screen, then run this block of code.
+      try {
         var res = await DeliveryInController.getExstingDeliveryIn();
-        for(var i in res.data!){
-          _existingDeliveryInList?.add(i);
+        for (var i in res.data!) {
+          _existingDeliveryInList.add(i);
         }
-        setState(() =>isLoading = false);
-      }catch(e){
+        setState(() => isLoading = false);
+      } catch (e) {
         print("existing delivery in response error $e}");
-        setState(() =>isLoading = false);
+        setState(() => isLoading = false);
       }
-    }else{ //otherwise this one. 
-      
+    } else {
+      //otherwise this one.
     }
   }
-
 
   //search list
   void _search(String query) {
     print("query == $query");
-    _searchExistingDeliveryInList!.clear();
-    if(query.isNotEmpty){
-      for(var i in _existingDeliveryInList!){
-        if(i.deliveryInId!.toLowerCase().contains(query)){
+    _searchExistingDeliveryInList.clear();
+    if (query.isNotEmpty) {
+      for (var i in _existingDeliveryInList) {
+        if (i.deliveryInId!.toLowerCase().contains(query)) {
           setState(() {
-            _searchExistingDeliveryInList?.add(i);
+            _searchExistingDeliveryInList.add(i);
           });
         }
       }
-    }else{
-      _searchExistingDeliveryInList!.clear();
+    } else {
+      _searchExistingDeliveryInList.clear();
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
 }

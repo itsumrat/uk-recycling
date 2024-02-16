@@ -12,8 +12,8 @@ class ProductionController{
 
   //get all production list
   static Future<AllProductionModel> getAllProduction()async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.get(Uri.parse(AppConfig.PRODUCTION_LIST),
       headers: {
         "Authorization" : "Bearer $token"
@@ -25,10 +25,10 @@ class ProductionController{
 
   //production edit
   static Future<http.Response> editProductionTranscation({required String id, required String gread, required String weight})async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
-    print("tr id --- ${id}");
-    var res = await http.put(Uri.parse(AppConfig.PRODUCTION_LIST+"/$id"),
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
+    print("tr id --- $id");
+    var res = await http.put(Uri.parse("${AppConfig.PRODUCTION_LIST}/$id"),
         headers: {
           "Authorization" : "Bearer $token"
         },
@@ -43,8 +43,8 @@ class ProductionController{
 
   //production edit
   static Future<http.Response> addProductionTranscation({required String id, required String gread, required String weight})async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.post(Uri.parse(AppConfig.PRODUCTION_LIST),
         headers: {
           "Authorization" : "Bearer $token"
@@ -62,8 +62,8 @@ class ProductionController{
 
   //create production
   static Future<http.Response> createNewProduction({required String production_date, required String table, required String assigned_to, })async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
     var res = await http.post(Uri.parse(AppConfig.PRODUCTION_CREATE),
       body: {
         "production_date" : production_date,
@@ -81,9 +81,9 @@ class ProductionController{
 
   //single production list
   static Future<SingleProductionModel> getSingleProduction({required String id})async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
-    var res = await http.get(Uri.parse(AppConfig.PRODUCTION_LIST+"/$id"),
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
+    var res = await http.get(Uri.parse("${AppConfig.PRODUCTION_LIST}/$id"),
         headers: {
           "Authorization" : "Bearer $token"
         }
@@ -96,9 +96,9 @@ class ProductionController{
 
   //single production list
   static Future<TransactionByProductionModel> getTransactionByProduction({required String id})async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
-    var res = await http.get(Uri.parse(AppConfig.TRANSACTION_BY_PRODUCTION_ID+"$id"),
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
+    var res = await http.get(Uri.parse("${AppConfig.TRANSACTION_BY_PRODUCTION_ID}$id"),
         headers: {
           "Authorization" : "Bearer $token"
         }
@@ -108,9 +108,9 @@ class ProductionController{
 
   //single production list
   static Future<SingleProductionTrx> getSingleTransactionByProduction({required String id})async{
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    var token = _pref.getString("token");
-    var res = await http.get(Uri.parse(AppConfig.SINGLE_TRANSCATION+"$id"),
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var token = pref.getString("token");
+    var res = await http.get(Uri.parse("${AppConfig.SINGLE_TRANSCATION}$id"),
         headers: {
           "Authorization" : "Bearer $token"
         }

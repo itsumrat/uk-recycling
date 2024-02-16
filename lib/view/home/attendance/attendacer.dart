@@ -22,7 +22,7 @@ class _AttendanceState extends State<Attendance> {
       appBarOnBack: ()=>Get.back(),
       appBarTitle: "Attendance",
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(40),
+        padding: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,7 +30,7 @@ class _AttendanceState extends State<Attendance> {
             Align(
               alignment: Alignment.center,
               child: InkWell(
-                onTap: ()=>Get.to(Clicking()),
+                onTap: ()=>Get.to(const Clicking()),
                 child: Container(
                   width: 200,
                   height: 60,
@@ -38,7 +38,7 @@ class _AttendanceState extends State<Attendance> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text("Clock In",
                       style: TextStyle(
                         fontSize: 15,
@@ -50,9 +50,9 @@ class _AttendanceState extends State<Attendance> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
             InkWell(
-              onTap: ()=>Get.to(ClockOut()),
+              onTap: ()=>Get.to(const ClockOut()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -60,7 +60,7 @@ class _AttendanceState extends State<Attendance> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Clock Out",
                     style: TextStyle(
                       fontSize: 15,
@@ -71,9 +71,9 @@ class _AttendanceState extends State<Attendance> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
             InkWell(
-              onTap: ()=>Get.to(AttendanceList()),
+              onTap: ()=>Get.to(const AttendanceList()),
               child: Container(
                 width: 200,
                 height: 60,

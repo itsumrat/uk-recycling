@@ -1,12 +1,10 @@
 
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../add_new.dart';
-import '../cageBox/add_more_cage_box.dart';
 import 'add_more_pieces_pallet.dart';
 
 
@@ -33,13 +31,13 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
     var size = MediaQuery.of(context).size;
     return AppWidget(
       appBarTitle: "NEW Deliveries",
-      appBarOnBack: ()=>Get.to(AddNewExistingDeliveries()),
+      appBarOnBack: ()=>Get.to(const AddNewExistingDeliveries()),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.only(left: 30, right: 30, bottom: 50, top: 20),
+        padding: const EdgeInsets.only(left: 30, right: 30, bottom: 50, top: 20),
         child: Column(
           children: [
             SizedBox(height: size.height*.05,),
-            Center(
+            const Center(
               child: Text("New Pieces/Pallet ID Create DI0000213/01",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -49,8 +47,8 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
-            Row(
+            const SizedBox(height: 30,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("User ID: ",
@@ -75,8 +73,8 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
               ],
             ),
 
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("User Name: ",
@@ -100,8 +98,8 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("TRX ID",
@@ -125,8 +123,8 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Date: ",
@@ -150,9 +148,9 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
 
-            Row(
+            const Row(
               children: [
                 Expanded(
                   child: Text("Suppliers Name: ",
@@ -176,8 +174,8 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Delivery Type: ",
@@ -201,8 +199,8 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Product Type: ",
@@ -226,8 +224,8 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Cage No: ",
@@ -251,8 +249,8 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 )
               ],
             ),
-            SizedBox(height: 40,),
-            Row(
+            const SizedBox(height: 40,),
+            const Row(
               children: [
                 Expanded(
                   child: Text("Pieces: ",
@@ -277,9 +275,9 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
               ],
             ),
 
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
             InkWell(
-              onTap: ()=>Get.to(AddMorePiecesPallet()),
+              onTap: ()=>Get.to(const AddMorePiecesPallet()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -287,7 +285,7 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Add More",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -298,9 +296,9 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             InkWell(
-              onTap: ()=>Get.to(AddNewExistingDeliveries()),
+              onTap: ()=>Get.to(const AddNewExistingDeliveries()),
               child: Container(
                 width: 200,
                 height: 60,
@@ -308,7 +306,7 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                     gradient: AppWidgets.buildLinearGradient(),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Back",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -319,7 +317,7 @@ class _ShowPiecesPalletState extends State<ShowPiecesPallet> {
                 ),
               ),
             ),
-            SizedBox(height: 70,),
+            const SizedBox(height: 70,),
           ],
         ),
       ),

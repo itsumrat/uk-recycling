@@ -278,7 +278,7 @@ class User {
         name: json["name"],
         email: json["email"],
         emailVerifiedAt: json["email_verified_at"],
-        userId: json["user_id"],
+        userId: json["id"]?.toString(),
         address: json["address"],
         userType: json["user_type"],
         passkey: json["passkey"],

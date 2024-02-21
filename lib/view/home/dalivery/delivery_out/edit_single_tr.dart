@@ -18,20 +18,25 @@ import 'package:get/get.dart';
 
 import 'single_delivery_outs_tr_list.dart';
 
-
 class EditDeliveryOutTranscation extends StatefulWidget {
   final Transaction? singleTransaction;
   final SingleExistingDeliveryOutModel? singleDelivery;
-  final ExistingDeliveryOutDatum?  existingDeliveryOutDatum;
+  final ExistingDeliveryOutDatum? existingDeliveryOutDatum;
+  final CageDatum? existingCage;
 
-  const EditDeliveryOutTranscation({Key? key, required this.singleTransaction, required this.singleDelivery, this.existingDeliveryOutDatum}) : super(key: key);
+  const EditDeliveryOutTranscation(
+      {Key? key,
+      required this.singleTransaction,
+      required this.singleDelivery,
+      this.existingDeliveryOutDatum,
+      this.existingCage})
+      : super(key: key);
 
   @override
   State<EditDeliveryOutTranscation> createState() => _EditDeliveryOutTranscationState();
 }
 
 class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation> {
-
   final List<String> items = [
     'Item1',
     'Item2',
@@ -41,7 +46,7 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
   String? selectedValue;
   String? selectedDeliveryType;
   String? selectedProductCategory;
-  String? selectedCageOn;
+  CageDatum? selectedCageOn;
 
   final userName = TextEditingController();
   final userId = TextEditingController();
@@ -52,9 +57,9 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
   final weight = TextEditingController();
 
   final List<DeliveryDatum> _deliveryTypeList = [];
-  void _getDeliveryTypeFuture()async{
-    var res = await  DeliveryTypeController.getDeliveryType();
-    for(var i in res.data!){
+  void _getDeliveryTypeFuture() async {
+    var res = await DeliveryTypeController.getDeliveryType();
+    for (var i in res.data!) {
       setState(() {
         _deliveryTypeList.add(i);
       });
@@ -62,9 +67,9 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
   }
 
   final List<ProductCategoryDatum> _productCategoryList = [];
-  void _getProductCategoryFuture()async{
-    var res = await  DeliveryInProductCategoryController.getProductCategory();
-    for(var i in res!.data!){
+  void _getProductCategoryFuture() async {
+    var res = await DeliveryInProductCategoryController.getProductCategory();
+    for (var i in res!.data!) {
       setState(() {
         _productCategoryList.add(i);
       });
@@ -73,393 +78,112 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
 
   final List<CageDatum> _allCageList = [];
   //get product category
-  void _getAllCageList()async{
+  void _getAllCageList() async {
     var res = await CageController.getCageNo();
-    for(var i in res.data!){
+    for (var i in res.data!) {
       setState(() {
         _allCageList.add(i);
       });
     }
+    selectedCageOn = _allCageList.firstWhereOrNull((element) => element.id == widget.existingCage?.id);
   }
-
-
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //_getDeliveryTypeFuture();
     _getAllCageList();
-    userName.text = widget.singleTransaction!.user!.name!.toString();
-    userId.text = widget.singleTransaction!.user!.userId!.toString();
-    date.text =AppConst.formetData(widget.singleTransaction!.date);
-    weight.text = widget.singleTransaction!.weight.toString();
-
-    print("existingDeliveryOutDatum === ${widget.existingDeliveryOutDatum}");
+    userName.text = widget.singleTransaction?.user?.name?.toString() ?? '';
+    userId.text = widget.singleTransaction?.user?.userId?.toString() ?? '';
+    date.text = AppConst.formetData(widget.singleTransaction!.date);
+    weight.text = widget.singleTransaction!.productWeight?.toString() ?? '';
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AppWidget(
-      appBarTitle: "Transaction sad ID: ${widget.singleDelivery!.data!.delivery!.deliveryOutId}/${widget.singleTransaction?.id.toString()}",
+      appBarTitle:
+          "Transaction sad ID: ${widget.singleDelivery!.data!.delivery!.deliveryOutId}/${widget.singleTransaction?.id.toString()}",
       textSize: 20,
-      appBarOnBack: ()=>Get.back(),
-      body:  SingleChildScrollView(
+      appBarOnBack: () => Get.back(),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // SizedBox(height: 50,),
-            // Text("Cage/Box",
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.w600,
-            //     color: Colors.black,
-            //     fontSize: 30
-            //   ),
-            // ),
-            // SizedBox(height: 50,),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Text("User Name",
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.w400,
-            //             color: Colors.black,
-            //             fontSize: 15
-            //         ),
-            //       ),
-            //     ),
-            //     SizedBox(width: 20,),
-            //     Expanded(
-            //         flex: 2,
-            //         child: TextFormField(
-            //           controller: userName,
-            //           readOnly: true,
-            //           decoration: InputDecoration(
-            //               fillColor: Colors.grey.shade200,
-            //               filled: true,
-            //               border: OutlineInputBorder(
-            //                   borderSide: BorderSide.none
-            //               ),
-            //               hintText: "User Name"
-            //           ),
-            //         )
-            //     )
-            //   ],
-            // ),
-            // SizedBox(height: 20,),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Text("User ID",
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.w400,
-            //             color: Colors.black,
-            //             fontSize: 15
-            //         ),
-            //       ),
-            //     ),
-            //     SizedBox(width: 20,),
-            //     Expanded(
-            //         flex: 2,
-            //         child: TextFormField(
-            //           readOnly: true,
-            //           controller: userId,
-            //           decoration: InputDecoration(
-            //               fillColor: Colors.grey.shade200,
-            //               filled: true,
-            //               border: OutlineInputBorder(
-            //                   borderSide: BorderSide.none
-            //               ),
-            //               hintText: "User ID 02"
-            //           ),
-            //         )
-            //     )
-            //   ],
-            // ),
-            //
-            //
-            // SizedBox(height: 20,),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Text("Date",
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.w400,
-            //             color: Colors.black,
-            //             fontSize: 15
-            //         ),
-            //       ),
-            //     ),
-            //     SizedBox(width: 20,),
-            //     Expanded(
-            //         flex: 2,
-            //         child: TextFormField(
-            //           readOnly: true,
-            //           controller: date,
-            //           decoration: InputDecoration(
-            //               fillColor: Colors.grey.shade200,
-            //               filled: true,
-            //               border: OutlineInputBorder(
-            //                   borderSide: BorderSide.none
-            //               ),
-            //               hintText: "Auto Fill up"
-            //           ),
-            //         )
-            //     )
-            //   ],
-            // ),
-            // SizedBox(height: 20,),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Text("Delivery Type",
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.w400,
-            //             color: Colors.black,
-            //             fontSize: 15
-            //         ),
-            //       ),
-            //     ),
-            //     SizedBox(width: 20,),
-            //     Expanded(
-            //       flex: 2,
-            //       child: DropdownButtonHideUnderline(
-            //         child: DropdownButton2<String>(
-            //           isExpanded: true,
-            //           hint: Text(
-            //             'Select One',
-            //             style: TextStyle(
-            //               fontSize: 16,
-            //               color: Theme.of(context).hintColor,
-            //             ),
-            //           ),
-            //           items: (_deliveryTypeList)?.map((item) => DropdownMenuItem<String>(
-            //             value: item.id!.toString(),
-            //             child: Text(
-            //               item.name!,
-            //               style: const TextStyle(
-            //                 fontSize: 14,
-            //               ),
-            //             ),
-            //           ))
-            //               .toList(),
-            //           value: selectedDeliveryType,
-            //           onChanged: (String? value) {
-            //             setState(() {
-            //               selectedDeliveryType = value;
-            //             });
-            //           },
-            //           buttonStyleData:  ButtonStyleData(
-            //             decoration: BoxDecoration(
-            //                 color: Colors.grey.shade200,
-            //                 borderRadius: BorderRadius.circular(5)
-            //             ),
-            //             padding: EdgeInsets.symmetric(horizontal: 16),
-            //             height: 60,
-            //             width: 140,
-            //           ),
-            //           menuItemStyleData: const MenuItemStyleData(
-            //             height: 40,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //
-            //   ],
-            // ),
-            // SizedBox(height: 20,),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Text("Product Category",
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.w400,
-            //             color: Colors.black,
-            //             fontSize: 15
-            //         ),
-            //       ),
-            //     ),
-            //     SizedBox(width: 20,),
-            //     Expanded(
-            //       flex: 2,
-            //       child: DropdownButtonHideUnderline(
-            //         child: DropdownButton2<String>(
-            //           isExpanded: true,
-            //           hint: Text(
-            //             'Select One',
-            //             style: TextStyle(
-            //               fontSize: 16,
-            //               color: Theme.of(context).hintColor,
-            //             ),
-            //           ),
-            //           items: _productCategoryList?.map((item) => DropdownMenuItem<String>(
-            //             value: item.id.toString(),
-            //             child: Text(
-            //               item!.name!,
-            //               style: const TextStyle(
-            //                 fontSize: 14,
-            //               ),
-            //             ),
-            //           ))
-            //               .toList(),
-            //           value: selectedProductCategory,
-            //           onChanged: (String? value) {
-            //             setState(() {
-            //               selectedProductCategory = value;
-            //             });
-            //           },
-            //           buttonStyleData:  ButtonStyleData(
-            //             decoration: BoxDecoration(
-            //                 color: Colors.grey.shade200,
-            //                 borderRadius: BorderRadius.circular(5)
-            //             ),
-            //             padding: EdgeInsets.symmetric(horizontal: 16),
-            //             height: 60,
-            //             width: 140,
-            //           ),
-            //           menuItemStyleData: const MenuItemStyleData(
-            //             height: 40,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //
-            //   ],
-            // ),
-            // SizedBox(height: 20,),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Text("Cage No",
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.w400,
-            //             color: Colors.black,
-            //             fontSize: 15
-            //         ),
-            //       ),
-            //     ),
-            //     SizedBox(width: 20,),
-            //     Expanded(
-            //       flex: 2,
-            //       child: DropdownButtonHideUnderline(
-            //         child: DropdownButton2<String>(
-            //           isExpanded: true,
-            //           hint: Text(
-            //             'Select One',
-            //             style: TextStyle(
-            //               fontSize: 16,
-            //               color: Theme.of(context).hintColor,
-            //             ),
-            //           ),
-            //           items: items
-            //               .map((String item) => DropdownMenuItem<String>(
-            //             value: item,
-            //             child: Text(
-            //               item,
-            //               style: const TextStyle(
-            //                 fontSize: 14,
-            //               ),
-            //             ),
-            //           ))
-            //               .toList(),
-            //           value: selectedValue,
-            //           onChanged: (String? value) {
-            //             setState(() {
-            //               selectedValue = value;
-            //             });
-            //           },
-            //           buttonStyleData:  ButtonStyleData(
-            //             decoration: BoxDecoration(
-            //                 color: Colors.grey.shade200,
-            //                 borderRadius: BorderRadius.circular(5)
-            //             ),
-            //             padding: EdgeInsets.symmetric(horizontal: 16),
-            //             height: 60,
-            //             width: 140,
-            //           ),
-            //           menuItemStyleData: const MenuItemStyleData(
-            //             height: 40,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //
-            //   ],
-            // ),
-            widget.singleDelivery!.data!.delivery!.measurement!.name == "Cage" ? Row(
-              children: [
-                const Expanded(
-                  child: Text("Cage No",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 15
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 20,),
-                Expanded(
-                  flex: 2,
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      hint: Text(
-                        'Select One',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).hintColor,
+            widget.singleDelivery!.data!.delivery!.measurement!.name == "Cage"
+                ? Row(
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          "Cage No",
+                          style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
                         ),
                       ),
-                      items:(_allCageList).map((item) => DropdownMenuItem<String>(
-                        value: item.id.toString(),
-                        child: Text(
-                          item.caseName!,
-                          style: const TextStyle(
-                            fontSize: 14,
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: AbsorbPointer(
+                          absorbing: true,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<CageDatum>(
+                              isExpanded: true,
+                              hint: Text(
+                                'Select One',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Theme.of(context).hintColor,
+                                ),
+                              ),
+                              items: (_allCageList)
+                                  .map((item) => DropdownMenuItem<CageDatum>(
+                                        value: item,
+                                        child: Text(
+                                          item.caseName!,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              value: selectedCageOn,
+                              onChanged: (CageDatum? value) {
+                                setState(() {
+                                  selectedCageOn = value;
+                                });
+                              },
+                              buttonStyleData: ButtonStyleData(
+                                decoration:
+                                    BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(5)),
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                height: 60,
+                                width: 140,
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                height: 40,
+                              ),
+                            ),
                           ),
                         ),
-                      ))
-                          .toList(),
-                      value: selectedCageOn,
-                      onChanged: (String? value) {
-                        setState(() {
-                          selectedCageOn = value;
-                        });
-                      },
-                      buttonStyleData:  ButtonStyleData(
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(5)
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        height: 60,
-                        width: 140,
                       ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
-                      ),
-                    ),
-                  ),
-                ),
-
-              ],
-            ) : const Center(),
-            const SizedBox(height: 20,),
+                    ],
+                  )
+                : const Center(),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
                 Expanded(
-                  child: Text("${widget.singleDelivery!.data!.delivery!.measurement!.name}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 15
-                    ),
+                  child: Text(
+                    "${widget.singleDelivery!.data!.delivery!.measurement!.name}",
+                    style: const TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
                   ),
                 ),
-                const SizedBox(width: 20,),
+                const SizedBox(
+                  width: 20,
+                ),
                 Expanded(
                     flex: 2,
                     child: TextFormField(
@@ -468,34 +192,30 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide.none
-                          ),
-                          hintText: "00 ${widget.singleDelivery!.data!.delivery!.measurement!.name}"
-                      ),
-                    )
-                )
+                          border: const OutlineInputBorder(borderSide: BorderSide.none),
+                          hintText: "${widget.singleDelivery!.data!.delivery!.measurement!.name}"),
+                    ))
               ],
             ),
-
-            const SizedBox(height: 70,),
+            const SizedBox(
+              height: 70,
+            ),
             InkWell(
-              onTap: ()=>editTransition(),
+              onTap: () => editTransition(),
               child: Container(
                 width: 200,
                 height: 60,
-                decoration: BoxDecoration(
-                    gradient: AppWidgets.buildLinearGradient(),
-                    borderRadius: BorderRadius.circular(10)
-                ),
+                decoration:
+                    BoxDecoration(gradient: AppWidgets.buildLinearGradient(), borderRadius: BorderRadius.circular(10)),
                 child: Center(
-                  child: isEditingLoading ? const CircularProgressIndicator(color: Colors.white,) : const Text("Save",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontSize: 16
-                    ),
-                  ),
+                  child: isEditingLoading
+                      ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : const Text(
+                          "Save",
+                          style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 16),
+                        ),
                 ),
               ),
             )
@@ -503,20 +223,22 @@ class _EditDeliveryOutTranscationState extends State<EditDeliveryOutTranscation>
         ),
       ),
     );
-
   }
 
   bool isEditingLoading = false;
-  editTransition() async{
-    setState(() =>isEditingLoading = true);
-    var res = await DeliveryOutController.editTranscations(case_no: selectedCageOn ?? "null", weight: weight.text, id: widget.singleTransaction!.id.toString());
-    if(res.statusCode == 200){
-      Get.to(DeliveryOutsTransactionsList(existingDeliveryOutDatum: widget.existingDeliveryOutDatum, singleDeliveryOutModel: widget.singleDelivery,  ));
+  editTransition() async {
+    setState(() => isEditingLoading = true);
+    var res = await DeliveryOutController.editTranscations(
+        case_no: selectedCageOn, weight: weight.text, id: widget.singleTransaction!.id.toString());
+    if (res.statusCode == 200) {
+      Get.to(DeliveryOutsTransactionsList(
+        existingDeliveryOutDatum: widget.existingDeliveryOutDatum,
+        singleDeliveryOutModel: widget.singleDelivery,
+      ));
       AppSnackbar.appSnackbar("Edit success.", Colors.green, context);
-    }else{
+    } else {
       AppSnackbar.appSnackbar("Something went wrong.", Colors.red, context);
     }
-    setState(() =>isEditingLoading = false);
-
+    setState(() => isEditingLoading = false);
   }
 }

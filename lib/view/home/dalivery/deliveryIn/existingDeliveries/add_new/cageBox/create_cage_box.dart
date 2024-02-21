@@ -498,7 +498,7 @@ class _CreateNewCageBoxState extends State<CreateNewCageBox> {
                                       fillColor: Colors.grey.shade200,
                                       filled: true,
                                       border: const OutlineInputBorder(borderSide: BorderSide.none),
-                                      hintText: "40 ${widget.existingDeliveryInDatum!.measurement!.name}"),
+                                      hintText: "${widget.existingDeliveryInDatum!.measurement!.name}"),
                                 ))
                           ],
                         ),

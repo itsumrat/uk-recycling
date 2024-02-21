@@ -42,13 +42,19 @@ class DeliveryInController {
 
   //Single existing model
   static Future<http.Response> editTranscations(
-      {required String weight, required String case_no, required String id}) async {
+      {required String weight, required CageDatum? case_no, required String id}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var token = pref.getString("token");
-    var withoutCaseNo = {"weight": weight};
-    var withCaseNo = {"weight": weight, "case_no": case_no};
-    var res = await http.put(Uri.parse("${AppConfig.DELIVERY_IN_TRANSCATION}/$id"),
-        headers: {"Authorization": "Bearer $token"}, body: case_no != null ? withCaseNo : withoutCaseNo);
+    // var withoutCaseNo = {"weight": weight};
+    var withCaseNo = {
+      "weight": weight,
+      if (case_no != null) "case_no": case_no.id!.toString(),
+    };
+    var res = await http.put(
+      Uri.parse("${AppConfig.DELIVERY_IN_TRANSCATION}/$id"),
+      headers: {"Authorization": "Bearer $token"},
+      body: withCaseNo,
+    );
     print(res.statusCode);
     print(res.body);
     return res;

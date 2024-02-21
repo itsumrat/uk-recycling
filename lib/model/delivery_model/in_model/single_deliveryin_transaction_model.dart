@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:crm/model/cage_model/cage_model.dart';
+
 TranscaByDeliveryInIdModel transcaByDeliveryInIdModelFromJson(String str) =>
     TranscaByDeliveryInIdModel.fromJson(json.decode(str));
 
@@ -69,6 +71,10 @@ class Transaction {
   final Measurements? measurements;
   final User? user;
 
+  final double? productWeight;
+
+  final CageDatum? cage;
+
   Transaction({
     this.id,
     this.deliveryId,
@@ -82,6 +88,8 @@ class Transaction {
     this.updatedAt,
     this.measurements,
     this.user,
+    this.productWeight,
+    this.cage,
   });
 
   factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
@@ -97,6 +105,8 @@ class Transaction {
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         measurements: json["measurements"] == null ? null : Measurements.fromJson(json["measurements"]),
         user: json["user"] == null ? null : User.fromJson(json["user"]),
+        productWeight: double.tryParse(json["product_weight"].toString()),
+        cage: json["cage"] == null ? null : CageDatum.fromJson(json["cage"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -112,6 +122,8 @@ class Transaction {
         "updated_at": updatedAt?.toIso8601String(),
         "measurements": measurements?.toJson(),
         "user": user?.toJson(),
+        "product_weight": productWeight,
+        "cage": cage?.toJson(),
       };
 }
 

@@ -224,10 +224,28 @@ class _AttendanceListState extends State<AttendanceList> {
                                                   padding:
                                                       const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
                                                   decoration: BoxDecoration(
-                                                      color: index.isEven ? Colors.red : Colors.green,
+                                                      color: () {
+                                                        switch (_allAttendanceList[index].status) {
+                                                          case 0:
+                                                            return Colors.red;
+                                                          case 1:
+                                                            return Colors.green;
+                                                          default:
+                                                            return Colors.blue;
+                                                        }
+                                                      }(),
                                                       borderRadius: BorderRadius.circular(5)),
                                                   child: Text(
-                                                    index.isEven ? "A" : "P",
+                                                    () {
+                                                      switch (_allAttendanceList[index].status) {
+                                                        case 0:
+                                                          return "A";
+                                                        case 1:
+                                                          return "P";
+                                                        default:
+                                                          return "H";
+                                                      }
+                                                    }(),
                                                     style: const TextStyle(
                                                         fontWeight: FontWeight.w400, color: Colors.white, fontSize: 16),
                                                   ),

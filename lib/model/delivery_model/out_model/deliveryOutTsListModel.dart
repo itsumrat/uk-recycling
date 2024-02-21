@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:crm/model/cage_model/cage_model.dart';
+
 DeliveryOutTrListModel deliveryOutTrListModelFromJson(String str) => DeliveryOutTrListModel.fromJson(json.decode(str));
 
 String deliveryOutTrListModelToJson(DeliveryOutTrListModel data) => json.encode(data.toJson());
@@ -20,16 +22,16 @@ class DeliveryOutTrListModel {
   });
 
   factory DeliveryOutTrListModel.fromJson(Map<String, dynamic> json) => DeliveryOutTrListModel(
-    success: json["success"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-    message: json["message"],
-  );
+        success: json["success"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        message: json["message"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "data": data?.toJson(),
-    "message": message,
-  };
+        "success": success,
+        "data": data?.toJson(),
+        "message": message,
+      };
 }
 
 class Data {
@@ -42,14 +44,16 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    transaction: json["transaction"] == null ? [] : List<Transaction>.from(json["transaction"]!.map((x) => Transaction.fromJson(x))),
-    weight: json["weight"],
-  );
+        transaction: json["transaction"] == null
+            ? []
+            : List<Transaction>.from(json["transaction"]!.map((x) => Transaction.fromJson(x))),
+        weight: json["weight"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "transaction": transaction == null ? [] : List<dynamic>.from(transaction!.map((x) => x.toJson())),
-    "weight": weight,
-  };
+        "transaction": transaction == null ? [] : List<dynamic>.from(transaction!.map((x) => x.toJson())),
+        "weight": weight,
+      };
 }
 
 class Transaction {
@@ -59,12 +63,15 @@ class Transaction {
   final int? addedBy;
   final int? measurement;
   final dynamic caseId;
-  final int? weight;
+  final double? weight;
+  final double? productWeight;
+
   final int? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final Measurements? measurements;
   final User? user;
+  final CageDatum? cage;
 
   Transaction({
     this.id,
@@ -79,37 +86,43 @@ class Transaction {
     this.updatedAt,
     this.measurements,
     this.user,
+    this.productWeight,
+    this.cage,
   });
 
   factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
-    id: json["id"],
-    deliveryId: json["delivery_id"],
-    date: json["date"] == null ? null : DateTime.parse(json["date"]),
-    addedBy: json["added_by"],
-    measurement: json["measurement"],
-    caseId: json["case_id"],
-    weight: json["weight"],
-    status: json["status"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    measurements: json["measurements"] == null ? null : Measurements.fromJson(json["measurements"]),
-    user: json["user"] == null ? null : User.fromJson(json["user"]),
-  );
+        id: json["id"],
+        deliveryId: json["delivery_id"],
+        date: json["date"] == null ? null : DateTime.parse(json["date"]),
+        addedBy: json["added_by"],
+        measurement: json["measurement"],
+        caseId: json["case_id"],
+        weight: json["weight"]?.toDouble(),
+        status: json["status"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        measurements: json["measurements"] == null ? null : Measurements.fromJson(json["measurements"]),
+        user: json["user"] == null ? null : User.fromJson(json["user"]),
+        productWeight: json["product_weight"]?.toDouble(),
+        cage: json["cage"] == null ? null : CageDatum.fromJson(json["cage"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "delivery_id": deliveryId,
-    "date": date?.toIso8601String(),
-    "added_by": addedBy,
-    "measurement": measurement,
-    "case_id": caseId,
-    "weight": weight,
-    "status": status,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "measurements": measurements?.toJson(),
-    "user": user?.toJson(),
-  };
+        "id": id,
+        "delivery_id": deliveryId,
+        "date": date?.toIso8601String(),
+        "added_by": addedBy,
+        "measurement": measurement,
+        "case_id": caseId,
+        "weight": weight,
+        "status": status,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "measurements": measurements?.toJson(),
+        "user": user?.toJson(),
+        "product_weight": productWeight,
+        "cage": cage?.toJson(),
+      };
 }
 
 class Measurements {
@@ -126,18 +139,18 @@ class Measurements {
   });
 
   factory Measurements.fromJson(Map<String, dynamic> json) => Measurements(
-    id: json["id"],
-    name: json["name"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-  );
+        id: json["id"],
+        name: json["name"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-  };
+        "id": id,
+        "name": name,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+      };
 }
 
 class User {
@@ -166,28 +179,28 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json["id"],
-    name: json["name"],
-    email: json["email"],
-    emailVerifiedAt: json["email_verified_at"],
-    userId: json["user_id"],
-    address: json["address"],
-    userType: json["user_type"],
-    passkey: json["passkey"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-  );
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+        emailVerifiedAt: json["email_verified_at"],
+        userId: json["user_id"],
+        address: json["address"],
+        userType: json["user_type"],
+        passkey: json["passkey"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "email": email,
-    "email_verified_at": emailVerifiedAt,
-    "user_id": userId,
-    "address": address,
-    "user_type": userType,
-    "passkey": passkey,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-  };
+        "id": id,
+        "name": name,
+        "email": email,
+        "email_verified_at": emailVerifiedAt,
+        "user_id": userId,
+        "address": address,
+        "user_type": userType,
+        "passkey": passkey,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+      };
 }

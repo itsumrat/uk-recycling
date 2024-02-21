@@ -146,7 +146,7 @@ class _TransactionsState extends State<Transactions> {
                                             decoration: BoxDecoration(
                                                 color: Colors.grey.shade300, borderRadius: BorderRadius.circular(5)),
                                             child: Text(
-                                              "${_searchTranscationList[index].weight} ${widget.singleDeliveryInModel!.data!.delivery!.measurement!.name}",
+                                              "${_searchTranscationList[index].productWeight} ${widget.singleDeliveryInModel!.data!.delivery!.measurement!.name}",
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.w400, color: Colors.black, fontSize: 16),
                                             ),
@@ -225,7 +225,7 @@ class _TransactionsState extends State<Transactions> {
                                                     color: Colors.grey.shade300,
                                                     borderRadius: BorderRadius.circular(5)),
                                                 child: Text(
-                                                  "${_transcationList[index].weight?.toStringAsFixed(2)} ${widget.singleDeliveryInModel!.data!.delivery!.measurement!.name}",
+                                                  "${_transcationList[index].productWeight?.toStringAsFixed(2)} ${widget.singleDeliveryInModel!.data!.delivery!.measurement!.name}",
                                                   style: const TextStyle(
                                                       fontWeight: FontWeight.w400, color: Colors.black, fontSize: 16),
                                                 ),
@@ -241,6 +241,7 @@ class _TransactionsState extends State<Transactions> {
                                                         existingDeliveryInDatum: widget.existingDeliveryInDatum,
                                                         singleDelivery: widget.singleDeliveryInModel!,
                                                         singleTransaction: _transcationList[index],
+                                                        existingCage: _transcationList[index].cage,
                                                       )),
                                                       child: Container(
                                                         padding: const EdgeInsets.only(

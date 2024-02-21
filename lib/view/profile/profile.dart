@@ -65,28 +65,28 @@ class _ProfileState extends State<Profile> {
                           const SizedBox(
                             height: 50,
                           ),
-                          Center(
-                            child: Container(
-                              width: 180,
-                              height: 180,
-                              padding: const EdgeInsets.all(20),
-                              decoration:
-                                  BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(100)),
-                              child: const Column(
-                                children: [
-                                  Icon(
-                                    Icons.person,
-                                    color: Colors.black,
-                                    size: 100,
-                                  ),
-                                  Text("Upload your image")
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
+                          // Center(
+                          //   child: Container(
+                          //     width: 180,
+                          //     height: 180,
+                          //     padding: const EdgeInsets.all(20),
+                          //     decoration:
+                          //         BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(100)),
+                          //     child: const Column(
+                          //       children: [
+                          //         Icon(
+                          //           Icons.person,
+                          //           color: Colors.black,
+                          //           size: 100,
+                          //         ),
+                          //         Text("Upload your image")
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
+                          // const SizedBox(
+                          //   height: 30,
+                          // ),
                           Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                               child: AppSideBySIdeText(

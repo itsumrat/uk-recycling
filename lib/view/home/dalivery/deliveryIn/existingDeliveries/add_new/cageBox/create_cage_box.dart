@@ -51,27 +51,27 @@ class _CreateNewCageBoxState extends State<CreateNewCageBox> {
   String? selectUserName;
 
   Future<AllUserModel>? allUserFuture;
-  final List<DeliveryDatum> _allDeliveryTypeList = [];
-  final List<ProductCategoryDatum> _allProductCategoryList = [];
+  // final List<DeliveryDatum> _allDeliveryTypeList = [];
+  // final List<ProductCategoryDatum> _allProductCategoryList = [];
   //get delivery type list
-  void _getDeliveryTypeList() async {
-    var res = await DeliveryTypeController.getDeliveryType();
-    for (var i in res.data!) {
-      setState(() {
-        _allDeliveryTypeList.add(i);
-      });
-    }
-  }
+  // void _getDeliveryTypeList() async {
+  //   var res = await DeliveryTypeController.getDeliveryType();
+  //   for (var i in res.data!) {
+  //     setState(() {
+  //       _allDeliveryTypeList.add(i);
+  //     });
+  //   }
+  // }
 
-  //get product category
-  void _getProductCategoryList() async {
-    var res = await DeliveryInProductCategoryController.getProductCategory();
-    for (var i in res!.data!) {
-      setState(() {
-        _allProductCategoryList.add(i);
-      });
-    }
-  }
+  // //get product category
+  // void _getProductCategoryList() async {
+  //   var res = await DeliveryInProductCategoryController.getProductCategory();
+  //   for (var i in res!.data!) {
+  //     setState(() {
+  //       _allProductCategoryList.add(i);
+  //     });
+  //   }
+  // }
 
   final List<CageDatum> _allCageList = [];
 
@@ -528,6 +528,28 @@ class _CreateNewCageBoxState extends State<CreateNewCageBox> {
                         const SizedBox(
                           height: 30,
                         ),
+                        InkWell(
+                          onTap: () => _createDeliveryInTranscation(shouldNavigate: false),
+                          child: Container(
+                            width: 200,
+                            height: 60,
+                            decoration: BoxDecoration(
+                                gradient: AppWidgets.buildLinearGradient(), borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                              child: isAdding
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : const Text(
+                                      "Input More",
+                                      style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 16),
+                                    ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
                       ],
                     );
                   } else {
@@ -543,7 +565,8 @@ class _CreateNewCageBoxState extends State<CreateNewCageBox> {
   }
 
   bool isAdding = false;
-  void _createDeliveryInTranscation() async {
+  bool isAddingMore = false;
+  void _createDeliveryInTranscation({bool shouldNavigate = true}) async {
     if (widget.existingDeliveryInDatum!.measurement!.name == "Cage" && selectedCageOn == null) {
       AppSnackbar.appSnackbar("Please select cage.", Colors.red, context);
       return;
@@ -561,10 +584,16 @@ class _CreateNewCageBoxState extends State<CreateNewCageBox> {
     if (res.statusCode == 200) {
       AppSnackbar.appSnackbar("Transaction created success.", Colors.green, context);
       //Get.to(SingleExistingDeliveries(existingDeliveryInDatum: widget.existingDeliveryInDatum, existingDeliveryId: widget.deliveryId.toString(),));
-      Get.to(SingleExistingDeliveries(
-        existingDeliveryInDatum: widget.existingDeliveryInDatum,
-        existingDeliveryId: widget.deliveryId.toString(),
-      ));
+      if (shouldNavigate) {
+        Get.to(
+          SingleExistingDeliveries(
+            existingDeliveryInDatum: widget.existingDeliveryInDatum,
+            existingDeliveryId: widget.deliveryId.toString(),
+          ),
+        );
+      } else {
+        weight.clear();
+      }
     } else {
       AppSnackbar.appSnackbar("Something went wrong.", Colors.red, context);
     }

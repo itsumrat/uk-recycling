@@ -30,6 +30,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return AppWidget(
         appBarOnBack: () {},
+        showBottomBar: false,
         appBarTitle: "Sign In",
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20),

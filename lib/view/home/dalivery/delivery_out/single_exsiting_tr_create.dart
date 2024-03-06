@@ -202,7 +202,6 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                                 ))
                           ],
                         ),
-
                         const SizedBox(
                           height: 70,
                         ),
@@ -228,6 +227,28 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
                         const SizedBox(
                           height: 30,
                         ),
+                        InkWell(
+                          onTap: () => _createDeliveryInTranscation(shouldNavigate: false),
+                          child: Container(
+                            width: 200,
+                            height: 60,
+                            decoration: BoxDecoration(
+                                gradient: AppWidgets.buildLinearGradient(), borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                              child: isAdding
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : const Text(
+                                      "Input More",
+                                      style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 16),
+                                    ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
                       ],
                     );
                   } else {
@@ -243,7 +264,7 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
   }
 
   bool isAdding = false;
-  void _createDeliveryInTranscation() async {
+  void _createDeliveryInTranscation({bool shouldNavigate = true}) async {
     setState(() => isAdding = true);
     if (weight.text.isEmpty) {
       AppSnackbar.appSnackbar("Input field must not be empty.", Colors.red, context);
@@ -260,10 +281,16 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
           AppSnackbar.appSnackbar("Transaction created success.", Colors.green, context);
 
           //Get.to(ShowNewlyCreateDeliveryOutSingleTrx(trxId: jsonDecode(res.body)["data"]["id"].toString(), existingDeliveryInDatum: widget.existingDeliveryInDatum, existingDeliveryId: widget.existingDeliveryId,));
-          Get.to(SingleExistingDeliveriesOuts(
-            existingDeliveryOutDatum: widget.existingDeliveryInDatum,
-            existingDeliveryId: widget.existingDeliveryId.toString(),
-          ));
+          if (shouldNavigate) {
+            Get.to(
+              SingleExistingDeliveriesOuts(
+                existingDeliveryOutDatum: widget.existingDeliveryInDatum,
+                existingDeliveryId: widget.existingDeliveryId.toString(),
+              ),
+            );
+          } else {
+            weight.clear();
+          }
         } else {
           AppSnackbar.appSnackbar("Something went wrong.", Colors.red, context);
         }

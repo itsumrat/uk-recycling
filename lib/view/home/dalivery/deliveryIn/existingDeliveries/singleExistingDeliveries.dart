@@ -126,19 +126,32 @@ class _SingleExistingDeliveriesState extends State<SingleExistingDeliveries> {
                       height: 30,
                     ),
                     InkWell(
-                      onTap: () => Get.to(CreateNewCageBox(
-                        existingDeliveryInDatum: widget.existingDeliveryInDatum,
-                        deliveryId: snapshot.data!.data!.delivery!.id.toString(),
-                      )),
+                      onTap: () async {
+                        await Get.to(CreateNewCageBox(
+                          existingDeliveryInDatum: widget.existingDeliveryInDatum,
+                          deliveryId: snapshot.data!.data!.delivery!.id.toString(),
+                        ));
+
+                        setState(() {
+                          _singleDelivery =
+                              DeliveryInController.getSingleDeliveryIn(id: widget.existingDeliveryId.toString());
+                        });
+                      },
                       child: Container(
                         width: 200,
                         height: 60,
                         decoration: BoxDecoration(
-                            gradient: AppWidgets.buildLinearGradient(), borderRadius: BorderRadius.circular(10)),
+                          gradient: AppWidgets.buildLinearGradient(),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         child: const Center(
                           child: Text(
                             "Add New",
-                            style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 16),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),

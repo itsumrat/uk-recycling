@@ -9,15 +9,17 @@ class AppWidget extends StatelessWidget {
   final String? appBarTitle;
   final VoidCallback? appBarOnBack;
   final double? textSize;
-  const AppWidget(
-      {Key? key,
-      required this.body,
-      this.bottomNavigationBar,
-      this.floatingActionButton,
-      this.appBarTitle,
-      this.appBarOnBack,
-      this.textSize = 16})
-      : super(key: key);
+  final bool showBottomBar;
+  const AppWidget({
+    Key? key,
+    required this.body,
+    this.bottomNavigationBar,
+    this.floatingActionButton,
+    this.appBarTitle,
+    this.appBarOnBack,
+    this.textSize = 16,
+    this.showBottomBar = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +46,12 @@ class AppWidget extends StatelessWidget {
               ),
             ),
             body: body,
-            bottomNavigationBar: bottomNavigationBar ??
-                const AppBottomNavigation(
-                  pageIndex: 0,
-                ),
+            bottomNavigationBar: showBottomBar
+                ? bottomNavigationBar ??
+                    const AppBottomNavigation(
+                      pageIndex: 0,
+                    )
+                : null,
             floatingActionButton: floatingActionButton,
           ),
         ),

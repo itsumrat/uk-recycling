@@ -72,69 +72,73 @@ class _ExistingDeliveriesState extends State<ExistingDeliveries> {
               height: 20,
             ),
             Expanded(
-                child: isLoading
-                    ? const AppLoader()
-                    : _searchExistingDeliveryInList.isNotEmpty
-                        ? ListView.builder(
-                            itemCount: _searchExistingDeliveryInList.length,
-                            itemBuilder: (_, index) {
-                              var data = _searchExistingDeliveryInList[index];
-                              return InkWell(
-                                onTap: () => Get.to(SingleExistingDeliveries(
+              child: isLoading
+                  ? const AppLoader()
+                  : _searchExistingDeliveryInList.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: _searchExistingDeliveryInList.length,
+                          itemBuilder: (_, index) {
+                            var data = _searchExistingDeliveryInList[index];
+                            return InkWell(
+                              onTap: () => Get.to(SingleExistingDeliveries(
+                                existingDeliveryInDatum: data,
+                                existingDeliveryId: data.id.toString(),
+                              )),
+                              child: Container(
+                                //height: 50,
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                    //borderRadius: BorderRadius.circular(5),
+                                    border: Border(
+                                  top: const BorderSide(width: 1, color: AppColor.borderColor),
+                                  left: const BorderSide(width: 1, color: AppColor.borderColor),
+                                  right: const BorderSide(width: 1, color: AppColor.borderColor),
+                                  bottom: _searchExistingDeliveryInList.length == 1
+                                      ? const BorderSide(width: 1, color: AppColor.borderColor)
+                                      : const BorderSide(width: 0, color: AppColor.white),
+                                )),
+                                child: Text(
+                                  "${data.deliveryInId}/${inputFormat.format(data.date!)}/${data.supplier!.name}-${data.measurement!.name}",
+                                  style:
+                                      const TextStyle(fontWeight: FontWeight.w500, color: Colors.black54, fontSize: 16),
+                                ),
+                              ),
+                            );
+                          })
+                      : ListView.builder(
+                          itemCount: _existingDeliveryInList.length,
+                          itemBuilder: (_, index) {
+                            var data = _existingDeliveryInList[index];
+                            return InkWell(
+                              onTap: () => Get.to(
+                                SingleExistingDeliveries(
                                   existingDeliveryInDatum: data,
                                   existingDeliveryId: data.id.toString(),
-                                )),
-                                child: Container(
-                                  //height: 50,
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                      //borderRadius: BorderRadius.circular(5),
-                                      border: Border(
-                                    top: const BorderSide(width: 1, color: AppColor.borderColor),
-                                    left: const BorderSide(width: 1, color: AppColor.borderColor),
-                                    right: const BorderSide(width: 1, color: AppColor.borderColor),
-                                    bottom: _searchExistingDeliveryInList.length == 1
-                                        ? const BorderSide(width: 1, color: AppColor.borderColor)
-                                        : const BorderSide(width: 0, color: AppColor.white),
-                                  )),
-                                  child: Text(
-                                    "${data.deliveryInId}/${inputFormat.format(data.date!)}/${data.supplier!.name}-${data.measurement!.name}",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w500, color: Colors.black54, fontSize: 16),
-                                  ),
                                 ),
-                              );
-                            })
-                        : ListView.builder(
-                            itemCount: _existingDeliveryInList.length,
-                            itemBuilder: (_, index) {
-                              var data = _existingDeliveryInList[index];
-                              return InkWell(
-                                onTap: () => Get.to(SingleExistingDeliveries(
-                                  existingDeliveryInDatum: data,
-                                  existingDeliveryId: data.id.toString(),
+                              ),
+                              child: Container(
+                                //height: 50,
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                    //borderRadius: BorderRadius.circular(5),
+                                    border: Border(
+                                  top: const BorderSide(width: 1, color: AppColor.borderColor),
+                                  left: const BorderSide(width: 1, color: AppColor.borderColor),
+                                  right: const BorderSide(width: 1, color: AppColor.borderColor),
+                                  bottom: _existingDeliveryInList.length != 1
+                                      ? const BorderSide(width: 1, color: AppColor.borderColor)
+                                      : const BorderSide(width: 0, color: AppColor.white),
                                 )),
-                                child: Container(
-                                  //height: 50,
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                      //borderRadius: BorderRadius.circular(5),
-                                      border: Border(
-                                    top: const BorderSide(width: 1, color: AppColor.borderColor),
-                                    left: const BorderSide(width: 1, color: AppColor.borderColor),
-                                    right: const BorderSide(width: 1, color: AppColor.borderColor),
-                                    bottom: _existingDeliveryInList.length != 1
-                                        ? const BorderSide(width: 1, color: AppColor.borderColor)
-                                        : const BorderSide(width: 0, color: AppColor.white),
-                                  )),
-                                  child: Text(
-                                    "${data.deliveryInId}/${inputFormat.format(data.date!)}/${data.supplier?.name}/${data.measurement!.name}",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w500, color: Colors.black54, fontSize: 16),
-                                  ),
+                                child: Text(
+                                  "${data.deliveryInId}/${inputFormat.format(data.date!)}/${data.supplier?.name}/${data.measurement!.name}",
+                                  style:
+                                      const TextStyle(fontWeight: FontWeight.w500, color: Colors.black54, fontSize: 16),
                                 ),
-                              );
-                            })),
+                              ),
+                            );
+                          },
+                        ),
+            ),
           ],
         ),
       ),

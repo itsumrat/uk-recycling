@@ -9,6 +9,8 @@ import 'package:crm/view_controller/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+enum ListFilter { today, all }
+
 class Productoins extends StatefulWidget {
   const Productoins({Key? key}) : super(key: key);
 
@@ -19,14 +21,20 @@ class Productoins extends StatefulWidget {
 class _ProductoinsState extends State<Productoins> {
   final List<AllProductionDatum> _allProductionList = [];
   final List<AllProductionDatum> _allSearchProductionList = [];
+  var filter = ListFilter.today;
   bool isLoading = false;
   Future<void> _getAllProductionList() async {
+    _allProductionList.clear();
+    _allSearchProductionList.clear();
     setState(() => isLoading = true);
     var allProduction = await ProductionController.getAllProduction();
     for (var i in allProduction.data!) {
       setState(() {
         _allProductionList.add(i);
       });
+    }
+    if (filter == ListFilter.today) {
+      _allProductionList.removeWhere((element) => element.productionDate?.day != DateTime.now().day);
     }
     setState(() => isLoading = false);
   }
@@ -74,6 +82,44 @@ class _ProductoinsState extends State<Productoins> {
                       style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
                     ),
                   ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                PopupMenuButton(
+                  child: Row(
+                    children: [
+                      Text(
+                        filter == ListFilter.today ? "Today" : "All",
+                        style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      const Icon(
+                        Icons.filter_alt,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                  itemBuilder: (context) {
+                    return [
+                      const PopupMenuItem(
+                        value: ListFilter.today,
+                        child: Text("Today"),
+                      ),
+                      const PopupMenuItem(
+                        value: ListFilter.all,
+                        child: Text("All"),
+                      ),
+                    ];
+                  },
+                  onSelected: (ListFilter value) {
+                    setState(() {
+                      filter = value;
+                    });
+                    _getAllProductionList();
+                  },
                 ),
               ],
             ),
@@ -167,6 +213,9 @@ class _ProductoinsState extends State<Productoins> {
             _allSearchProductionList.add(i);
           });
         }
+      }
+      if (filter == ListFilter.today) {
+        _allSearchProductionList.removeWhere((element) => element.productionDate?.day != DateTime.now().day);
       }
       print("_allSearchProductionList == ${_allSearchProductionList.length}");
     } else {

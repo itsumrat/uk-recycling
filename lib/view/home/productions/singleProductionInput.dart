@@ -56,8 +56,8 @@ class _SingleProductionInputState extends State<SingleProductionInput> {
     super.initState();
     getGrade();
     if (widget.existingWeight != null) {
-      _weight.text = widget.existingWeight!;
-      selectedValue = widget.existingGradeId!;
+      _weight.text = widget.existingWeight ?? '';
+      selectedValue = widget.existingGradeId ?? '';
     }
   }
 

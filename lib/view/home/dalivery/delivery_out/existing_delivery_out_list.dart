@@ -11,6 +11,8 @@ import 'package:intl/intl.dart';
 import 'deliveryOut.dart';
 import 'single_existing_delivery.dart';
 
+enum ListFilter { today, all }
+
 class ExistingDeliveriesOuts extends StatefulWidget {
   final bool? isIn;
   const ExistingDeliveriesOuts({Key? key, this.isIn = true}) : super(key: key);
@@ -21,6 +23,7 @@ class ExistingDeliveriesOuts extends StatefulWidget {
 
 class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
   var inputFormat = DateFormat("dd-MM-yyyy");
+  var filter = ListFilter.today;
 
   @override
   void initState() {
@@ -65,6 +68,44 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
                       style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
                     ),
                   ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                PopupMenuButton(
+                  child: Row(
+                    children: [
+                      Text(
+                        filter == ListFilter.today ? "Today" : "All",
+                        style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      const Icon(
+                        Icons.filter_alt,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                  itemBuilder: (context) {
+                    return [
+                      const PopupMenuItem(
+                        value: ListFilter.today,
+                        child: Text("Today"),
+                      ),
+                      const PopupMenuItem(
+                        value: ListFilter.all,
+                        child: Text("All"),
+                      ),
+                    ];
+                  },
+                  onSelected: (ListFilter value) {
+                    setState(() {
+                      filter = value;
+                    });
+                    _getExstingData();
+                  },
                 ),
               ],
             ),
@@ -148,6 +189,9 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
   final List<ExistingDeliveryOutDatum> _existingDeliveryInList = [];
   final List<ExistingDeliveryOutDatum> _searchExistingDeliveryInList = [];
   void _getExstingData() async {
+    _existingDeliveryInList.clear();
+    _searchExistingDeliveryInList.clear();
+
     setState(() => isLoading = true);
     if (widget.isIn! == false) {
       //check if its from Delivery in screen, then run this block of code.
@@ -155,6 +199,9 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
         var res = await DeliveryOutController.getExistingDelidyOutList();
         for (var i in res.data!) {
           _existingDeliveryInList.add(i);
+        }
+        if (filter == ListFilter.today) {
+          _existingDeliveryInList.removeWhere((element) => element.date?.day != DateTime.now().day);
         }
         setState(() => isLoading = false);
       } catch (e) {
@@ -177,6 +224,9 @@ class _ExistingDeliveriesOutsState extends State<ExistingDeliveriesOuts> {
             _searchExistingDeliveryInList.add(i);
           });
         }
+      }
+      if (filter == ListFilter.today) {
+        _searchExistingDeliveryInList.removeWhere((element) => element.date?.day != DateTime.now().day);
       }
     } else {
       _searchExistingDeliveryInList.clear();

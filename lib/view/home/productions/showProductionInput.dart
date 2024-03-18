@@ -1,7 +1,6 @@
 import 'package:crm/controller/production_controller/production_controller.dart';
 import 'package:crm/model/production_model/all_production_model.dart';
 import 'package:crm/model/production_model/single_production_trx.dart';
-import 'package:crm/utility/app_const.dart';
 import 'package:crm/view/home/productions/singleProductionInput.dart';
 import 'package:crm/view/home/productions/singleProductions.dart';
 import 'package:crm/view_controller/appWidgets.dart';
@@ -11,6 +10,7 @@ import 'package:crm/view_controller/loader.dart';
 import 'package:crm/widgets/app_title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ShowProductionsInputs extends StatefulWidget {
   final String weight;
@@ -67,26 +67,25 @@ class _ShowProductionsInputsState extends State<ShowProductionsInputs> {
                           children: [
                             // AppSideBySIdeText(leftText: "Super Id: ", rightText: "${widget.production!.su}"),
                             // SizedBox(height: 20,),
+                            // AppSideBySIdeText(
+                            //     leftText: "Assigned to:  ", rightText: "${widget.production!.assignedTo!.name}"),
+                            // const SizedBox(
+                            //   height: 20,
+                            // ),
                             AppSideBySIdeText(
-                                leftText: "Assigned to:  ", rightText: "${widget.production!.assignedTo!.name}"),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            AppSideBySIdeText(
-                                leftText: "Production transaction:  ",
+                                leftText: "Production trx:  ",
                                 rightText: "${widget.production!.productionId}/${widget.transactionID}"),
                             const SizedBox(
                               height: 20,
                             ),
                             AppSideBySIdeText(
                                 leftText: "Date: ",
-                                rightText: snapshot.data!.data?.createdAt == null
-                                    ? ""
-                                    : AppConst.formetData(snapshot.data!.data?.createdAt)),
+                                rightText:
+                                    DateFormat('dd/MM/yyyy').format(DateFormat('dd/MM/yyyy').parse(widget.date))),
                             const SizedBox(
                               height: 20,
                             ),
-                            AppSideBySIdeText(leftText: "Grade: ", rightText: "${snapshot.data!.data?.grades?.name}"),
+                            AppSideBySIdeText(leftText: "Grade: ", rightText: widget.grade),
                             const SizedBox(
                               height: 20,
                             ),

@@ -191,78 +191,80 @@ class _DeliveryOutsTransactionsListState extends State<DeliveryOutsTransactionsL
                                       child: Container(
                                         //height: 50,
                                         padding: const EdgeInsets.all(15),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width: size.width * .30,
-                                              child: Text(
-                                                "${widget.singleDeliveryOutModel!.data!.delivery!.deliveryOutId}/${_transcationList[index].id}",
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.w400, color: Colors.black, fontSize: 16),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              child: Container(
-                                                padding: const EdgeInsets.all(4),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.grey.shade200,
-                                                    borderRadius: BorderRadius.circular(5)),
+                                        child: FittedBox(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                width: size.width * .30,
                                                 child: Text(
-                                                  "${widget.singleDeliveryOutModel!.data!.delivery!.categories!.name}",
-                                                  style: const TextStyle(
-                                                      fontWeight: FontWeight.w400,
-                                                      color: AppColor.textColor,
-                                                      fontSize: 16),
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            SizedBox(
-                                              child: Container(
-                                                padding: const EdgeInsets.all(4),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.grey.shade300,
-                                                    borderRadius: BorderRadius.circular(5)),
-                                                child: Text(
-                                                  "${_transcationList[index].productWeight} ${widget.singleDeliveryOutModel!.data!.delivery!.measurement!.name}",
+                                                  "${widget.singleDeliveryOutModel!.data!.delivery!.deliveryOutId}/${_transcationList[index].id}",
                                                   style: const TextStyle(
                                                       fontWeight: FontWeight.w400, color: Colors.black, fontSize: 16),
                                                 ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            role == AppConst.supervisorRole
-                                                ? SizedBox(
-                                                    child: InkWell(
-                                                      onTap: () => Get.to(EditDeliveryOutTranscation(
-                                                        existingDeliveryOutDatum: widget.existingDeliveryOutDatum,
-                                                        singleDelivery: widget.singleDeliveryOutModel!,
-                                                        singleTransaction: _transcationList[index],
-                                                        existingCage: _transcationList[index].cage,
-                                                      )),
-                                                      child: Container(
-                                                        padding: const EdgeInsets.only(
-                                                            left: 15, right: 15, bottom: 5, top: 5),
-                                                        decoration: BoxDecoration(
-                                                            color: AppColor.mainColor,
-                                                            borderRadius: BorderRadius.circular(5)),
-                                                        child: const Text(
-                                                          "Edit",
-                                                          style: TextStyle(
-                                                              fontWeight: FontWeight.w400,
-                                                              color: Colors.white,
-                                                              fontSize: 16),
+                                              SizedBox(
+                                                child: Container(
+                                                  padding: const EdgeInsets.all(4),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey.shade200,
+                                                      borderRadius: BorderRadius.circular(5)),
+                                                  child: Text(
+                                                    "${widget.singleDeliveryOutModel!.data!.delivery!.categories!.name}",
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.w400,
+                                                        color: AppColor.textColor,
+                                                        fontSize: 16),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              SizedBox(
+                                                child: Container(
+                                                  padding: const EdgeInsets.all(4),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey.shade300,
+                                                      borderRadius: BorderRadius.circular(5)),
+                                                  child: Text(
+                                                    "${_transcationList[index].productWeight} ${widget.singleDeliveryOutModel!.data!.delivery!.measurement!.name}",
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.w400, color: Colors.black, fontSize: 16),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              role == AppConst.supervisorRole
+                                                  ? SizedBox(
+                                                      child: InkWell(
+                                                        onTap: () => Get.to(EditDeliveryOutTranscation(
+                                                          existingDeliveryOutDatum: widget.existingDeliveryOutDatum,
+                                                          singleDelivery: widget.singleDeliveryOutModel!,
+                                                          singleTransaction: _transcationList[index],
+                                                          existingCage: _transcationList[index].cage,
+                                                        )),
+                                                        child: Container(
+                                                          padding: const EdgeInsets.only(
+                                                              left: 15, right: 15, bottom: 5, top: 5),
+                                                          decoration: BoxDecoration(
+                                                              color: AppColor.mainColor,
+                                                              borderRadius: BorderRadius.circular(5)),
+                                                          child: const Text(
+                                                            "Edit",
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.w400,
+                                                                color: Colors.white,
+                                                                fontSize: 16),
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  )
-                                                : const Center(),
-                                          ],
+                                                    )
+                                                  : const Center(),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );

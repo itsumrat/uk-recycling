@@ -9,6 +9,7 @@ import 'package:crm/view_controller/commonWidget.dart';
 import 'package:crm/view_controller/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ShowCageBox extends StatefulWidget {
   final String? deliveryId;
@@ -39,7 +40,7 @@ class _ShowCageBoxState extends State<ShowCageBox> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AppWidget(
-      appBarTitle: "NEW Deliveries In Created",
+      appBarTitle: "NEW Delivery In Created",
       appBarOnBack: () => Get.back(),
       body: FutureBuilder<SingleDeliveryInModel>(
           future: _getSingleDeliveryIn,
@@ -55,9 +56,12 @@ class _ShowCageBoxState extends State<ShowCageBox> {
                   children: [
                     Center(
                       child: Text(
-                        "New UD Create ${snapshot.data!.data!.delivery!.deliveryInId}/${snapshot.data!.data!.delivery!.id}",
+                        "${snapshot.data!.data!.delivery!.deliveryInId}"
+                        "/${DateFormat('dd-MM-yyyy').format(snapshot.data!.data!.delivery!.date!)}"
+                        "/${snapshot.data!.data!.delivery!.supplier!.name}"
+                        "/${snapshot.data!.data!.delivery!.measurement!.name}",
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500, color: Colors.black87),
+                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black87),
                       ),
                     ),
                     const SizedBox(
@@ -77,7 +81,7 @@ class _ShowCageBoxState extends State<ShowCageBox> {
                         Expanded(
                             flex: 2,
                             child: Text(
-                              "${snapshot.data!.data!.delivery!.user!.userId}",
+                              "${snapshot.data!.data!.delivery!.user!.uid}",
                               style: const TextStyle(color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 18),
                             ))
                       ],
@@ -112,7 +116,7 @@ class _ShowCageBoxState extends State<ShowCageBox> {
                       children: [
                         const Expanded(
                           child: Text(
-                            "TRX ID",
+                            "Delivery In ID",
                             style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
                           ),
                         ),

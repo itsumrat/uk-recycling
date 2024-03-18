@@ -1,4 +1,3 @@
-import 'package:crm/appConfig.dart';
 import 'package:crm/controller/production_controller/production_controller.dart';
 import 'package:crm/model/production_model/single_production_list.dart';
 import 'package:crm/utility/app_const.dart';
@@ -7,7 +6,6 @@ import 'package:crm/view/home/productions/productions.dart';
 import 'package:crm/view/home/productions/singleProductionInput.dart';
 import 'package:crm/view_controller/appWidgets.dart';
 import 'package:crm/view_controller/commonWidget.dart';
-import 'package:crm/view_controller/detailsTextSideBySide.dart';
 import 'package:crm/view_controller/loader.dart';
 import 'package:crm/widgets/app_title_text.dart';
 import 'package:flutter/material.dart';
@@ -64,36 +62,36 @@ class _SingleProductionsState extends State<SingleProductions> {
                 padding: const EdgeInsets.only(left: 50, right: 50, top: 30, bottom: 30),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
                     Center(child: AppTitleText(text: "Production: ${snapshot.data!.data!.production!.productionId}")),
                     const SizedBox(
                       height: 30,
                     ),
-                    AppSideBySIdeText(
-                        leftText: "Date: ",
-                        rightText: AppConfig.dateFormat(snapshot.data!.data!.production!.productionDate!)),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AppSideBySIdeText(leftText: "User ID: ", rightText: "$user_id"),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AppSideBySIdeText(leftText: "User Name: ", rightText: "$user_name"),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AppSideBySIdeText(leftText: "Table No: ", rightText: "${widget.productionModel!.tables!.tableId}"),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AppSideBySIdeText(
-                        leftText: "Assigned to: ", rightText: "${widget.productionModel!.assignedTo!.name}"),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    // AppSideBySIdeText(
+                    //     leftText: "Date: ",
+                    //     rightText: AppConfig.dateFormat(snapshot.data!.data!.production!.productionDate!)),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // AppSideBySIdeText(leftText: "User ID: ", rightText: "$user_id"),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // AppSideBySIdeText(leftText: "User Name: ", rightText: "$user_name"),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // AppSideBySIdeText(leftText: "Table No: ", rightText: "${widget.productionModel!.tables!.tableId}"),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // AppSideBySIdeText(
+                    //     leftText: "Assigned to: ", rightText: "${widget.productionModel!.assignedTo!.name}"),
+                    // const SizedBox(
+                    //   height: 30,
+                    // ),
                     const Center(
                       child: Text(
                         "Total Weight",

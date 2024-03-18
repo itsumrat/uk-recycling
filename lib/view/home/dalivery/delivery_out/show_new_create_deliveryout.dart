@@ -51,7 +51,7 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AppWidget(
-      appBarTitle: "NEW Deliveries Out Created",
+      appBarTitle: "NEW Delivery Out Created",
       appBarOnBack: () => Get.back(),
       body: FutureBuilder<SingleExistingDeliveryOutModel>(
           future: _getSingleDeliveryOut,
@@ -67,9 +67,12 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                   children: [
                     Center(
                       child: Text(
-                        "New UD Create ${snapshot.data!.data!.delivery!.deliveryOutId}/${snapshot.data!.data!.delivery!.id}",
+                        "${snapshot.data!.data!.delivery!.deliveryOutId}"
+                        "/${AppConst.formetData("${snapshot.data!.data!.delivery!.date}")}"
+                        "/${snapshot.data!.data!.delivery!.customer!.name}"
+                        "/${snapshot.data!.data!.delivery!.measurement!.name}",
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500, color: Colors.black87),
+                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black87),
                       ),
                     ),
                     const SizedBox(
@@ -89,7 +92,7 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                         Expanded(
                             flex: 2,
                             child: Text(
-                              "$user_id}",
+                              "${snapshot.data!.data!.delivery!.user['uid']}",
                               style: const TextStyle(color: Colors.black54, fontWeight: FontWeight.w400, fontSize: 18),
                             ))
                       ],
@@ -124,7 +127,7 @@ class _ShowNewlyCreateDeliveryOutState extends State<ShowNewlyCreateDeliveryOut>
                       children: [
                         const Expanded(
                           child: Text(
-                            "TRX ID",
+                            "Delivery Out ID",
                             style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 15),
                           ),
                         ),

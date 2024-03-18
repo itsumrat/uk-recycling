@@ -241,7 +241,7 @@ class _EditTranscationState extends State<EditTranscation> {
     }
     setState(() => isEditingLoading = true);
     var res = await DeliveryInController.editTranscations(
-        case_no: selectedCageOn!, weight: weight.text, id: widget.singleTransaction.id.toString());
+        case_no: selectedCageOn, weight: weight.text, id: widget.singleTransaction.id.toString());
     if (res.statusCode == 200) {
       Get.to(Transactions(
         existingDeliveryInDatum: widget.existingDeliveryInDatum,

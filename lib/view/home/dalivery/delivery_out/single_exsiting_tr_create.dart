@@ -98,7 +98,7 @@ class _CreateSingleTrState extends State<CreateSingleTr> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AppWidget(
-      appBarTitle: "Deliveries Out ID: ${widget.existingDeliveryInDatum!.deliveryOutId}",
+      appBarTitle: "Delivery Out ID: ${widget.existingDeliveryInDatum!.deliveryOutId}",
       textSize: 20,
       appBarOnBack: () => Get.back(),
       body: SingleChildScrollView(

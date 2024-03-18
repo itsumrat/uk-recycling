@@ -260,6 +260,8 @@ class User {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
+  final String? uid;
+
   User({
     this.id,
     this.name,
@@ -271,6 +273,7 @@ class User {
     this.passkey,
     this.createdAt,
     this.updatedAt,
+    this.uid,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -284,6 +287,7 @@ class User {
         passkey: json["passkey"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        uid: json["uid"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -297,5 +301,6 @@ class User {
         "passkey": passkey,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "uid": uid,
       };
 }

@@ -24,7 +24,7 @@ class _AttendanceListState extends State<AttendanceList> {
 
   final date = TextEditingController();
 
-  var formetDate = DateFormat("yyyy-MM-dd hh:mm");
+  var formetDate = DateFormat("dd-MM-yyyy hh:mm");
   bool isLoading = false;
   getAllAttendance() async {
     setState(() => isLoading = true);
@@ -40,11 +40,14 @@ class _AttendanceListState extends State<AttendanceList> {
     // }
     setState(() {
       _allAttendanceList.addAll(res.data!.where((element) {
-        return DateTime.now().day == element.date!.day &&
-            DateTime.now().month == element.date!.month &&
-            DateTime.now().year == element.date!.year;
+        return DateTime.now().toUtc().day == element.date!.day &&
+            DateTime.now().toUtc().month == element.date!.month &&
+            DateTime.now().toUtc().year == element.date!.year;
       }).toList());
       log("allAttendanceList == ${_allAttendanceList.length}", name: "AttendanceList");
+      for (var i in _allAttendanceList) {
+        log("allAttendanceList == ${i.toJson()}", name: "AttendanceList");
+      }
     });
     setState(() => isLoading = false);
   }
@@ -73,7 +76,7 @@ class _AttendanceListState extends State<AttendanceList> {
                     stream: Stream.periodic(const Duration(seconds: 1), (i) => DateTime.now()),
                     builder: (context, snapshot) {
                       return Text(
-                        formetDate.format(DateTime.now().toLocal()),
+                        formetDate.format(DateTime.now().toUtc()),
                         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                       );
                     },
@@ -206,7 +209,7 @@ class _AttendanceListState extends State<AttendanceList> {
                                                     color: Colors.grey.shade200,
                                                     borderRadius: BorderRadius.circular(5)),
                                                 child: Text(
-                                                  "${_allAttendanceList[index].checkIn} - ${_allAttendanceList[index].checkOut ?? ""}",
+                                                  "${_allAttendanceList[index].checkIn} - ${_allAttendanceList[index].checkOut}",
                                                   style: const TextStyle(
                                                       fontWeight: FontWeight.w400,
                                                       color: AppColor.textColor,

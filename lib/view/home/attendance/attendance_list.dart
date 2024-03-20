@@ -40,9 +40,9 @@ class _AttendanceListState extends State<AttendanceList> {
     // }
     setState(() {
       _allAttendanceList.addAll(res.data!.where((element) {
-        return DateTime.now().toUtc().day == element.date!.day &&
-            DateTime.now().toUtc().month == element.date!.month &&
-            DateTime.now().toUtc().year == element.date!.year;
+        return DateTime.now().day == element.date!.day &&
+            DateTime.now().month == element.date!.month &&
+            DateTime.now().year == element.date!.year;
       }).toList());
       log("allAttendanceList == ${_allAttendanceList.length}", name: "AttendanceList");
       for (var i in _allAttendanceList) {
@@ -76,7 +76,7 @@ class _AttendanceListState extends State<AttendanceList> {
                     stream: Stream.periodic(const Duration(seconds: 1), (i) => DateTime.now()),
                     builder: (context, snapshot) {
                       return Text(
-                        formetDate.format(DateTime.now().toUtc()),
+                        formetDate.format(DateTime.now()),
                         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                       );
                     },

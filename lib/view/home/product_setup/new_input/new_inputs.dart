@@ -67,9 +67,10 @@ class _NewInputsState extends State<NewInputs> {
   getLogInfo() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      userId = pref.getString("uid")!;
+      userId = pref.getString("user_id")!;
       userName = pref.getString("user_name")!;
       date = AppConst.currentData();
+
       /// Vaiya login er api thik korte bolen tai hobe,,,
       /// uid te uid dite boliyen
     });

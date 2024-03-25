@@ -12,7 +12,7 @@ class AppConfig {
   static const String ALL_USER = "$BASE_URL/users"; //get id in this eand point
   static const String ALL_USER_LIST = "$BASE_URL/user-list"; //get id in this eand point
   static const String ALL_CAGE = "$BASE_URL/cases"; //get id in this eand point
-  static const String FORGET_PASSWORD = "$BASE_URL/auth/reset-password";
+  static const String FORGET_PASSWORD = "$BASE_URL/reset-pwd";
   static const String CHANGE_PASSWORD = "$BASE_URL/auth/change-password";
   static const String UPDATE_PROFILE = "$BASE_URL/update-info";
   //get id in
